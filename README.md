@@ -1,1 +1,41 @@
-# avenue-motors-web
+# Avenue Motors website
+
+The website for the Avenue Motors showroom: a home page, a catalogue and a page per car, in Russian, Uzbek and English.
+
+## Run it
+
+```bash
+npm install
+```
+
+```bash
+npm run dev
+```
+
+Then open http://localhost:3000. For a production build, run `npm run build` and then `npm run start`.
+
+## Where things live
+
+| Path | What it is |
+|---|---|
+| `src/data/inventory.json` | The cars. This is the one file to edit when stock changes. |
+| `src/data/site.ts` | Phones, Telegram handles and the installment terms. |
+| `src/i18n/dictionaries/` | All site text, one file per language. |
+| `src/app/globals.css` | The design system: colours, type, components. |
+| `scripts/build-media.mjs` | Turns the raw export in `source/` into web-ready photos and clips in `public/media`. |
+| `source/` | The raw Telegram export (photos and round video notes). |
+| `brand/` | The logo mark as a vector, and raster copies. |
+| `production/` | The brief and reference list for generating the hero film. |
+
+## Adding or changing a car
+
+1. Edit `src/data/inventory.json`. `photos` lists photo numbers from `source/photos` in display order; the first is the cover. `note` is the file name of a round video in `source/round_video_messages`.
+2. Run `npm run media` to rebuild the photos and clips. It needs `ffmpeg` installed. To rebuild only one half, run `npm run media -- photos` or `npm run media -- notes`.
+3. Commit the changes, including `public/media` and `src/data/media.json`.
+
+A car with a price and no posted installment offer gets an estimate from the terms in `src/data/site.ts`, and the page labels it as an estimate.
+
+## Before it goes live
+
+- Set `NEXT_PUBLIC_SITE_URL` to the real address. It is used for the sitemap, canonical links and share previews.
+- The hero shows a still from the showroom. The film described in `production/night-run-brief.md` replaces it.
