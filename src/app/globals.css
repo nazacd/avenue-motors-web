@@ -1052,9 +1052,6 @@ ul {
   margin-top: clamp(20px, 2.4vw, 32px);
 }
 
-.showroom__text .btn {
-  margin-top: clamp(26px, 3vw, 40px);
-}
 
 .showroom__media {
   position: relative;
@@ -2102,4 +2099,197 @@ ul {
 
 .round__sound:hover {
   transform: scale(1.08);
+}
+
+/* ───────── 3D garage ───────── */
+.garage {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--black);
+  isolation: isolate;
+}
+
+.garage__still,
+.garage__stage {
+  position: absolute;
+  inset: 0;
+}
+
+.garage__still {
+  z-index: -1;
+  transition: opacity 1.2s var(--ease);
+}
+
+.garage__still picture,
+.garage__still img {
+  width: 100%;
+  height: 100%;
+}
+
+.garage__still img {
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+/* The scene stays clear until the car is on the turntable, then takes over from the still. */
+.garage__stage {
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+  touch-action: none;
+  cursor: grab;
+}
+
+.garage__stage:active {
+  cursor: grabbing;
+}
+
+.garage.is-ready .garage__stage {
+  opacity: 1;
+}
+
+.garage.is-ready .garage__still {
+  opacity: 0;
+}
+
+.garage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(5, 5, 6, 0.6) 0%, transparent 16%, transparent 62%, rgba(5, 5, 6, 0.86) 100%);
+}
+
+.garage__info,
+.garage__controls,
+.garage__hint,
+.garage__loading {
+  position: absolute;
+  z-index: 2;
+}
+
+.garage__loading {
+  inset: 50% 0 auto;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.garage__info {
+  left: var(--gutter);
+  bottom: clamp(24px, 5vh, 48px);
+  max-width: min(520px, calc(100% - var(--gutter) * 2));
+  pointer-events: none;
+}
+
+.garage__info .btn {
+  margin-top: 20px;
+  pointer-events: auto;
+}
+
+.garage__name {
+  margin-top: 14px;
+  font-size: clamp(1.7rem, 3.4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.garage__price {
+  margin-top: 8px;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+.garage__controls {
+  right: var(--gutter);
+  bottom: clamp(24px, 5vh, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px 20px;
+  max-width: 420px;
+}
+
+.garage__group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.garage__caption {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.swatches {
+  display: flex;
+  gap: 8px;
+}
+
+.swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  transition: transform 0.3s var(--ease);
+}
+
+.swatch:hover {
+  transform: scale(1.12);
+}
+
+.swatch[aria-pressed="true"] {
+  outline: 2px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+.garage__note {
+  flex-basis: 100%;
+  text-align: right;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.garage__hint {
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .garage__info {
+    bottom: 128px;
+  }
+
+  .garage__info .btn {
+    display: none;
+  }
+
+  .garage__controls {
+    left: var(--gutter);
+    justify-content: flex-start;
+    max-width: none;
+  }
+
+  .garage__note {
+    text-align: left;
+  }
 }

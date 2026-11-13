@@ -15,6 +15,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </Link>
         <nav className="footer__nav" aria-label={dict.nav.menu}>
           <Link href={`${home}/catalog`}>{dict.nav.catalog}</Link>
+          <Link href={`${home}/garage`}>{dict.nav.garage}</Link>
           <Link href={`${home}#showroom`}>{dict.nav.showroom}</Link>
           <Link href={`${home}#services`}>{dict.nav.services}</Link>
           <Link href={`${home}#contact`}>{dict.nav.contact}</Link>

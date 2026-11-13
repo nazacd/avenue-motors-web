@@ -78,7 +78,7 @@ export const cars: Car[] = (inventory as RawCar[])
   }))
   .sort((a, b) => b.posted.localeCompare(a.posted));
 
-export const siteImages = media.site as Record<"heroWide" | "heroTall" | "showroom", Image>;
+export const siteImages = media.site as Record<"heroWide" | "heroTall" | "showroom" | "garage", Image>;
 
 export function getCar(slug: string) {
   return cars.find((car) => car.slug === slug);

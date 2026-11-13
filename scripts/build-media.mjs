@@ -140,6 +140,8 @@ if (doSite) {
     // Phones still get the real photo until the vertical key frame exists.
     heroTall: await writeImage(sourcePhoto(3), siteDir, "hero-tall"),
     showroom: await writeImage(sourcePhoto(11), siteDir, "showroom"),
+    // The empty stage, shown while the 3D garage loads and where it cannot run.
+    garage: await writeImage(path.join(root, "source/stills/k0-empty-stage.jpg"), siteDir, "garage"),
   };
 }
 

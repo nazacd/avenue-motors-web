@@ -23,7 +23,9 @@ Then open http://localhost:3000. For a production build, run `npm run build` and
 | `src/i18n/dictionaries/` | All site text, one file per language. |
 | `src/app/globals.css` | The design system: colours, type, components. |
 | `scripts/build-media.mjs` | Turns the raw export in `source/` into web-ready photos and clips in `public/media`. |
-| `source/` | The raw Telegram export (photos and round video notes). |
+| `scripts/build-model.mjs` | Turns a source car model into the small file the 3D garage loads. |
+| `src/data/garage.ts` | Which cars stand in the 3D garage, and the paint colours on offer. |
+| `source/` | The raw Telegram export (photos and round video notes), source stills and source 3D models. |
 | `brand/` | The logo mark as a vector, and raster copies. |
 | `production/` | The brief and reference list for generating the hero film. |
 
@@ -35,7 +37,21 @@ Then open http://localhost:3000. For a production build, run `npm run build` and
 
 A car with a price and no posted installment offer gets an estimate from the terms in `src/data/site.ts`, and the page labels it as an estimate.
 
+## Adding a car to the 3D garage
+
+1. Unpack the source model so its `.obj` and `.mtl` sit side by side, then convert it:
+
+```bash
+npm run model -- path/to/model.obj public/models/name.glb
+```
+
+2. Add the car to `src/data/garage.ts`.
+3. Tell the garage what each part of the model is. The script prints the model's material names; `PARTS` in `src/components/garage/GarageScene.tsx` sorts them into paint, glass, chrome, lamps and plates. Every model names its materials differently, so each new one needs its own list.
+
+The dealer plate and the wall sign are drawn from the logo in `src/components/garage/plate.ts`.
+
 ## Before it goes live
 
 - Set `NEXT_PUBLIC_SITE_URL` to the real address. It is used for the sitemap, canonical links and share previews.
+- The Maybach model in the garage was downloaded from Sketchfab, and its file carries the marks of a third-party download site, so its licence cannot be trusted. It is fine for a private preview; replace or license it before the site is public.
 - The hero shows a still from the showroom. The film described in `production/night-run-brief.md` replaces it.

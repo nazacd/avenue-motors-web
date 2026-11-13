@@ -171,10 +171,15 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             <p className="label">{dict.showroom.label}</p>
             <h2 className="title">{dict.showroom.title}</h2>
             <p className="lead">{dict.showroom.text}</p>
-            <a className="btn btn--primary" href={telegramLink(dict.showroom.message)} target="_blank" rel="noopener">
-              {dict.showroom.cta}
-              <ArrowIcon />
-            </a>
+            <div className="hero__cta">
+              <Link className="btn btn--primary" href={`${home}/garage`}>
+                {dict.garage.enter}
+                <ArrowIcon />
+              </Link>
+              <a className="btn btn--ghost" href={telegramLink(dict.showroom.message)} target="_blank" rel="noopener">
+                {dict.showroom.cta}
+              </a>
+            </div>
           </div>
           <div className="showroom__media" data-reveal style={{ "--delay": "0.15s" } as React.CSSProperties}>
             <Picture image={siteImages.showroom} alt="" sizes="(min-width: 900px) 50vw, 100vw" />
