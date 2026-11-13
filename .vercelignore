@@ -1,0 +1,4 @@
+# The raw Telegram export and the production notes are not needed to build the site:
+# the web-ready media is already in public/media.
+source
+production
