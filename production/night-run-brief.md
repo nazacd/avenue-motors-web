@@ -123,7 +123,7 @@ Low-angle view along a diagonal row of three black cars parked side by side with
 **K3 "Roll-out"** — references R06, R08, R15, R01
 
 ```
-Exterior at night, 16:9. The glass-fronted car showroom from the reference photo, lit from inside, seen from the street. On the fascia above the glass, the illuminated sign: the yellow A with its diagonal swoosh and the words AVENUE MOTORS. No other brand names or logos anywhere on the building. A black Mercedes-AMG G 63 is pulling out of the forecourt toward the camera, front three-quarter view, headlights on. Behind it a BMW M4 CS in Riviera Blue waits with its yellow running lights on. Wet asphalt after rain mirrors the sign and the headlights. Camera low at the kerb, 28mm anamorphic lens. Deep blue-black night sky, no people, no other cars.
+Exterior at night, 16:9. The glass-fronted car showroom from the reference photo, lit from inside, seen from the street. On the fascia above the glass, the illuminated yellow A mark alone, with no lettering beside it. No other brand names or logos anywhere on the building. A black Mercedes-AMG G 63 is pulling out of the forecourt toward the camera, front three-quarter view, headlights on. Behind it a BMW M4 CS in Riviera Blue waits with its yellow running lights on. Both of the G 63's headlights are lit. The asphalt is dry and dark, without mirror reflections. Camera low at the kerb, 28mm anamorphic lens. Deep blue-black night sky, no people, no other cars.
 ```
 
 **K4 "The Avenue"** — references R08, R03, R10, R04, R12, R13
@@ -147,7 +147,7 @@ Aerial drone photograph at first light, 16:9. A smooth two-lane mountain road wi
 **K7 "Home"** — references R06, R01, R08, R15, R10, R12
 
 ```
-Exterior at night, 16:9, symmetrical wide shot. The glass-fronted showroom from the reference, lit from inside, with its illuminated sign, the yellow A and the words AVENUE MOTORS, centred on the fascia. No other brand names or logos on the building. Parked in a shallow arc on the wet forecourt with their noses toward the camera and their lights on: a black Mercedes-Maybach S 680, a black Mercedes-AMG G 63, a BMW M4 CS in Riviera Blue and a black Bentley Flying Spur, the exact cars in the references. The wet ground mirrors the sign and the headlights. Camera low and central, 24mm anamorphic lens. Deep blue-black sky, no people.
+Exterior at night, 16:9, symmetrical wide shot. The glass-fronted showroom from the reference, lit from inside, with the illuminated yellow A mark alone, without lettering, centred on the fascia. No other brand names or logos on the building. Parked in a shallow arc on the wet forecourt with their noses toward the camera and their lights on: a black Mercedes-Maybach S 680, a black Mercedes-AMG G 63, a BMW M4 CS in Riviera Blue and a black Bentley Flying Spur, the exact cars in the references. Any front number plate is the black Avenue Motors dealer plate. The forecourt is dry and dark, without mirror reflections. Camera low and central, 24mm anamorphic lens. Deep blue-black sky, no people.
 ```
 
 **K1D "Ignition, lights off"** — reference: the K1 result. This is the start frame of the first shot.
@@ -182,13 +182,13 @@ Single continuous shot, no cuts. Locked-off camera with a barely perceptible slo
 **V4** — `start_image` K4, 6 seconds
 
 ```
-Single continuous shot, no cuts. The camera tracks backward at the same speed as the cars, staying very low above the wet road. The three cars hold their arrowhead formation and drive fast toward the camera, slowly gaining on it. Street lamps rush past and their reflections streak across bonnets and windscreens. Spray trails from the tyres and the wheels spin. The cars keep their exact shape, grilles and lights throughout. Sound: engines at speed, the hiss of a wet road.
+Single continuous shot, no cuts. The camera tracks backward at the same speed as the cars, staying very low above the wet road. The three cars hold their line side by side and drive fast toward the camera, slowly gaining on it. Street lamps rush past and their reflections streak across bonnets and windscreens. Spray trails from the tyres and the wheels spin. The cars keep their exact shape, grilles and lights throughout. Sound: engines at speed, the hiss of a wet road.
 ```
 
-**V5** — `start_image` K5, plus R15 and R17 as `image_references`, 6 seconds
+**V5** — `start_image` K5, plus R15 and R17 as `image_references`, 6 seconds. The approved K5 is a front three-quarter view with the M4 CS already ahead, so the motion is a chase and not an overtake.
 
 ```
-Single continuous shot, no cuts. Side-on tracking shot moving at the cars' speed through the tunnel. The blue M4 CS accelerates and pulls ahead of the black G 63, overtaking it completely by the end of the shot. Tunnel lights strobe rhythmically over the paintwork, the walls streak past, the wheels spin, and the camera vibrates slightly. Both cars keep their exact shape and details. Sound: a high-revving straight-six echoing in the tunnel with a deeper V8 underneath.
+Single continuous shot, no cuts. The camera tracks backward ahead of the blue M4 CS at its speed, low above the road. The M4 CS holds the near lane and accelerates, growing slightly in the frame. Behind it the black G 63 drops back a little, then surges to keep up. Tunnel lights sweep over the paintwork in a steady rhythm, the walls streak past and the wheels spin. Both cars keep their exact shape and details. Sound: a high-revving straight-six echoing in the tunnel with a deeper V8 underneath.
 ```
 
 **V6** — `start_image` K6, 6 seconds
@@ -224,11 +224,7 @@ Recompose the first reference image as a vertical 9:16 frame. Same cars, same lo
 
 ## Stage 4 — Animate the four main shots (9:16)
 
-Two takes each of V1v, V4v, V5v and V6v from the vertical key frames, with the Stage 2 prompts and durations. V1v uses K1Dv as the start and K1v as the end. V5v needs this prompt instead, because its camera changed:
-
-```
-Single continuous shot, no cuts. The camera tracks backward ahead of the two cars through the tunnel, at their speed. The blue M4 CS accelerates, swings out and surges past the camera on one side while the black G 63 holds its lane behind. Tunnel lights strobe over the paintwork and the walls streak past. Both cars keep their exact shape and details. Sound: a high-revving straight-six echoing in the tunnel with a deeper V8 underneath.
-```
+Two takes each of V1v, V4v, V5v and V6v from the vertical key frames, with the Stage 2 prompts and durations. V1v uses K1Dv as the start and K1v as the end.
 
 ## Stage 5 — The three supporting shots (both formats)
 
@@ -308,6 +304,34 @@ Top-down macro photograph, 16:9. Two car key fobs without any brand logos lie si
 ```
 
 Make X2 and X3 in 9:16 as well, with the empty space at the top instead of the left.
+
+## Stage 8 — Turntable spins (fallback for the 3D garage)
+
+If 3D models of the cars with a licence that can be trusted are not found, the garage shows each car as a spin the visitor drags to rotate. A spin is one clip of the car turning on the showroom turntable with the camera locked, so the wall and the sign never change.
+
+For each car, make the still first and then the spin.
+
+| Spin | Car | References for the still, after the K0 result | Extra references for the spin |
+|---|---|---|---|
+| S1 | Mercedes-AMG G 63 | none: use the K1 result as the still | R08, R09 |
+| S2 | Mercedes-Maybach S 680 | R04, R10, R11 | R10, R11 |
+| S3 | Bentley Flying Spur Speed | R13, R12, R14 | R12, R14 |
+| S4 | BMW M4 CS | R16, R15, R17 | R15, R17 |
+| S5 | Range Rover P530 LWB | R07, R18 | R07, R18 |
+
+**Still** — first reference: the K0 result. Replace CAR with the car's name.
+
+```
+Edit the first reference image, the empty showroom stage. Place CAR, exactly the car in the other reference photos, in the centre of the round turntable, facing the camera head-on, with its lights on. Keep the wall, the sign, the lighting, the floor and the camera exactly as they are.
+```
+
+**Spin** — the still as both `start_image` and `end_image`, the extra references as `image_references`, 12 seconds, 16:9, `1080p`, no audio. Two takes.
+
+```
+Single continuous shot. The camera is locked off and does not move at all. The turntable rotates the car slowly and at a constant speed through exactly one full turn, so the camera sees the front, then one side, the rear, the other side and the front again. The car keeps its exact shape, colour, wheels and details from every angle, matching the reference photos. The wall, the sign, the floor and the lighting do not change. The last frame is identical to the first.
+```
+
+The owner checks that the car keeps the same wheels, lights and badges all the way round, that the sign does not flicker, and that the turn is even.
 
 ---
 
