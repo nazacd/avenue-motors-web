@@ -660,8 +660,11 @@ ul {
   object-fit: cover;
 }
 
+/* The wide still keeps its right side, where the sign and the car are, whatever the
+   screen crops; the slow opening zoom is centred there too. */
 .hero__media img {
-  filter: brightness(0.92) contrast(1.06) saturate(0.95);
+  object-position: 100% 50%;
+  transform-origin: 78% 40%;
   animation: hero-drift 18s var(--ease) both;
 }
 
@@ -681,21 +684,21 @@ ul {
   background:
     linear-gradient(
       180deg,
-      rgba(5, 5, 6, 0.84) 0%,
-      rgba(5, 5, 6, 0.24) 20%,
-      rgba(5, 5, 6, 0.1) 40%,
-      rgba(5, 5, 6, 0.74) 72%,
+      rgba(5, 5, 6, 0.7) 0%,
+      rgba(5, 5, 6, 0.1) 18%,
+      transparent 40%,
+      rgba(5, 5, 6, 0.5) 78%,
       var(--black) 100%
     ),
-    linear-gradient(90deg, rgba(5, 5, 6, 0.6) 0%, transparent 62%);
+    linear-gradient(90deg, rgba(5, 5, 6, 0.55) 0%, transparent 48%);
 }
 
-/* On a phone the photo sits in the top of the screen, anchored to its right side so
-   the whole sign stays in frame, and fades into black under the text. */
-@media (orientation: portrait) {
+/* On a phone, and on any screen too narrow to put the headline beside the car, the
+   picture sits in the top of the screen and fades into black under the text. */
+@media (max-aspect-ratio: 3/2) {
   .hero__media img {
     height: 72svh;
-    object-position: 88% 0;
+    object-position: 100% 0;
     transform-origin: 70% 0;
   }
 
@@ -711,6 +714,15 @@ ul {
   }
 }
 
+/* Upright screens get the real showroom photo, which needs a little grading to sit with
+   the rest of the page. */
+@media (orientation: portrait) {
+  .hero__media img {
+    object-position: 88% 0;
+    filter: brightness(0.92) contrast(1.06) saturate(0.95);
+  }
+}
+
 .hero__content {
   width: 100%;
   max-width: 1760px;
@@ -720,6 +732,8 @@ ul {
 
 .hero__title {
   margin-top: 22px;
+  /* Capped so the headline stays on the dark wall, left of the car. */
+  font-size: clamp(2.4rem, 11vw, 4.75rem);
 }
 
 .hero__title span {

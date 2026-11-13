@@ -2,7 +2,7 @@
 // Run with `npm run media` after changing src/data/inventory.json or the source files.
 // The output is committed, so a deploy does not need the raw export or ffmpeg.
 //
-// `npm run media -- photos` or `npm run media -- notes` rebuilds only that half.
+// `npm run media -- photos`, `-- notes` or `-- site` rebuilds only that part.
 
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -15,7 +15,7 @@ const photosDir = path.join(root, "source/photos");
 const notesDir = path.join(root, "source/round_video_messages");
 const outDir = path.join(root, "public/media");
 
-const WIDTHS = [640, 1080, 1600];
+const WIDTHS = [640, 1080, 1600, 2000];
 const FALLBACK_WIDTH = 1080;
 // Each round Telegram clip opens on the front camera, pointed at whoever is filming,
 // before it flips to the car. This many seconds are cut from the start.
@@ -24,6 +24,7 @@ const NOTE_TRIM = 1;
 const only = process.argv[2];
 const doPhotos = !only || only === "photos";
 const doNotes = !only || only === "notes";
+const doSite = !only || only === "site";
 
 const inventory = JSON.parse(readFileSync(path.join(root, "src/data/inventory.json"), "utf8"));
 const photoFiles = readdirSync(photosDir).filter((f) => !f.includes("_thumb"));
@@ -73,13 +74,11 @@ function ffmpeg(args) {
 }
 
 const manifestPath = path.join(root, "src/data/media.json");
-// A half that is not being rebuilt keeps the entries from the last run.
+// A part that is not being rebuilt keeps the entries from the last run.
 const previous = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, "utf8")) : { cars: {}, site: {} };
 
-if (doPhotos) {
-  rmSync(path.join(outDir, "cars"), { recursive: true, force: true });
-  rmSync(path.join(outDir, "site"), { recursive: true, force: true });
-}
+if (doPhotos) rmSync(path.join(outDir, "cars"), { recursive: true, force: true });
+if (doSite) rmSync(path.join(outDir, "site"), { recursive: true, force: true });
 if (doNotes) rmSync(path.join(outDir, "notes"), { recursive: true, force: true });
 
 const media = { cars: {}, site: previous.site };
@@ -129,13 +128,16 @@ for (const car of inventory) {
   console.log(`${car.slug}: ${entry.photos.length} photos${entry.note ? ", video note" : ""}`);
 }
 
-if (doPhotos) {
-  // Stand-in hero and section images from the real showroom, used until the film is cut.
+if (doSite) {
   const siteDir = path.join(outDir, "site");
   media.site = {
-    heroWide: await writeImage(sourcePhoto(5), siteDir, "hero-wide", {
-      crop: { left: 0, top: 0, width: 2560, height: 1440 },
+    // The first key frame of the film, generated from the showroom's own photos. It is
+    // cropped on the right so the sign and the car sit right of centre and the headline
+    // has dark wall to stand on.
+    heroWide: await writeImage(path.join(root, "source/stills/k1-ignition.jpg"), siteDir, "hero-wide", {
+      crop: { left: 0, top: 40, width: 2312, height: 1300 },
     }),
+    // Phones still get the real photo until the vertical key frame exists.
     heroTall: await writeImage(sourcePhoto(3), siteDir, "hero-tall"),
     showroom: await writeImage(sourcePhoto(11), siteDir, "showroom"),
   };

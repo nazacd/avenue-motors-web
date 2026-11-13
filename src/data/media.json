@@ -545,15 +545,16 @@
   "site": {
     "heroWide": {
       "base": "/media/site/hero-wide",
-      "width": 2560,
-      "height": 1440,
+      "width": 2312,
+      "height": 1300,
       "widths": [
         640,
         1080,
-        1600
+        1600,
+        2000
       ],
       "fallbackWidth": 1080,
-      "blur": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAACwAwCdASoUAAsAPu1kqU4ppaOiMAgBMB2JZwAAV/+2BcbkMqQ3QAD+M8SFwRaV68MK5gLqc0EgwsTAzXU/r6H80zEdH471I8YWYn5VRp7ZAfNfseldd7XKG/jd1N3okZF6FHAA"
+      "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwBACdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQC06CKuDtlAB0176XAyvgAA/vKrx5XmjQ3RcOKynhWBCVL6+23rLtJ0zoXg6BD9Tc0FnRcrKpr9he/A6NTswP3Xg1TMGtYtARuDgAA="
     },
     "heroTall": {
       "base": "/media/site/hero-tall",
