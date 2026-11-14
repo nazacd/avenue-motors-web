@@ -101,7 +101,7 @@ A BMW M4 CS in Riviera Blue stands on a low round grey turntable, seen front thr
 
 **Stage 0 — Preflight.**
 1. List models with the unlimited filter and confirm the settings above are covered here. Adjust to the best covered option and tell the owner in one line.
-2. Upload the new reference files R40 to R63 from the `refs` folder and note their media IDs. R01 to R39 are already in this workspace under the IDs in the table at the end; if one is not found, upload it from the `refs` folder too.
+2. Every reference, R01 to R63, is already in this workspace under the media IDs in the tables at the end. Check that a few of them resolve. If one is not found, upload it from the `refs` folder; if uploading is blocked here, say which one and stop.
 3. Create a Higgsfield project named `Avenue Motors - Catalogue` and save every generation in this brief to it.
 
 **Stage 1 — Settle the look.** Four pictures, two takes each: `S1`, `C01-a`, `C03-a`, `C02-a`. Show them and wait for the owner's approval. If the owner asks for a change to the look, change the look paragraph once and use the new one from then on.
@@ -136,38 +136,38 @@ Use `failed` or `rejected` in the status column for takes that should not be use
 
 ## References
 
-### New, in the `refs` folder of this pack (upload in Stage 0)
+### New for this brief
 
-| Code | File | Shows |
+| Code | media_id | Shows |
 |---|---|---|
-| R40 | `refs/R40.png` | The Avenue Motors dealer plate: black, yellow A mark, white AVENUE MOTORS. This is the only number plate any car may carry |
-| R41 | `refs/R41.png` | The look to match: the site's 3D garage. Dark hall, glowing sign wall, ring of light over a round turntable, ceiling tubes, red line at the foot of the wall, reflective floor. Use it for mood and lighting, not for the car |
-| R42 | `refs/R42.jpg` | Range Rover (black), front three-quarter, close. Frame from a phone video |
-| R43 | `refs/R43.jpg` | Range Rover (black), rear, close. Video frame |
-| R44 | `refs/R44.jpg` | Range Rover interior, tan leather. Video frame |
-| R45 | `refs/R45.jpg` | Range Rover (black), front three-quarter, whole car, with the dealer plate. Video frame |
-| R46 | `refs/R46.jpg` | BMW X7 xDrive40i 2020 (black), front three-quarter. Video frame |
-| R47 | `refs/R47.jpg` | BMW X7 (black), front, close on grille and headlamp. Video frame |
-| R48 | `refs/R48.jpg` | BMW X7 interior, brown leather. Video frame |
-| R49 | `refs/R49.jpg` | BMW X7 (black), rear. Video frame |
-| R50 | `refs/R50.jpg` | Mercedes-Maybach GLS 600 Night Series (black), front three-quarter, outdoors. Video frame |
-| R51 | `refs/R51.jpg` | Mercedes-Maybach GLS 600 (black), side, with wheel. Video frame |
-| R52 | `refs/R52.jpg` | Mercedes-Maybach GLS 600 interior, black. Video frame |
-| R53 | `refs/R53.jpg` | Mercedes-Maybach GLS 600 (black), front, close on the grille. Video frame |
-| R54 | `refs/R54.jpg` | Mercedes-AMG G 63 Manufaktur 2025 (black), front three-quarter, with the dealer plate. Video frame |
-| R55 | `refs/R55.jpg` | Mercedes-AMG G 63 Manufaktur (black), rear corner with spare wheel cover and tail lamp. Video frame |
-| R56 | `refs/R56.jpg` | Mercedes-AMG G 63 Manufaktur (black), side, with wheel and red caliper. Video frame |
-| R57 | `refs/R57.jpg` | Mercedes-AMG G 63 Manufaktur (black), front, with the dealer plate. Video frame |
-| R58 | `refs/R58.jpg` | Genesis GV80 2026 (black), front three-quarter, close on grille and lamps, under the sign. Video frame |
-| R59 | `refs/R59.jpg` | Genesis GV80 (black), front three-quarter, whole car. Video frame |
-| R60 | `refs/R60.jpg` | Genesis GV80 (black), side profile. Video frame |
-| R61 | `refs/R61.jpg` | Genesis GV80 interior, cognac leather (seats still in delivery wrap). Video frame |
-| R62 | `refs/R62.jpg` | The showroom stage with no car on it: sign wall, lit ceiling panel, round turntable. A clean view of the place |
-| R63 | `refs/R63.jpg` | The site's opening still: a black G 63 on the turntable under the sign, lights coming on. Shows the grade the site already uses |
+| R40 | `039547b7-de1a-4007-9b20-3bb6cf84055a` | The Avenue Motors dealer plate: black, yellow A mark, white AVENUE MOTORS. This is the only number plate any car may carry |
+| R41 | `fbc9a8ac-f67b-4109-8b41-fd1ec90b11d7` | The look to match: the site's 3D garage. Dark hall, glowing sign wall, ring of light over a round turntable, ceiling tubes, red line at the foot of the wall, reflective floor. Use it for mood and lighting, not for the car |
+| R42 | `dc863de8-d83f-4d14-86f6-4676ea5378e7` | Range Rover (black), front three-quarter, close. Frame from a phone video |
+| R43 | `0fae53a6-96a8-4419-8d4b-41a2bd4664b1` | Range Rover (black), rear, close. Video frame |
+| R44 | `fab24cf4-ecd3-4c7a-b83d-8746278fca29` | Range Rover interior, tan leather. Video frame |
+| R45 | `4aa9a59a-2b61-4f6a-8f8a-4627ca156db1` | Range Rover (black), front three-quarter, whole car, with the dealer plate. Video frame |
+| R46 | `7ada304e-1538-4a8e-b265-5f2071eac4fb` | BMW X7 xDrive40i 2020 (black), front three-quarter. Video frame |
+| R47 | `5c83a75a-6a7b-4f85-9cbb-6fbc13be4b3a` | BMW X7 (black), front, close on grille and headlamp. Video frame |
+| R48 | `b5b7f26e-fbf6-4c48-a675-1b0bbc73aa62` | BMW X7 interior, brown leather. Video frame |
+| R49 | `60c8ae7a-4470-40a0-9e9b-d03d2d8732a1` | BMW X7 (black), rear. Video frame |
+| R50 | `503cc475-135d-4945-a079-57fdce52ec09` | Mercedes-Maybach GLS 600 Night Series (black), front three-quarter, outdoors. Video frame |
+| R51 | `d30b4a0a-454e-4d92-960e-6a5ad007967f` | Mercedes-Maybach GLS 600 (black), side, with wheel. Video frame |
+| R52 | `bf51e248-ada7-4a5a-8d66-86c5ee0c965d` | Mercedes-Maybach GLS 600 interior, black. Video frame |
+| R53 | `7bbaaeae-d9d5-45f9-83bd-fe9df9ac9d92` | Mercedes-Maybach GLS 600 (black), front, close on the grille. Video frame |
+| R54 | `fed80968-1a82-4835-bb60-8882ee41f80a` | Mercedes-AMG G 63 Manufaktur 2025 (black), front three-quarter, with the dealer plate. Video frame |
+| R55 | `a2c4f227-3493-4a9b-ba2c-e1baf76b99a1` | Mercedes-AMG G 63 Manufaktur (black), rear corner with spare wheel cover and tail lamp. Video frame |
+| R56 | `45346cda-02f1-4563-9f05-f1c0dc53e96c` | Mercedes-AMG G 63 Manufaktur (black), side, with wheel and red caliper. Video frame |
+| R57 | `08b9f69c-9156-47b2-b2be-11e2ab27173b` | Mercedes-AMG G 63 Manufaktur (black), front, with the dealer plate. Video frame |
+| R58 | `99cb822c-fd18-4828-89f2-d5aa4f6169bf` | Genesis GV80 2026 (black), front three-quarter, close on grille and lamps, under the sign. Video frame |
+| R59 | `18119fa2-6e59-4685-8742-3fb96999ccaa` | Genesis GV80 (black), front three-quarter, whole car. Video frame |
+| R60 | `e32fa88a-0b62-47e9-9b7c-debfe4971c25` | Genesis GV80 (black), side profile. Video frame |
+| R61 | `470140f9-96d9-47b1-b615-7c45ea69fee3` | Genesis GV80 interior, cognac leather (seats still in delivery wrap). Video frame |
+| R62 | `01d3bc9d-aec1-4d68-8971-1fdf087f9926` | The showroom stage with no car on it: sign wall, lit ceiling panel, round turntable. A clean view of the place |
+| R63 | `b391e935-b990-45c6-b856-1c79d55deed3` | The site's opening still: a black G 63 on the turntable under the sign, lights coming on. Shows the grade the site already uses |
 
-### Already uploaded to the workspace
+### From the earlier film brief
 
-The same files are in the `refs` folder under their codes, in case an ID is not found.
+All of these files are also in the `refs` folder under their codes, in case an ID is not found.
 
 | Code | media_id | Shows |
 |---|---|---|

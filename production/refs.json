@@ -232,5 +232,149 @@
   "media_id": "643f0b39-761d-452d-ab0c-e7f160b43db1",
   "source": "source/photos/photo_15@02-10-2026_21-50-11.jpg",
   "shows": "Genesis G90 rear seat"
+ },
+ {
+  "code": "R40",
+  "media_id": "039547b7-de1a-4007-9b20-3bb6cf84055a",
+  "source": "production/refs/R40.png",
+  "shows": "The Avenue Motors dealer plate: black, yellow A mark, white AVENUE MOTORS. This is the only number plate any car may carry"
+ },
+ {
+  "code": "R41",
+  "media_id": "fbc9a8ac-f67b-4109-8b41-fd1ec90b11d7",
+  "source": "production/refs/R41.png",
+  "shows": "The look to match: the site's 3D garage. Dark hall, glowing sign wall, ring of light over a round turntable, ceiling tubes, red line at the foot of the wall, reflective floor. Use it for mood and lighting, not for the car"
+ },
+ {
+  "code": "R42",
+  "media_id": "dc863de8-d83f-4d14-86f6-4676ea5378e7",
+  "source": "production/refs/R42.jpg",
+  "shows": "Range Rover (black), front three-quarter, close. Frame from a phone video"
+ },
+ {
+  "code": "R43",
+  "media_id": "0fae53a6-96a8-4419-8d4b-41a2bd4664b1",
+  "source": "production/refs/R43.jpg",
+  "shows": "Range Rover (black), rear, close. Video frame"
+ },
+ {
+  "code": "R44",
+  "media_id": "fab24cf4-ecd3-4c7a-b83d-8746278fca29",
+  "source": "production/refs/R44.jpg",
+  "shows": "Range Rover interior, tan leather. Video frame"
+ },
+ {
+  "code": "R45",
+  "media_id": "4aa9a59a-2b61-4f6a-8f8a-4627ca156db1",
+  "source": "production/refs/R45.jpg",
+  "shows": "Range Rover (black), front three-quarter, whole car, with the dealer plate. Video frame"
+ },
+ {
+  "code": "R46",
+  "media_id": "7ada304e-1538-4a8e-b265-5f2071eac4fb",
+  "source": "production/refs/R46.jpg",
+  "shows": "BMW X7 xDrive40i 2020 (black), front three-quarter. Video frame"
+ },
+ {
+  "code": "R47",
+  "media_id": "5c83a75a-6a7b-4f85-9cbb-6fbc13be4b3a",
+  "source": "production/refs/R47.jpg",
+  "shows": "BMW X7 (black), front, close on grille and headlamp. Video frame"
+ },
+ {
+  "code": "R48",
+  "media_id": "b5b7f26e-fbf6-4c48-a675-1b0bbc73aa62",
+  "source": "production/refs/R48.jpg",
+  "shows": "BMW X7 interior, brown leather. Video frame"
+ },
+ {
+  "code": "R49",
+  "media_id": "60c8ae7a-4470-40a0-9e9b-d03d2d8732a1",
+  "source": "production/refs/R49.jpg",
+  "shows": "BMW X7 (black), rear. Video frame"
+ },
+ {
+  "code": "R50",
+  "media_id": "503cc475-135d-4945-a079-57fdce52ec09",
+  "source": "production/refs/R50.jpg",
+  "shows": "Mercedes-Maybach GLS 600 Night Series (black), front three-quarter, outdoors. Video frame"
+ },
+ {
+  "code": "R51",
+  "media_id": "d30b4a0a-454e-4d92-960e-6a5ad007967f",
+  "source": "production/refs/R51.jpg",
+  "shows": "Mercedes-Maybach GLS 600 (black), side, with wheel. Video frame"
+ },
+ {
+  "code": "R52",
+  "media_id": "bf51e248-ada7-4a5a-8d66-86c5ee0c965d",
+  "source": "production/refs/R52.jpg",
+  "shows": "Mercedes-Maybach GLS 600 interior, black. Video frame"
+ },
+ {
+  "code": "R53",
+  "media_id": "7bbaaeae-d9d5-45f9-83bd-fe9df9ac9d92",
+  "source": "production/refs/R53.jpg",
+  "shows": "Mercedes-Maybach GLS 600 (black), front, close on the grille. Video frame"
+ },
+ {
+  "code": "R54",
+  "media_id": "fed80968-1a82-4835-bb60-8882ee41f80a",
+  "source": "production/refs/R54.jpg",
+  "shows": "Mercedes-AMG G 63 Manufaktur 2025 (black), front three-quarter, with the dealer plate. Video frame"
+ },
+ {
+  "code": "R55",
+  "media_id": "a2c4f227-3493-4a9b-ba2c-e1baf76b99a1",
+  "source": "production/refs/R55.jpg",
+  "shows": "Mercedes-AMG G 63 Manufaktur (black), rear corner with spare wheel cover and tail lamp. Video frame"
+ },
+ {
+  "code": "R56",
+  "media_id": "45346cda-02f1-4563-9f05-f1c0dc53e96c",
+  "source": "production/refs/R56.jpg",
+  "shows": "Mercedes-AMG G 63 Manufaktur (black), side, with wheel and red caliper. Video frame"
+ },
+ {
+  "code": "R57",
+  "media_id": "08b9f69c-9156-47b2-b2be-11e2ab27173b",
+  "source": "production/refs/R57.jpg",
+  "shows": "Mercedes-AMG G 63 Manufaktur (black), front, with the dealer plate. Video frame"
+ },
+ {
+  "code": "R58",
+  "media_id": "99cb822c-fd18-4828-89f2-d5aa4f6169bf",
+  "source": "production/refs/R58.jpg",
+  "shows": "Genesis GV80 2026 (black), front three-quarter, close on grille and lamps, under the sign. Video frame"
+ },
+ {
+  "code": "R59",
+  "media_id": "18119fa2-6e59-4685-8742-3fb96999ccaa",
+  "source": "production/refs/R59.jpg",
+  "shows": "Genesis GV80 (black), front three-quarter, whole car. Video frame"
+ },
+ {
+  "code": "R60",
+  "media_id": "e32fa88a-0b62-47e9-9b7c-debfe4971c25",
+  "source": "production/refs/R60.jpg",
+  "shows": "Genesis GV80 (black), side profile. Video frame"
+ },
+ {
+  "code": "R61",
+  "media_id": "470140f9-96d9-47b1-b615-7c45ea69fee3",
+  "source": "production/refs/R61.jpg",
+  "shows": "Genesis GV80 interior, cognac leather (seats still in delivery wrap). Video frame"
+ },
+ {
+  "code": "R62",
+  "media_id": "01d3bc9d-aec1-4d68-8971-1fdf087f9926",
+  "source": "source/stills/k0-empty-stage.jpg",
+  "shows": "The showroom stage with no car on it: sign wall, lit ceiling panel, round turntable. A clean view of the place"
+ },
+ {
+  "code": "R63",
+  "media_id": "b391e935-b990-45c6-b856-1c79d55deed3",
+  "source": "source/stills/k1-ignition.jpg",
+  "shows": "The site's opening still: a black G 63 on the turntable under the sign, lights coming on. Shows the grade the site already uses"
  }
 ]

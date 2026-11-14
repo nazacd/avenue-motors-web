@@ -569,15 +569,15 @@
     },
     "showroom": {
       "base": "/media/site/showroom",
-      "width": 1920,
-      "height": 2560,
+      "width": 1856,
+      "height": 2304,
       "widths": [
         640,
         1080,
         1600
       ],
       "fallbackWidth": 1080,
-      "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAADwBACdASoUABsAPu1srVIppaQiqAgBMB2JZwAIEAHDGZCuGN5urd6H5EekUB2b+sAA/spq4uSv6mETBHCK0hPEYo6MRzeAsWPthIHGC9Z+dWzujnMGUX7CLd7VCvHxGtu3Ns+xBhOnPi3qXR+QzPlcxA/0ouUru56jBlooS7QmCuaf5Yj4dzbl05bkLnirmH11bmEZZ+p4AA=="
+      "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAACQBACdASoUABkAPu1qq08ppiOiMBgIATAdiWgAxvQQ98PgPh//sPCqJ8j0gAAA/vMmlHvvhICV5DTKHF7pDSvs3OM4mrmp5oygxdbwSKbzavCVJxAvChJbe+5piyM376aE0ueanR8x90vB2k/xtcA4DPVQqKII40iW2kXqyTudFBaDIjGJuHI15isBlcKeOvHmToYdkmmid3vPuvQ1MVDQAAA="
     },
     "garage": {
       "base": "/media/site/garage",
