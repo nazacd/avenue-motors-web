@@ -2,7 +2,7 @@
 
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 let lenis: Lenis | null = null;
 
@@ -17,6 +17,15 @@ export function lockScroll(locked: boolean) {
 // fading sections in as they come into view.
 export function SiteEffects() {
   const pathname = usePathname();
+
+  // A language switch rebuilds the page shell in the browser, which drops the classes
+  // the start-up script put on <html>. They go back before the next paint, and the
+  // opening animation is marked as already seen so that it does not replay.
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    if (root.classList.contains("js")) return;
+    root.classList.add("js", "intro-done");
+  }, []);
 
   useEffect(() => {
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
