@@ -11,7 +11,8 @@
             1080
           ],
           "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4INoAAACwBQCdASoUACQAPu1oqU6ppiOmKqwBMB2JQBfZxAACS5eqZ2J8ooBiNiG3ygEadr+874GRFAAA/u/Wb5UFnCN3k2GlWCD3XWEWWNDWXRrz1xU2KAvyaV9rOkXQBxCFcxvc7BkSpIUaR4jf4CA9LVk8OETFd4XVEkbKrntUIAV1sYuiiz8tAAICmf9XeZ3onM+OFuctZtHHWZNf1PTq65vajr36DKmstElIC2nLMHUXAQ1OmswOYqnwe0tVgWK1oXRl3gQRhDPBl1fpY/xvvTmKn1RhLkDDssMAAA=="
+          "blur": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4INoAAACwBQCdASoUACQAPu1oqU6ppiOmKqwBMB2JQBfZxAACS5eqZ2J8ooBiNiG3ygEadr+874GRFAAA/u/Wb5UFnCN3k2GlWCD3XWEWWNDWXRrz1xU2KAvyaV9rOkXQBxCFcxvc7BkSpIUaR4jf4CA9LVk8OETFd4XVEkbKrntUIAV1sYuiiz8tAAICmf9XeZ3onM+OFuctZtHHWZNf1PTq65vajr36DKmstElIC2nLMHUXAQ1OmswOYqnwe0tVgWK1oXRl3gQRhDPBl1fpY/xvvTmKn1RhLkDDssMAAA==",
+          "loop": "/media/cars/bmw-m4-cs-2024/01-loop.mp4"
         },
         {
           "base": "/media/cars/bmw-m4-cs-2024/02",
@@ -91,7 +92,8 @@
             1080
           ],
           "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAACwBQCdASoUACQAPu1kqE+ppSOiMBVaqTAdiWUAt7gsE5vCGUd1cE+T+O0BtqxlERk38aCUUAAA9x7o/C5S3I6yknNfcKYTKvCDB4CL8CrfOZPp3FDhGog5L1Rv9Tb8YVqe7CXHFyySDMHClPRmzHt2n7BM5BE7Mc6Z5zy1ZlGsKkuYuDX+HaWXv0xnznfIcAAAAA=="
+          "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAACwBQCdASoUACQAPu1kqE+ppSOiMBVaqTAdiWUAt7gsE5vCGUd1cE+T+O0BtqxlERk38aCUUAAA9x7o/C5S3I6yknNfcKYTKvCDB4CL8CrfOZPp3FDhGog5L1Rv9Tb8YVqe7CXHFyySDMHClPRmzHt2n7BM5BE7Mc6Z5zy1ZlGsKkuYuDX+HaWXv0xnznfIcAAAAA==",
+          "loop": "/media/cars/bmw-m2/01-loop.mp4"
         },
         {
           "base": "/media/cars/bmw-m2/02",
@@ -164,7 +166,8 @@
             1080
           ],
           "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4INoAAABwBgCdASoUACQAPu1gpk4ppSMiMBqqqTAdiWMAwC2oAN+orJ9Aav43pTX/KocifA0Tc87cceOGyu0pNcAA/mb2tsHS/nNMiDlFVa2gNHvF+GJ6VUf+8bE6Phx0WXrAeWXKT9jt2aXspDWFzrPjUPxlRspIx1ikCZD28ld4HpSXsRTpXzaCVKtDbiICNXgqX/VI4o2JNxc1thlfzx1sbvmuknU09E+awkifLG2UgCt31eFWVLul9GPKh7N2FLEwqfF0fAeAXEQM+5SwHFSmybr8dQXjhupUXMAAAA=="
+          "blur": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4INoAAABwBgCdASoUACQAPu1gpk4ppSMiMBqqqTAdiWMAwC2oAN+orJ9Aav43pTX/KocifA0Tc87cceOGyu0pNcAA/mb2tsHS/nNMiDlFVa2gNHvF+GJ6VUf+8bE6Phx0WXrAeWXKT9jt2aXspDWFzrPjUPxlRspIx1ikCZD28ld4HpSXsRTpXzaCVKtDbiICNXgqX/VI4o2JNxc1thlfzx1sbvmuknU09E+awkifLG2UgCt31eFWVLul9GPKh7N2FLEwqfF0fAeAXEQM+5SwHFSmybr8dQXjhupUXMAAAA==",
+          "loop": "/media/cars/mercedes-maybach-s680/01-loop.mp4"
         },
         {
           "base": "/media/cars/mercedes-maybach-s680/02",
@@ -272,7 +275,8 @@
             1080
           ],
           "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRlIBAABXRUJQVlA4IEYBAAAQBwCdASoUACQAPu1kqU6ppSOiKqwBMB2JbACdMoLT+z2Klvt8whrnfRwkdfcagYV/z6B6c1oExTS3EaZUWsBQAAD+0FXcWqg3KRzDjh450CpM7sPgUxr87vZ7eHy3BH+I0vYNYGmzc1hWBRBpXn+zBK2r9RCtl6DfNgPS8kwQgMF6FJb83tc+7+LpPesUc8ZDgug16o9Jb9KNgLqz6h+Hha/64ZQGHJ0qmGt0QPSwlEsUiC6+CD39Falmnf23dhNK5IpHQkP4wXN8gszb/0yRdcj9aKk0U6L+ngscNuTxUXBP6vQ6R5ViL0Tr3wn3obzlwVal9DrD4k+5GEuzgLluYXSnGOtjCI2nSiOUP+jvENLS7Zj/uxTBxzvnwy5hrUJ85JhLM8mcGVR+ivEUaX0kAYbeELn1Wtsrfd0UiqUE8ij+4mIAAA=="
+          "blur": "data:image/webp;base64,UklGRlIBAABXRUJQVlA4IEYBAAAQBwCdASoUACQAPu1kqU6ppSOiKqwBMB2JbACdMoLT+z2Klvt8whrnfRwkdfcagYV/z6B6c1oExTS3EaZUWsBQAAD+0FXcWqg3KRzDjh450CpM7sPgUxr87vZ7eHy3BH+I0vYNYGmzc1hWBRBpXn+zBK2r9RCtl6DfNgPS8kwQgMF6FJb83tc+7+LpPesUc8ZDgug16o9Jb9KNgLqz6h+Hha/64ZQGHJ0qmGt0QPSwlEsUiC6+CD39Falmnf23dhNK5IpHQkP4wXN8gszb/0yRdcj9aKk0U6L+ngscNuTxUXBP6vQ6R5ViL0Tr3wn3obzlwVal9DrD4k+5GEuzgLluYXSnGOtjCI2nSiOUP+jvENLS7Zj/uxTBxzvnwy5hrUJ85JhLM8mcGVR+ivEUaX0kAYbeELn1Wtsrfd0UiqUE8ij+4mIAAA==",
+          "loop": "/media/cars/bentley-flying-spur-speed-2023/05-loop.mp4"
         }
       ],
       "note": {
@@ -292,7 +296,8 @@
             1080
           ],
           "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACwBQCdASoUACQAPu1sr1GppaQipWsxMB2JZQDMWCw2gLAmApzoQ6A+LweDQWBM/uLrppcdcAAA/HGo80QrzWX6KQH590HQKv6ecggDBtSIoEDZiAqAt6hlgPZ1MZOh+E7iAeag7X2AGMVJJyeQVRkAD3ay2bkigvm7JcNQZktTLpMqdzueU42tiqcC/RhCFFMiLG0E4Rkl3sGs6Jm31VF57YoURng2fnB+/uG7koVCvKZrPYsmO+NRHuYPWrucyaqAAA=="
+          "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACwBQCdASoUACQAPu1sr1GppaQipWsxMB2JZQDMWCw2gLAmApzoQ6A+LweDQWBM/uLrppcdcAAA/HGo80QrzWX6KQH590HQKv6ecggDBtSIoEDZiAqAt6hlgPZ1MZOh+E7iAeag7X2AGMVJJyeQVRkAD3ay2bkigvm7JcNQZktTLpMqdzueU42tiqcC/RhCFFMiLG0E4Rkl3sGs6Jm31VF57YoURng2fnB+/uG7koVCvKZrPYsmO+NRHuYPWrucyaqAAA==",
+          "loop": "/media/cars/cadillac-escalade-2023/01-loop.mp4"
         },
         {
           "base": "/media/cars/cadillac-escalade-2023/02",
@@ -346,7 +351,8 @@
             1600
           ],
           "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAAAwBQCdASoUABsAPu1or1AppaSiqAqpMB2JZQAAKc58oHp0Q2D9fCjgOc7ccb9GbJ4mAgD+t3WiANAyCH97NQQ2cojy9ilm2ahBa3DVJEOeG2cAcyNy9cpTrDAHgSPNtTx/Ldbgx+HK79j3fqpvZX2V981aNuO/kXUBuex0Gnjz0HBa/NcNvWl0N/TD4kkk4Au/8FvsStscf6HTY44AAA=="
+          "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAAAwBQCdASoUABsAPu1or1AppaSiqAqpMB2JZQAAKc58oHp0Q2D9fCjgOc7ccb9GbJ4mAgD+t3WiANAyCH97NQQ2cojy9ilm2ahBa3DVJEOeG2cAcyNy9cpTrDAHgSPNtTx/Ldbgx+HK79j3fqpvZX2V981aNuO/kXUBuex0Gnjz0HBa/NcNvWl0N/TD4kkk4Au/8FvsStscf6HTY44AAA==",
+          "loop": "/media/cars/genesis-g90-long-2024/01-loop.mp4"
         },
         {
           "base": "/media/cars/genesis-g90-long-2024/02",
@@ -382,7 +388,8 @@
             1600
           ],
           "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRvAAAABXRUJQVlA4IOQAAACwBQCdASoUABsAPu1qrVCppaQiqAqpMB2JQBihUI+POiSQhWyDAxl4HlLkUOrXnx02Kw4Wl6wA/ngKuqpa3qu1zro84OuI60+ws0MJB20AfcwQJgeuU+xJaWtfKPJgANcuXjy/QCX1/W+fDggQTMb26hKyoh/JO07wDmJtPL0GoBOKLupG/px9XpfQFpJky8DG2vPo2sQbrGVfyMBmubb22oKrZsMa69NfRLmfuN2+T5Qw65lw2WbEE7usHcYrGHPrTUGBtjIWgjourllQdVFWzbv2/XrlXpVgnvMyAIgElp4gAAA="
+          "blur": "data:image/webp;base64,UklGRvAAAABXRUJQVlA4IOQAAACwBQCdASoUABsAPu1qrVCppaQiqAqpMB2JQBihUI+POiSQhWyDAxl4HlLkUOrXnx02Kw4Wl6wA/ngKuqpa3qu1zro84OuI60+ws0MJB20AfcwQJgeuU+xJaWtfKPJgANcuXjy/QCX1/W+fDggQTMb26hKyoh/JO07wDmJtPL0GoBOKLupG/px9XpfQFpJky8DG2vPo2sQbrGVfyMBmubb22oKrZsMa69NfRLmfuN2+T5Qw65lw2WbEE7usHcYrGHPrTUGBtjIWgjourllQdVFWzbv2/XrlXpVgnvMyAIgElp4gAAA=",
+          "loop": "/media/cars/genesis-g90-long-2024/04-loop.mp4"
         },
         {
           "base": "/media/cars/genesis-g90-long-2024/05",
@@ -427,7 +434,8 @@
             1600
           ],
           "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAABQBQCdASoUABsAPu1qrVCppaQiqAqpMB2JaQDNSA9nQX6DRdkYTvsdxFYdEQqSn3LNtuAA/rpviEt3e+LFwrGcubTgmMKWphyu7Ct2y7Hr6Oax3pgrs6oqb2hipG7LWe6UgQ76PY+agaZBrD+FJjhKKhxHy396xyVoedo1AMXiTJacG+0yfeMHDmdhadnOipZ+G5PNGSnHwhZvO/kSQO3wwQAAAA=="
+          "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAABQBQCdASoUABsAPu1qrVCppaQiqAqpMB2JaQDNSA9nQX6DRdkYTvsdxFYdEQqSn3LNtuAA/rpviEt3e+LFwrGcubTgmMKWphyu7Ct2y7Hr6Oax3pgrs6oqb2hipG7LWe6UgQ76PY+agaZBrD+FJjhKKhxHy396xyVoedo1AMXiTJacG+0yfeMHDmdhadnOipZ+G5PNGSnHwhZvO/kSQO3wwQAAAA==",
+          "loop": "/media/cars/range-rover-p530-lwb-2026/01-loop.mp4"
         },
         {
           "base": "/media/cars/range-rover-p530-lwb-2026/02",

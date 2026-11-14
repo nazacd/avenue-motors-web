@@ -2,7 +2,7 @@
 // Run with `npm run media` after changing src/data/inventory.json or the source files.
 // The output is committed, so a deploy does not need the raw export or ffmpeg.
 //
-// `npm run media -- photos`, `-- notes` or `-- site` rebuilds only that part.
+// `npm run media -- photos`, `-- loops`, `-- notes` or `-- site` rebuilds only that part.
 
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -23,6 +23,8 @@ const NOTE_TRIM = 1;
 
 const only = process.argv[2];
 const doPhotos = !only || only === "photos";
+// The living photos sit beside the photos they belong to, so they are rebuilt with them.
+const doLoops = doPhotos || only === "loops";
 const doNotes = !only || only === "notes";
 const doSite = !only || only === "site";
 
@@ -69,6 +71,30 @@ async function writeImage(input, dir, base, { crop } = {}) {
   };
 }
 
+// Living photos: short loops of a listing photo, keyed by its source number.
+const loopsDir = path.join(root, "source/loops");
+const loops = existsSync(path.join(loopsDir, "loops.json")) ? JSON.parse(readFileSync(path.join(loopsDir, "loops.json"), "utf8")) : {};
+
+// Writes the loop for source photo `n`, if it has one, and returns its address.
+function writeLoop(n, dir, base) {
+  const loop = loops[n];
+  if (!loop) return undefined;
+  const from = loop.from ?? 0;
+  const to = loop.to ?? 5;
+  const part = `trim=${from}:${to},setpts=PTS-STARTPTS,scale=720:-2:flags=lanczos,fps=24,format=yuv420p`;
+  // A take that does not end where it began is played forward and then backward.
+  const chain = loop.thereAndBack ? `[0:v]${part},split[a][b];[b]reverse[r];[a][r]concat=n=2:v=1:a=0[v]` : `[0:v]${part}[v]`;
+  mkdirSync(dir, { recursive: true });
+  ffmpeg([
+    "-i", path.join(loopsDir, `photo-${n}.mp4`),
+    "-filter_complex", chain, "-map", "[v]", "-an",
+    "-c:v", "libx264", "-preset", "slow", "-crf", "27", "-movflags", "+faststart",
+    path.join(dir, `${base}-loop.mp4`),
+  ]);
+  const rel = path.relative(path.join(root, "public"), dir).split(path.sep).join("/");
+  return `/${rel}/${base}-loop.mp4`;
+}
+
 function ffmpeg(args) {
   execFileSync("ffmpeg", ["-v", "error", "-y", ...args], { stdio: ["ignore", "ignore", "inherit"] });
 }
@@ -91,6 +117,16 @@ for (const car of inventory) {
     entry.photos = [];
     for (const [i, n] of car.photos.entries()) {
       entry.photos.push(await writeImage(sourcePhoto(n), dir, String(i + 1).padStart(2, "0")));
+    }
+  }
+
+  if (doLoops) {
+    for (const [i, n] of car.photos.entries()) {
+      const photo = entry.photos[i];
+      if (!photo) continue;
+      delete photo.loop;
+      const loop = writeLoop(n, dir, String(i + 1).padStart(2, "0"));
+      if (loop) photo.loop = loop;
     }
   }
 
@@ -125,7 +161,8 @@ for (const car of inventory) {
   }
 
   media.cars[car.slug] = entry;
-  console.log(`${car.slug}: ${entry.photos.length} photos${entry.note ? ", video note" : ""}`);
+  const living = entry.photos.filter((photo) => photo.loop).length;
+  console.log(`${car.slug}: ${entry.photos.length} photos${living ? ` (${living} living)` : ""}${entry.note ? ", video note" : ""}`);
 }
 
 if (doSite) {

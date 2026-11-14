@@ -13,6 +13,8 @@ export type Image = {
   widths: number[];
   fallbackWidth: number;
   blur: string;
+  // A short silent loop of this same photo, where one has been made.
+  loop?: string;
 };
 
 export type VideoNote = { video: string; poster: string; duration: number };

@@ -4,6 +4,7 @@ import { ViewTransition, useEffect, useRef, useState } from "react";
 import type { Image } from "@/data/cars";
 import { fill } from "@/i18n/format";
 import { ArrowIcon, BackIcon } from "./icons";
+import { LivingPhoto } from "./LivingPhoto";
 import { Picture, fallbackSrc } from "./Picture";
 
 type GalleryProps = {
@@ -83,6 +84,7 @@ export function Gallery({ slug, name, photos, labels }: GalleryProps) {
             ) : (
               <Picture image={photo} alt={alt(index)} sizes="(min-width: 1000px) 56vw, 100vw" />
             )}
+            {photo.loop && <LivingPhoto src={photo.loop} active={index === active} />}
           </div>
         ))}
       </div>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ViewTransition } from "react";
 import type { CardData } from "@/data/cards";
 import type { Locale } from "@/i18n/config";
+import { LivingPhoto } from "./LivingPhoto";
 import { Picture } from "./Picture";
 
 type CarCardProps = {
@@ -26,6 +27,7 @@ export function CarCard({ card, locale, videoLabel, eager }: CarCardProps) {
               eager={eager}
             />
           </ViewTransition>
+          {card.cover.loop && <LivingPhoto src={card.cover.loop} />}
         </div>
       ) : (
         <div className="card__media card__media--round">
