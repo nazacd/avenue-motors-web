@@ -33,6 +33,8 @@ export function CarCard({ card, locale, videoLabel, eager }: CarCardProps) {
             {card.year && <span className="tag">{card.year}</span>}
             <span className="tag tag--accent">{videoLabel}</span>
           </div>
+          {/* The same frame, enlarged and out of focus, fills the space round the disc. */}
+          {card.poster && <img className="card__glow" src={card.poster} alt="" aria-hidden width={400} height={400} loading="lazy" decoding="async" />}
           {card.poster && (
             <ViewTransition name={`car-${card.slug}`}>
               <div className="card__round">

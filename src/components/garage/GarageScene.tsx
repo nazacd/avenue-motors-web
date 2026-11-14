@@ -1,17 +1,22 @@
 "use client";
 
-import { ContactShadows, Environment, Lightformer, MeshReflectorMaterial, OrbitControls, useGLTF } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { ContactShadows, Environment, MeshReflectorMaterial, OrbitControls, useGLTF, useProgress } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Bloom, EffectComposer, ToneMapping, Vignette } from "@react-three/postprocessing";
+import { ToneMappingMode } from "postprocessing";
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
-import type { GarageCar } from "@/data/garage";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import type { GarageCar, GarageView } from "@/data/garage";
 import { markShapes, plateTexture, wordmarkTexture } from "./plate";
+import { panelMap, tileMaps } from "./room";
 
 type SceneProps = {
   car: GarageCar;
   paint: string;
   lights: boolean;
-  // Called once the car is on the turntable, so the page can fade the still away.
+  view: GarageView;
+  // Called once the car is on the turntable, so the page can lift the curtain.
   onReady: () => void;
 };
 
@@ -26,15 +31,20 @@ type Prepared = { holder: THREE.Group; controls: Controls };
 function paintMaterial() {
   return new THREE.MeshPhysicalMaterial({
     color: BLACK,
-    metalness: 0.55,
-    roughness: 0.34,
+    metalness: 0.86,
+    roughness: 0.3,
     clearcoat: 1,
-    clearcoatRoughness: 0.04,
-    envMapIntensity: 1.25,
+    clearcoatRoughness: 0.03,
+    envMapIntensity: 1.35,
   });
 }
 
 const standard = (params: THREE.MeshStandardMaterialParameters) => new THREE.MeshStandardMaterial(params);
+
+// How strongly tail lamps glow. The whole picture is tone-mapped at the end, and a red
+// pushed much past full brightness washes out to orange, so these stay modest.
+const TAIL_ON = 1.15;
+const TAIL_OFF = 0.1;
 const lamp = (color: string, emissive: string) => standard({ color, emissive, emissiveIntensity: 0, toneMapped: false });
 
 // Dark privacy glass. Real glass that bends light costs phones a second render of the
@@ -176,7 +186,7 @@ const MAYBACH = {
 function maybach(holder: THREE.Group): Controls {
   const paint = paintMaterial();
   const day = lamp("#ffffff", "#e4ecff");
-  const tail = lamp("#2a0003", "#ff1420");
+  const tail = lamp("#2a0003", "#ff0a12");
   const plastic = standard({ color: "#08080a", roughness: 0.6 });
   const byName = new Map<string, THREE.Material>();
   const assign = (names: string[], material: THREE.Material) => names.forEach((name) => byName.set(name, material));
@@ -207,7 +217,7 @@ function maybach(holder: THREE.Group): Controls {
     setPaint: (color) => paint.color.set(color),
     setLights: (on) => {
       day.emissiveIntensity = on ? 5 : 0;
-      tail.emissiveIntensity = on ? 2.6 : 0.15;
+      tail.emissiveIntensity = on ? TAIL_ON : TAIL_OFF;
     },
   };
 }
@@ -217,7 +227,7 @@ function maybach(holder: THREE.Group): Controls {
 function g63(holder: THREE.Group): Controls {
   const paint = paintMaterial();
   const day = lamp("#ffffff", "#e4ecff");
-  const tail = lamp("#3a0004", "#ff1420");
+  const tail = lamp("#3a0004", "#ff0a12");
   const blackTrim = standard({ color: "#0b0b0c", metalness: 0.9, roughness: 0.22 });
   // The headlamp covers share the windows' naming, but must stay clear to show the lamps.
   const clearLens = new THREE.MeshPhysicalMaterial({ color: "#ffffff", roughness: 0, transparent: true, opacity: 0.18 });
@@ -242,7 +252,7 @@ function g63(holder: THREE.Group): Controls {
     setPaint: (color) => paint.color.set(color),
     setLights: (on) => {
       day.emissiveIntensity = on ? 5 : 0;
-      tail.emissiveIntensity = on ? 2.4 : 0.15;
+      tail.emissiveIntensity = on ? TAIL_ON : TAIL_OFF;
     },
   };
 }
@@ -252,7 +262,7 @@ function g63(holder: THREE.Group): Controls {
 function m4cs(holder: THREE.Group): Controls {
   const painted: { material: THREE.MeshStandardMaterial; source: CanvasImageSource; width: number; height: number }[] = [];
   let day: THREE.MeshStandardMaterial | undefined;
-  const tail = lamp("#3a0004", "#ff1420");
+  const tail = lamp("#3a0004", "#ff0a12");
   for (const mesh of meshesOf(holder)) {
     const name = nameOf(mesh);
     const material = mesh.material as THREE.MeshPhysicalMaterial;
@@ -314,7 +324,7 @@ function m4cs(holder: THREE.Group): Controls {
     },
     setLights: (on) => {
       if (day) day.emissiveIntensity = on ? 3 : 0;
-      tail.emissiveIntensity = on ? 2.4 : 0.15;
+      tail.emissiveIntensity = on ? TAIL_ON : TAIL_OFF;
     },
   };
 }
@@ -340,7 +350,7 @@ const FLYING_SPUR: Record<string, string> = {
 function flyingSpur(holder: THREE.Group): Controls {
   const paint = paintMaterial();
   const day = lamp("#ffffff", "#e4ecff");
-  const tail = lamp("#4a0006", "#ff1420");
+  const tail = lamp("#3a0004", "#ff0a12");
   const leather = standard({ color: "#c2581a", roughness: 0.6 });
   const plastic = standard({ color: "#0b0b0c", roughness: 0.6 });
   const materials: Record<string, THREE.Material> = {
@@ -360,11 +370,12 @@ function flyingSpur(holder: THREE.Group): Controls {
   for (const mesh of meshesOf(holder)) {
     mesh.material = materials[FLYING_SPUR[mesh.name] ?? ""] ?? plastic;
     if (mesh.name === "Object_6") {
-      // Trim, with the lamp covers at both ends attached. Left as trim they hide the lamps.
+      // Trim, with the lamp covers at both ends attached. Left as trim they hide the lamps:
+      // the front ones are lit, the rear ones are red glass over the lit shapes behind.
       const notHeadLamps = splitByTriangle(mesh, isHeadLamp);
       mesh.material = day;
       const trim = splitByTriangle(notHeadLamps, isTailLamp);
-      notHeadLamps.material = tail;
+      notHeadLamps.material = new THREE.MeshPhysicalMaterial({ color: "#5a000c", roughness: 0.08, transparent: true, opacity: 0.2 });
       trim.material = materials.trim;
     }
     if (mesh.name === "Object_26") {
@@ -408,29 +419,65 @@ function flyingSpur(holder: THREE.Group): Controls {
     setPaint: (color) => paint.color.set(color),
     setLights: (on) => {
       day.emissiveIntensity = on ? 4 : 0;
-      tail.emissiveIntensity = on ? 2.4 : 0.25;
+      tail.emissiveIntensity = on ? TAIL_ON : TAIL_OFF;
     },
   };
 }
 
 const RECIPES = { maybach, g63, m4cs, flyingSpur };
 
+// What a car's lamps throw into the room: two pools of light on the floor ahead and a
+// faint red glow behind.
+function lampRig(holder: THREE.Group) {
+  const box = new THREE.Box3().setFromObject(holder);
+  const half = (box.max.z - box.min.z) / 2;
+  const rig = new THREE.Group();
+  const beams: THREE.SpotLight[] = [];
+  for (const side of [-1, 1]) {
+    const beam = new THREE.SpotLight("#dfe8ff", 0, 15, 0.46, 0.9, 1.7);
+    beam.position.set(box.min.x + 0.3, 0.72, side * half * 0.62);
+    beam.target.position.set(box.min.x - 7, -0.2, side * half * 0.85);
+    rig.add(beam, beam.target);
+    beams.push(beam);
+  }
+  const glow = new THREE.PointLight("#ff1a22", 0, 3.2, 2);
+  glow.position.set(box.max.x + 0.9, 0.5, 0);
+  rig.add(glow);
+  holder.add(rig);
+  return (on: boolean) => {
+    beams.forEach((beam) => (beam.intensity = on ? 32 : 0));
+    glow.intensity = on ? 1 : 0;
+  };
+}
+
 // The loader hands back the same object for the same file, so each car is set up once.
 const prepared = new WeakMap<THREE.Object3D, Prepared>();
 
-function prepare(scene: THREE.Object3D, car: GarageCar) {
+function prepare(scene: THREE.Object3D, car: GarageCar, shadows: boolean) {
   let entry = prepared.get(scene);
   if (!entry) {
     const holder = fit(scene, car);
-    entry = { holder, controls: RECIPES[car.recipe](holder) };
+    const controls = RECIPES[car.recipe](holder);
+    if (shadows) meshesOf(holder).forEach((mesh) => (mesh.castShadow = true));
+    const setRig = lampRig(holder);
+    entry = {
+      holder,
+      controls: {
+        setPaint: controls.setPaint,
+        setLights: (on) => {
+          controls.setLights(on);
+          setRig(on);
+        },
+      },
+    };
     prepared.set(scene, entry);
   }
   return entry;
 }
 
-function Car({ car, paint, lights, onReady }: SceneProps) {
+function Car({ car, paint, lights, onReady, shadows }: SceneProps & { shadows: boolean }) {
   const { scene } = useGLTF(car.model);
-  const { holder, controls } = prepare(scene, car);
+  const { holder, controls } = prepare(scene, car, shadows);
 
   // Braces matter here: an effect that returns a value hands React a "clean-up" that
   // is not a function, and the page falls over when the car is swapped.
@@ -450,25 +497,64 @@ function Car({ car, paint, lights, onReady }: SceneProps) {
 
 // ───────── The room ─────────
 
-function Turntable({ children }: { children: React.ReactNode }) {
+// The hall, in metres. The turntable is at the origin and the sign wall behind it.
+const HALL = { width: 28, back: -5.6, front: 17, height: 6.6 };
+const RING = { radius: 3.05, height: 5.5 };
+// Rows of ceiling tubes running from the sign wall toward the visitor.
+const TUBE_ROWS = [-10.5, -7, -3.5, 3.5, 7, 10.5];
+
+// Where the turntable stops for each view, as the angle of the car's nose. In "show"
+// it keeps turning.
+const TURN: Record<GarageView, number | null> = {
+  show: null,
+  front: Math.PI / 2,
+  side: 0,
+  rear: -Math.PI / 2 + 0.55,
+  top: Math.PI / 2 - 0.6,
+};
+
+function Turntable({ view, children }: { view: GarageView; children: React.ReactNode }) {
   const group = useRef<THREE.Group>(null);
   useFrame((_, delta) => {
-    if (group.current) group.current.rotation.y += Math.min(delta, 0.05) * 0.14;
+    const table = group.current;
+    if (!table) return;
+    const step = Math.min(delta, 0.05);
+    const stop = TURN[view];
+    if (stop === null) {
+      table.rotation.y += step * 0.12;
+      return;
+    }
+    // Turn the short way round to the stop.
+    const gap = Math.atan2(Math.sin(stop - table.rotation.y), Math.cos(stop - table.rotation.y));
+    table.rotation.y += gap * Math.min(1, step * 3.2);
   });
   return (
     <>
-      <mesh position={[0, 0.06, 0]}>
+      <mesh position={[0, 0.06, 0]} receiveShadow>
         <cylinderGeometry args={[3.35, 3.45, 0.12, 96]} />
-        <meshStandardMaterial color="#101113" metalness={0.6} roughness={0.42} />
+        <meshStandardMaterial color="#0c0d0f" metalness={0.75} roughness={0.36} />
+      </mesh>
+      {/* A hairline of light around the foot of the turntable. */}
+      <mesh position={[0, 0.012, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[3.5, 0.007, 8, 128]} />
+        <meshBasicMaterial color={GLOW.warm} toneMapped={false} />
       </mesh>
       {/* Starts three-quarter on, nose toward the visitor. */}
       <group ref={group} position={[0, 0.12, 0]} rotation={[0, Math.PI / 2 - 0.6, 0]}>
         {children}
-        <ContactShadows position={[0, 0.004, 0]} scale={9} far={1.6} blur={2.4} opacity={0.8} resolution={512} frames={1} />
+        <ContactShadows position={[0, 0.004, 0]} scale={9} far={1.6} blur={2.6} opacity={0.85} resolution={512} frames={1} />
       </group>
     </>
   );
 }
+
+// Colours brighter than white, so that the lamps of the hall bloom.
+const GLOW = {
+  warm: new THREE.Color("#fff1dc").multiplyScalar(1.15),
+  tube: new THREE.Color("#eef3ff").multiplyScalar(2.1),
+  ring: new THREE.Color("#fff6ea").multiplyScalar(3.2),
+  red: new THREE.Color("#c1121f").multiplyScalar(1.6),
+};
 
 const SIGN_HEIGHT = 1.45;
 
@@ -482,10 +568,10 @@ function Sign() {
   const wordHeight = 768 * perPixel;
 
   return (
-    <group position={[0, 2.95, -5.5]}>
+    <group position={[0, 2.95, HALL.back + 0.1]}>
       <mesh position={[left, -SIGN_HEIGHT / 2, 0]} scale={[SIGN_HEIGHT, SIGN_HEIGHT, 1]}>
         <extrudeGeometry args={[mark.shapes, { depth: 0.09, bevelEnabled: false }]} />
-        <meshStandardMaterial color="#ffcc00" emissive="#ffb400" emissiveIntensity={0.55} roughness={0.45} />
+        <meshStandardMaterial color="#ffcc00" emissive="#ffb400" emissiveIntensity={1.5} roughness={0.45} />
       </mesh>
       <mesh
         position={[
@@ -501,93 +587,295 @@ function Sign() {
   );
 }
 
+// Every ceiling tube is the same box, drawn in one go.
+function Tubes() {
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const spots = useMemo(() => {
+    const list: [number, number][] = [];
+    for (const x of TUBE_ROWS) for (let z = HALL.back + 2; z < HALL.front - 1; z += 2.6) list.push([x, z]);
+    return list;
+  }, []);
+  useEffect(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    const place = new THREE.Matrix4();
+    spots.forEach(([x, z], i) => mesh.setMatrixAt(i, place.makeTranslation(x, HALL.height - 0.35, z)));
+    mesh.instanceMatrix.needsUpdate = true;
+  }, [spots]);
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, spots.length]}>
+      <boxGeometry args={[0.07, 0.04, 1.5]} />
+      <meshBasicMaterial color={GLOW.tube} toneMapped={false} />
+    </instancedMesh>
+  );
+}
+
 function Room({ coarse }: { coarse: boolean }) {
+  const tiles = useMemo(() => tileMaps(13), []);
+  const panels = useMemo(() => panelMap(14, 3), []);
+  const sidePanels = useMemo(() => panelMap(11, 3), []);
+  const depth = HALL.front - HALL.back;
+  const middle = (HALL.front + HALL.back) / 2;
+
   return (
     <>
-      <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[60, 60]} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <planeGeometry args={[62, 62]} />
         <MeshReflectorMaterial
           resolution={coarse ? 512 : 1024}
-          blur={[320, 90]}
-          mixBlur={1}
-          mixStrength={26}
-          roughness={0.85}
-          depthScale={1.1}
+          blur={[260, 70]}
+          mixBlur={0.85}
+          mixStrength={11}
+          roughness={1}
+          depthScale={1}
           minDepthThreshold={0.4}
           maxDepthThreshold={1.3}
-          color="#0b0b0d"
-          metalness={0.55}
+          color="#c4c5ca"
+          metalness={0.3}
+          map={tiles.map}
+          roughnessMap={tiles.roughnessMap}
         />
       </mesh>
-      <mesh position={[0, 4.5, -5.6]}>
-        <planeGeometry args={[40, 9]} />
-        <meshStandardMaterial color="#26272b" roughness={0.9} />
+
+      {/* Sign wall, side walls, the wall behind the visitor and the ceiling. */}
+      <mesh position={[0, HALL.height / 2, HALL.back]}>
+        <planeGeometry args={[HALL.width, HALL.height]} />
+        <meshStandardMaterial map={panels} roughness={0.92} />
       </mesh>
+      {[-1, 1].map((side) => (
+        <mesh key={side} position={[(side * HALL.width) / 2, HALL.height / 2, middle]} rotation={[0, (-side * Math.PI) / 2, 0]}>
+          <planeGeometry args={[depth, HALL.height]} />
+          <meshStandardMaterial map={sidePanels} color="#9a9a9e" roughness={0.95} />
+        </mesh>
+      ))}
+      <mesh position={[0, HALL.height / 2, HALL.front]} rotation={[0, Math.PI, 0]}>
+        <planeGeometry args={[HALL.width, HALL.height]} />
+        <meshStandardMaterial color="#0c0c0e" roughness={1} />
+      </mesh>
+      <mesh position={[0, HALL.height, middle]} rotation={[Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[HALL.width, depth]} />
+        <meshStandardMaterial color="#060607" roughness={1} />
+      </mesh>
+      {[-1, 1].map((side) => (
+        <mesh key={side} position={[side * 9.6, HALL.height / 2, HALL.back + 2.2]}>
+          <boxGeometry args={[0.5, HALL.height, 0.5]} />
+          <meshStandardMaterial color="#17181b" roughness={0.8} />
+        </mesh>
+      ))}
+
       {/* The red skirting line of the real showroom. */}
-      <mesh position={[0, 0.07, -5.58]}>
-        <boxGeometry args={[40, 0.05, 0.02]} />
-        <meshBasicMaterial color="#9c1019" />
+      <mesh position={[0, 0.07, HALL.back + 0.02]}>
+        <boxGeometry args={[HALL.width, 0.045, 0.02]} />
+        <meshBasicMaterial color={GLOW.red} toneMapped={false} />
       </mesh>
-      <mesh position={[0, 6.4, -1]} rotation={[Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[9, 6.5]} />
-        <meshBasicMaterial color="#fff6e6" toneMapped={false} />
+
+      <Tubes />
+      {/* The ring of light that hangs over the turntable. */}
+      <mesh position={[0, RING.height, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[RING.radius, 0.035, 10, 128]} />
+        <meshBasicMaterial color={GLOW.ring} toneMapped={false} />
       </mesh>
       <Sign />
     </>
   );
 }
 
-// What the paint and chrome reflect: the lit ceiling, the sign and two side strips.
+// A flat lamp for the reflection map only. Its colour runs brighter than white.
+function Lamp({ color, strength, ...props }: { color: string; strength: number } & React.ComponentProps<"mesh">) {
+  const tint = useMemo(() => new THREE.Color(color).multiplyScalar(strength), [color, strength]);
+  return (
+    <mesh {...props}>
+      {props.children}
+      <meshBasicMaterial color={tint} toneMapped={false} side={THREE.DoubleSide} />
+    </mesh>
+  );
+}
+
+// What the paint and chrome reflect: the ring, the rows of tubes and the sign. It is a
+// dark room, so bodywork shows as lines of light on black, the way it does in the hall.
 function Reflections() {
   return (
     <Environment resolution={512} frames={1}>
-      <color attach="background" args={["#030304"]} />
-      <Lightformer form="rect" intensity={5} position={[0, 6.4, -1]} rotation-x={Math.PI / 2} scale={[9, 6.5, 1]} />
-      <Lightformer form="rect" intensity={2.2} color="#ffcc00" position={[-1.8, 2.9, -5.6]} scale={[2.2, 1.4, 1]} />
-      <Lightformer form="rect" intensity={2.6} color="#e6ecff" position={[1.3, 2.8, -5.6]} scale={[3.3, 0.7, 1]} />
-      <Lightformer form="rect" intensity={1.6} position={[-11, 2.4, 2]} rotation-y={Math.PI / 2} scale={[14, 0.5, 1]} />
-      <Lightformer form="rect" intensity={1.6} position={[11, 2.4, 2]} rotation-y={-Math.PI / 2} scale={[14, 0.5, 1]} />
-      <Lightformer form="rect" intensity={0.5} position={[0, 2.5, 12]} rotation-y={Math.PI} scale={[16, 4, 1]} />
+      <color attach="background" args={["#020203"]} />
+      <Lamp color="#fff6ea" strength={15} position={[0, RING.height, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[RING.radius - 0.11, RING.radius + 0.11, 96]} />
+      </Lamp>
+      {TUBE_ROWS.map((x) => (
+        <Lamp key={x} color="#eef3ff" strength={7} position={[x, HALL.height - 0.35, 5]} rotation={[Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[0.16, 21]} />
+        </Lamp>
+      ))}
+      <Lamp color="#ffcc00" strength={2.4} position={[-1.8, 2.9, HALL.back]}>
+        <planeGeometry args={[2.2, 1.4]} />
+      </Lamp>
+      <Lamp color="#e6ecff" strength={2.8} position={[1.3, 2.8, HALL.back]}>
+        <planeGeometry args={[3.3, 0.7]} />
+      </Lamp>
+      {/* A low, soft glow from the open hall behind the visitor, to model the flanks. */}
+      <Lamp color="#aab4c8" strength={0.13} position={[0, 2.2, 14]} rotation={[0, Math.PI, 0]}>
+        <planeGeometry args={[22, 3.4]} />
+      </Lamp>
     </Environment>
+  );
+}
+
+// ───────── The camera ─────────
+
+type Pose = { azimuth: number; polar: number; distance: number };
+
+
+const POSES: Record<GarageView, Pose> = {
+  show: { azimuth: -0.3, polar: 1.512, distance: 10.2 },
+  front: { azimuth: 0, polar: 1.525, distance: 9.2 },
+  side: { azimuth: 0, polar: 1.512, distance: 10.6 },
+  rear: { azimuth: 0.18, polar: 1.5, distance: 9.8 },
+  top: { azimuth: -0.42, polar: 1.1, distance: 11.6 },
+};
+
+const UPRIGHT_REACH = 1.22;
+
+const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+
+// Flies the camera to each view, and sweeps it in when a car arrives. Between
+// flights the visitor is free to drag and zoom.
+function CameraRig({ view, token, upright }: { view: GarageView; token: string; upright: boolean }) {
+  const camera = useThree((state) => state.camera);
+  const controls = useRef<OrbitControlsImpl>(null);
+  const flight = useRef<{ from: Pose; to: Pose; length: number; at: number } | null>(null);
+  const seen = useRef<string | null>(null);
+  // An upright screen sees a narrow slice of the room, so the camera stands further back.
+  const reach = upright ? UPRIGHT_REACH : 1;
+  // Aimed below the car's middle, which lifts the car clear of the words along the
+  // bottom. A phone has more of them, and looking lower also keeps the ring of light
+  // out of the top of the picture.
+  const target = useMemo(() => new THREE.Vector3(0, upright ? 0.2 : 0.6, 0), [upright]);
+
+  useEffect(() => {
+    const to = { ...POSES[view], distance: POSES[view].distance * reach };
+    if (seen.current !== token) {
+      // A new car: come in low and wide of the mark.
+      seen.current = token;
+      flight.current = { from: { azimuth: to.azimuth - 0.5, polar: 1.535, distance: to.distance + 2.6 }, to, length: 2.6, at: 0 };
+      return;
+    }
+    const offset = new THREE.Spherical().setFromVector3(camera.position.clone().sub(target));
+    flight.current = { from: { azimuth: offset.theta, polar: offset.phi, distance: offset.radius }, to, length: 1.3, at: 0 };
+  }, [view, token, reach, camera, target]);
+
+  useFrame((_, delta) => {
+    const now = flight.current;
+    const orbit = controls.current;
+    if (!now || !orbit) return;
+    now.at = Math.min(1, now.at + Math.min(delta, 0.05) / now.length);
+    const t = ease(now.at);
+    const mix = (from: number, to: number) => from + (to - from) * t;
+    const offset = new THREE.Spherical(mix(now.from.distance, now.to.distance), mix(now.from.polar, now.to.polar), mix(now.from.azimuth, now.to.azimuth));
+    camera.position.setFromSpherical(offset).add(target);
+    orbit.enabled = now.at === 1;
+    orbit.update();
+    if (now.at === 1) flight.current = null;
+  });
+
+  return (
+    <OrbitControls
+      ref={controls}
+      target={target}
+      enablePan={false}
+      enableDamping
+      rotateSpeed={0.55}
+      zoomSpeed={0.6}
+      minDistance={5.8 * reach}
+      maxDistance={12.5 * reach}
+      minPolarAngle={0.7}
+      maxPolarAngle={1.545}
+      minAzimuthAngle={-1.7}
+      maxAzimuthAngle={1.7}
+    />
+  );
+}
+
+// How far the model files have come down, for the loading bar on the curtain.
+function Progress() {
+  const progress = useProgress((state) => state.progress);
+  return (
+    <div className="garage__progress" aria-hidden>
+      <span style={{ scale: `${Math.max(progress, 4) / 100} 1` }} />
+    </div>
   );
 }
 
 export default function GarageScene(props: SceneProps) {
   const coarse = useMemo(() => window.matchMedia("(pointer: coarse)").matches, []);
-  // An upright screen sees a narrow slice of the room, so the camera stands further
-  // back with a wider lens to keep the sign and the whole car in view.
   const upright = useMemo(() => window.innerHeight > window.innerWidth, []);
+  const start = POSES.show.distance * (upright ? UPRIGHT_REACH : 1) + 2.6;
 
   return (
-    <Canvas
-      dpr={[1, coarse ? 1.5 : 1.75]}
-      camera={{ position: upright ? [-1.4, 1.7, 12.6] : [-2.8, 1.45, 9.4], fov: upright ? 50 : 30, near: 0.1, far: 80 }}
-      gl={{ antialias: true, powerPreference: "high-performance" }}
-    >
-      <color attach="background" args={[BLACK]} />
-      <fog attach="fog" args={[BLACK, 15, 34]} />
-      <ambientLight intensity={0.35} />
-      <spotLight position={[0, 6.2, 1.5]} angle={0.75} penumbra={0.9} intensity={2.4} decay={0} />
-      <directionalLight position={[-6, 4, 6]} intensity={0.5} />
-      <Reflections />
-      <Room coarse={coarse} />
-      <Turntable>
-        <Suspense fallback={null}>
-          <Car key={props.car.model} {...props} />
-        </Suspense>
-      </Turntable>
-      <OrbitControls
-        target={[0, 1.05, 0]}
-        enablePan={false}
-        enableDamping
-        rotateSpeed={0.55}
-        minDistance={6.5}
-        maxDistance={upright ? 14 : 12}
-        minPolarAngle={1.05}
-        maxPolarAngle={1.54}
-        minAzimuthAngle={-1.2}
-        maxAzimuthAngle={1.2}
-      />
-    </Canvas>
+    <>
+      <Canvas
+        shadows={!coarse}
+        dpr={[1, coarse ? 1.5 : 1.75]}
+        camera={{ position: [-4.6, 1.3, start], fov: upright ? 50 : 30, near: 0.1, far: 80 }}
+        gl={{ antialias: false, powerPreference: "high-performance" }}
+      >
+        <color attach="background" args={["#020203"]} />
+        <fog attach="fog" args={["#020203", 13, 30]} />
+        <ambientLight intensity={0.07} />
+        {/* The key light, straight down through the ring. */}
+        <spotLight
+          position={[0, RING.height + 0.6, 0.4]}
+          angle={0.62}
+          penumbra={1}
+          intensity={105}
+          distance={14}
+          decay={1.7}
+          color="#fff4e2"
+          castShadow={!coarse}
+          shadow-mapSize={[2048, 2048]}
+          shadow-bias={-0.0004}
+          shadow-radius={5}
+        />
+        {/* Two washes on the sign wall. */}
+        {[-1, 1].map((side) => (
+          <WallWash key={side} side={side} />
+        ))}
+        <directionalLight position={[-7, 3, 8]} intensity={0.16} color="#b8c4de" />
+        <Reflections />
+        <Room coarse={coarse} />
+        <Turntable view={props.view}>
+          <Suspense fallback={null}>
+            <Car key={props.car.model} {...props} shadows={!coarse} />
+          </Suspense>
+        </Turntable>
+        <CameraRig view={props.view} token={props.car.model} upright={upright} />
+        <EffectComposer multisampling={coarse ? 0 : 4} enableNormalPass={false}>
+          <Bloom mipmapBlur intensity={0.5} luminanceThreshold={1} luminanceSmoothing={0.2} radius={0.72} />
+          <Vignette offset={0.26} darkness={0.74} />
+          <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+        </EffectComposer>
+      </Canvas>
+      <Progress />
+    </>
+  );
+}
+
+function WallWash({ side }: { side: number }) {
+  const light = useRef<THREE.SpotLight>(null);
+  useEffect(() => {
+    const lamp = light.current;
+    if (!lamp) return;
+    lamp.target.position.set(side * 2.4, 2.4, HALL.back);
+    lamp.target.updateMatrixWorld();
+  }, [side]);
+  return (
+    <spotLight
+      ref={light}
+      position={[side * 3.4, HALL.height - 0.4, HALL.back + 2.6]}
+      angle={0.78}
+      penumbra={1}
+      intensity={46}
+      distance={12}
+      decay={1.6}
+      color="#fff0dc"
+    />
   );
 }

@@ -13,13 +13,16 @@ export type GarageCar = {
   yaw: number;
   // The colour of the car that is actually in stock.
   paint: string;
+  // The maker's published figures for this model: power in metric horsepower,
+  // seconds from 0 to 100 km/h and top speed in km/h.
+  specs: { power: number; sprint: number; topSpeed: number };
 };
 
 export const garageCars: GarageCar[] = [
-  { slug: "mercedes-maybach-s680", model: "/models/maybach-s680.glb", recipe: "maybach", length: 5.47, yaw: 0, paint: "#040405" },
-  { slug: "mercedes-amg-g63", model: "/models/g63.glb", recipe: "g63", length: 4.87, yaw: -Math.PI / 2, paint: "#040405" },
-  { slug: "bmw-m4-cs-2024", model: "/models/m4-cs.glb", recipe: "m4cs", length: 4.8, yaw: -Math.PI / 2, paint: "#1c8fdc" },
-  { slug: "bentley-flying-spur-speed-2023", model: "/models/flying-spur.glb", recipe: "flyingSpur", length: 5.32, yaw: 0, paint: "#040405" },
+  { slug: "mercedes-maybach-s680", model: "/models/maybach-s680.glb", recipe: "maybach", length: 5.47, yaw: 0, paint: "#040405", specs: { power: 612, sprint: 4.5, topSpeed: 250 } },
+  { slug: "mercedes-amg-g63", model: "/models/g63.glb", recipe: "g63", length: 4.87, yaw: -Math.PI / 2, paint: "#040405", specs: { power: 585, sprint: 4.5, topSpeed: 220 } },
+  { slug: "bmw-m4-cs-2024", model: "/models/m4-cs.glb", recipe: "m4cs", length: 4.8, yaw: -Math.PI / 2, paint: "#1c8fdc", specs: { power: 550, sprint: 3.4, topSpeed: 302 } },
+  { slug: "bentley-flying-spur-speed-2023", model: "/models/flying-spur.glb", recipe: "flyingSpur", length: 5.32, yaw: 0, paint: "#040405", specs: { power: 635, sprint: 3.8, topSpeed: 333 } },
 ];
 
 export type PaintKey = "black" | "graphite" | "white" | "green" | "red" | "blue";
@@ -33,3 +36,11 @@ export const paints: { key: PaintKey; color: string }[] = [
   { key: "red", color: "#4a0c15" },
   { key: "blue", color: "#0b1a33" },
 ];
+
+// How the garage can frame the car. "show" lets the turntable turn on its own; the
+// others stop it at a set angle and move the camera.
+export type GarageView = "show" | "front" | "side" | "rear" | "top";
+export const garageViews: GarageView[] = ["show", "front", "side", "rear", "top"];
+
+// The full length of each bar in the figures panel.
+export const specScale = { power: 700, sprint: 6, topSpeed: 350 };

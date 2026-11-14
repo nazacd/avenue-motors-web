@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calculator, type CalcOption } from "@/components/Calculator";
+import { CountUp } from "@/components/CountUp";
 import { HeroFilm } from "@/components/HeroFilm";
 import { ArrowIcon, TelegramIcon } from "@/components/icons";
 import { Picture, avifSrcSet, fallbackSrc } from "@/components/Picture";
@@ -52,6 +53,13 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       poster: car.note!.poster,
       href: `${home}/cars/${car.slug}`,
     }));
+
+  const facts = [
+    { value: cars.length, label: dict.facts.cars },
+    { value: makes.length, label: dict.facts.makes },
+    { value: 9000, suffix: "+", label: dict.facts.subscribers },
+    { value: site.installment.months, label: dict.facts.months },
+  ];
 
   const dealer = {
     "@context": "https://schema.org",
@@ -131,6 +139,19 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         </div>
       </div>
 
+      <section className="numbers">
+        <dl className="container numbers__grid">
+          {facts.map((fact, index) => (
+            <div key={fact.label} className="number" data-reveal style={{ "--delay": `${index * 0.08}s` } as React.CSSProperties}>
+              <dt className="number__label">{fact.label}</dt>
+              <dd className="number__value">
+                <CountUp value={fact.value} locale={lang} suffix={fact.suffix} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
       <section className="section">
         <div className="container section__head" data-reveal>
           <div>
@@ -189,7 +210,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         </div>
       </section>
 
-      <section className="section" id="services">
+      <section className="section section--panel" id="services">
         <div className="container">
           <div className="section__head" data-reveal>
             <div>
@@ -222,7 +243,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--panel">
         <div className="container section__head" data-reveal>
           <div>
             <p className="label">{dict.notes.label}</p>
