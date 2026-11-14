@@ -579,6 +579,19 @@
       ],
       "fallbackWidth": 1080,
       "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAADwBACdASoUABsAPu1srVIppaQiqAgBMB2JZwAIEAHDGZCuGN5urd6H5EekUB2b+sAA/spq4uSv6mETBHCK0hPEYo6MRzeAsWPthIHGC9Z+dWzujnMGUX7CLd7VCvHxGtu3Ns+xBhOnPi3qXR+QzPlcxA/0ouUru56jBlooS7QmCuaf5Yj4dzbl05bkLnirmH11bmEZZ+p4AA=="
+    },
+    "garage": {
+      "base": "/media/site/garage",
+      "width": 2752,
+      "height": 1536,
+      "widths": [
+        640,
+        1080,
+        1600,
+        2000
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JQBfJA2jjs6dJrfQgAAD+8qvPzhbMWNjW4WsBP48o8JH+S2FR5OtVZ5Jxfu7tBVhzKUtMFgqOm/Lq8yxz5a7aJwyKTIUFejhRwhZwQAA="
     }
   }
 }

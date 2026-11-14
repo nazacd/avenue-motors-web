@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calculator, type CalcOption } from "@/components/Calculator";
+import { HeroFilm } from "@/components/HeroFilm";
 import { ArrowIcon, TelegramIcon } from "@/components/icons";
 import { Picture, avifSrcSet, fallbackSrc } from "@/components/Picture";
 import { VideoNotes, type NoteItem } from "@/components/VideoNotes";
@@ -68,7 +69,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(dealer).replace(/</g, "\\u003c") }}
       />
 
-      {/* Hero. The still stands in for the film; when the film is cut, it replaces the picture. */}
+      {/* Hero. The still shows first; on wide screens the film fades in over it once it plays. */}
       <section className="hero">
         <div className="hero__media">
           <picture>
@@ -89,6 +90,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
               decoding="async"
             />
           </picture>
+          <HeroFilm src="/media/film/night-run-wide.mp4" />
         </div>
         <div className="hero__shade" />
         <div className="hero__content">
@@ -171,10 +173,15 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             <p className="label">{dict.showroom.label}</p>
             <h2 className="title">{dict.showroom.title}</h2>
             <p className="lead">{dict.showroom.text}</p>
-            <a className="btn btn--primary" href={telegramLink(dict.showroom.message)} target="_blank" rel="noopener">
-              {dict.showroom.cta}
-              <ArrowIcon />
-            </a>
+            <div className="hero__cta">
+              <Link className="btn btn--primary" href={`${home}/garage`}>
+                {dict.garage.enter}
+                <ArrowIcon />
+              </Link>
+              <a className="btn btn--ghost" href={telegramLink(dict.showroom.message)} target="_blank" rel="noopener">
+                {dict.showroom.cta}
+              </a>
+            </div>
           </div>
           <div className="showroom__media" data-reveal style={{ "--delay": "0.15s" } as React.CSSProperties}>
             <Picture image={siteImages.showroom} alt="" sizes="(min-width: 900px) 50vw, 100vw" />

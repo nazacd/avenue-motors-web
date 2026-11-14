@@ -16,6 +16,7 @@ type HeaderProps = {
     catalog: string;
     services: string;
     showroom: string;
+    garage: string;
     contact: string;
     menu: string;
     close: string;
@@ -77,6 +78,7 @@ export function Header({ locale, labels }: HeaderProps) {
   const home = `/${locale}`;
   const links = [
     { href: `${home}/catalog`, text: labels.catalog },
+    { href: `${home}/garage`, text: labels.garage },
     { href: `${home}#showroom`, text: labels.showroom },
     { href: `${home}#services`, text: labels.services },
     { href: `${home}#contact`, text: labels.contact },
