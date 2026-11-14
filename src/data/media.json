@@ -558,15 +558,14 @@
     },
     "heroTall": {
       "base": "/media/site/hero-tall",
-      "width": 1920,
-      "height": 2560,
+      "width": 1536,
+      "height": 2752,
       "widths": [
         640,
-        1080,
-        1600
+        1080
       ],
       "fallbackWidth": 1080,
-      "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAADQBACdASoUABsAPu1wsFKppiSiqAgBMB2JYwDMHAR8jPm7EuoDMZ8QPqkLPu7kMAD2v1Zu1lf12XsNRuaSolc7crr3izLg5Es/0D+l/lMLpGFjla55gtv88AjY3/zAcaKvd/bnYvpm8u0hV1wISGYI8+71wxtEPa2Px9n9xMXhE9hUOswiilMmwqdOWJ3RxfzYrzfI6Jcx+Cmivh5onSUqYxyhAAAA"
+      "blur": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4INgAAAAQBgCdASoUACQAPu1wtFKppiUipWmZMB2JQBerBGZ8nTBwg9kCeYZsmceQ7Eb2DGO3e1O7PZogtEAA/vEfYOWos04+AwscbNtlfN5gQWmaCp0CyEdnEUNcglT0UeFFdxCaQNRXOUw8DgvR02rztAfNkUhA6bFK5csQNtX7JsK1syjIe1Dj49s98xUwbHLmXhktTSoTZubHrFtXple6/5avF43pRSAHhAXt7I18nPyhQGxF/DEbqKpfgi/W815yILs70bGL7rhXxCe5delNA5vzE+NPgg/AAAA="
     },
     "showroom": {
       "base": "/media/site/showroom",

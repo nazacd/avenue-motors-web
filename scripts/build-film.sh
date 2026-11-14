@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Cuts the chosen takes in source/film into the silent hero film for wide screens.
+# Cuts the chosen takes in source/film into the silent hero film: one cut for wide
+# screens and one for upright phones.
 # Needs ffmpeg. Run from the repository root: scripts/build-film.sh
 set -euo pipefail
 
@@ -21,4 +22,21 @@ ffmpeg -v error -y \
   -map "[film]" -an -c:v libx264 -preset slow -crf 25 -maxrate 2600k -bufsize 5200k \
   -pix_fmt yuv420p -movflags +faststart public/media/film/night-run-wide.mp4
 
-ls -la public/media/film/night-run-wide.mp4
+# The same four shots as generated upright, for phones. These are not cropped.
+upright="scale=720:1280:flags=lanczos,fps=24,format=yuv420p"
+
+ffmpeg -v error -y \
+  -i source/film/v1v-ignition.mp4 -i source/film/v4v-avenue.mp4 \
+  -i source/film/v5v-tunnel.mp4 -i source/film/v6v-pass.mp4 \
+  -filter_complex "
+    [0:v]trim=0.6:7.8,setpts=(PTS-STARTPTS)/1.25,${upright}[ignition];
+    [1:v]trim=0.5:4.5,setpts=PTS-STARTPTS,${upright}[avenue];
+    [2:v]trim=0.3:4.3,setpts=PTS-STARTPTS,${upright}[tunnel];
+    [3:v]trim=1.0:5.6,setpts=PTS-STARTPTS,${upright}[pass];
+    [ignition][avenue][tunnel][pass]concat=n=4:v=1:a=0,
+    noise=alls=4:allf=t,
+    fade=t=in:st=0:d=0.4,fade=t=out:st=17.76:d=0.6[film]" \
+  -map "[film]" -an -c:v libx264 -preset slow -crf 26 -maxrate 2000k -bufsize 4000k \
+  -pix_fmt yuv420p -movflags +faststart public/media/film/night-run-tall.mp4
+
+ls -la public/media/film/

@@ -54,4 +54,4 @@ The dealer plate and the wall sign are drawn from the logo in `src/components/ga
 
 - Set `NEXT_PUBLIC_SITE_URL` to the real address. It is used for the sitemap, canonical links and share previews.
 - The Maybach model in the garage was downloaded from Sketchfab, and its file carries the marks of a third-party download site, so its licence cannot be trusted. It is fine for a private preview; replace or license it before the site is public.
-- The hero film plays on wide screens only. Phones show a still until the vertical takes are generated; `scripts/build-film.sh` is where the vertical cut gets added.
+- The hero film is 720p, the most the trial gave, and has no sound yet. The takes in `source/film` keep their sound for a later cut.

@@ -2,35 +2,43 @@
 
 import { useState, useSyncExternalStore } from "react";
 
-// The film is cut for wide screens. Narrow and upright screens, and visitors who ask
-// for less motion, keep the still.
+// The film has two cuts: one for wide screens and one shot upright for phones. Screens
+// in between, and visitors who ask for less motion, keep the still.
 const WIDE = "(min-aspect-ratio: 3/2)";
+const UPRIGHT = "(orientation: portrait)";
 const CALM = "(prefers-reduced-motion: reduce)";
 
+type Cut = "wide" | "tall" | "none";
+
 function subscribe(onChange: () => void) {
-  const queries = [window.matchMedia(WIDE), window.matchMedia(CALM)];
+  const queries = [WIDE, UPRIGHT, CALM].map((query) => window.matchMedia(query));
   queries.forEach((query) => query.addEventListener("change", onChange));
   return () => queries.forEach((query) => query.removeEventListener("change", onChange));
 }
 
-const wanted = () => window.matchMedia(WIDE).matches && !window.matchMedia(CALM).matches;
+function cutForScreen(): Cut {
+  if (window.matchMedia(CALM).matches) return "none";
+  if (window.matchMedia(UPRIGHT).matches) return "tall";
+  return window.matchMedia(WIDE).matches ? "wide" : "none";
+}
 
-export function HeroFilm({ src }: { src: string }) {
-  const show = useSyncExternalStore(subscribe, wanted, () => false);
-  const [playing, setPlaying] = useState(false);
-  if (!show) return null;
+export function HeroFilm({ wide, tall }: { wide: string; tall: string }) {
+  const cut = useSyncExternalStore<Cut>(subscribe, cutForScreen, () => "none");
+  const [playing, setPlaying] = useState<Cut>("none");
+  if (cut === "none") return null;
 
   return (
     <video
-      className={`hero__film${playing ? " is-playing" : ""}`}
-      src={src}
+      key={cut}
+      className={`hero__film${playing === cut ? " is-playing" : ""}`}
+      src={cut === "wide" ? wide : tall}
       muted
       loop
       playsInline
       autoPlay
       preload="auto"
       aria-hidden
-      onPlaying={() => setPlaying(true)}
+      onPlaying={() => setPlaying(cut)}
     />
   );
 }
