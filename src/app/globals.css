@@ -2201,6 +2201,34 @@ ul {
     linear-gradient(180deg, rgba(5, 5, 6, 0.6) 0%, transparent 16%, transparent 62%, rgba(5, 5, 6, 0.86) 100%);
 }
 
+.garage__cars {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--header-h) + 8px);
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.garage__cars::-webkit-scrollbar {
+  display: none;
+}
+
+.garage__cars .chip {
+  background: rgba(5, 5, 6, 0.5);
+  backdrop-filter: blur(8px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+}
+
+.garage__cars .chip[aria-pressed="true"] {
+  background: var(--yellow);
+}
+
 .garage__info,
 .garage__controls,
 .garage__hint,

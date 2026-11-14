@@ -1,7 +1,7 @@
-// Turns a source car model (.obj with its .mtl beside it) into the small compressed
-// file the 3D garage loads.
+// Turns a source car model into the small compressed file the 3D garage loads. The
+// source is either a .glb, or an .obj with its .mtl beside it.
 //
-//   node scripts/build-model.mjs <source.obj> <public/models/name.glb>
+//   node scripts/build-model.mjs <source.obj|source.glb> <public/models/name.glb>
 //
 // The source is usually millions of triangles and hundreds of megabytes; the result is
 // a few megabytes. Material names are kept, because the garage decides what each part
@@ -13,15 +13,38 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { NodeIO } from "@gltf-transform/core";
 
-const [source, output] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const [source, output] = args.filter((arg) => !arg.startsWith("--"));
+const option = (name, fallback) => args.find((arg) => arg.startsWith(`--${name}=`))?.split("=")[1] ?? fallback;
 if (!source || !output) {
-  console.error("Usage: node scripts/build-model.mjs <source.obj> <output.glb>");
+  console.error("Usage: node scripts/build-model.mjs <source.obj|source.glb> <output.glb> [--ratio=0.4] [--error=0.00008] [--keep-parts] [--no-simplify]");
   process.exit(1);
+}
+
+const run = (tool, toolArgs) => execFileSync("npx", [tool, ...toolArgs], { stdio: ["ignore", "ignore", "inherit"] });
+
+// A .glb already has its materials and textures. It only needs reducing and compressing.
+// Reduce gently: glossy paint shows every dent that a heavy reduction leaves, and some
+// models (the Flying Spur) cannot be reduced at all without denting.
+//   --keep-parts   keep the model's parts separate, for a model whose parts share one material
+//   --no-simplify  compress only
+if (source.endsWith(".glb")) {
+  const simplify = !args.includes("--no-simplify");
+  run("gltf-transform", [
+    "optimize", source, output,
+    "--simplify", String(simplify),
+    "--simplify-ratio", option("ratio", "0.4"),
+    "--simplify-error", option("error", "0.00008"),
+    "--join", String(!args.includes("--keep-parts")),
+    "--flatten", "true", "--instance", "false", "--palette", "false",
+    "--compress", "meshopt", "--texture-compress", "webp", "--texture-size", "1024",
+  ]);
+  console.log(`${output}: ${(statSync(output).size / 1e6).toFixed(2)} MB`);
+  process.exit(0);
 }
 
 const work = mkdtempSync(path.join(tmpdir(), "model-"));
 const step = (name) => path.join(work, `${name}.glb`);
-const run = (tool, args) => execFileSync("npx", [tool, ...args], { stdio: ["ignore", "ignore", "inherit"] });
 
 run("obj2gltf", ["-i", source, "-o", step("raw")]);
 
