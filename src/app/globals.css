@@ -42,6 +42,11 @@ html {
   scrollbar-color: var(--steel) var(--black);
 }
 
+::selection {
+  background: var(--yellow);
+  color: var(--black);
+}
+
 body {
   margin: 0;
   font-size: 1.0625rem;
@@ -190,7 +195,13 @@ ul {
 }
 
 .section {
-  padding-block: clamp(72px, 11vw, 168px);
+  padding-block: clamp(64px, 8.5vw, 132px);
+}
+
+/* A section on a slightly lifted surface, so the page is not one unbroken black. */
+.section--panel {
+  background: linear-gradient(180deg, var(--ink) 0%, var(--black) 100%);
+  border-top: 1px solid var(--line);
 }
 
 .section__head {
@@ -915,6 +926,67 @@ ul {
   }
 }
 
+/* ───────── Numbers band ───────── */
+.numbers {
+  border-bottom: 1px solid var(--line);
+}
+
+.numbers__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-block: 0;
+}
+
+/* The label comes first in the markup and is shown under its number. */
+.number {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-block: clamp(22px, 3vw, 44px);
+}
+
+.number:nth-child(n + 3) {
+  border-top: 1px solid var(--line);
+}
+
+.number:nth-child(even) {
+  padding-left: clamp(16px, 2.4vw, 40px);
+  border-left: 1px solid var(--line);
+}
+
+.number__value {
+  margin: 0;
+  font-size: clamp(2.3rem, 5.2vw, 4.4rem);
+  font-weight: 200;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.number__label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .numbers__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .number:nth-child(n + 3) {
+    border-top: 0;
+  }
+
+  .number + .number {
+    padding-left: clamp(16px, 2.4vw, 40px);
+    border-left: 1px solid var(--line);
+  }
+}
+
 /* ───────── Featured slices ───────── */
 .slices {
   display: flex;
@@ -1125,6 +1197,7 @@ ul {
 }
 
 .service {
+  position: relative;
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 8px 16px;
@@ -1151,22 +1224,80 @@ ul {
 .service__text {
   grid-column: 2;
   max-width: 30em;
-  color: var(--muted);
+  color: rgba(242, 240, 234, 0.66);
 }
 
+/* On a wide screen the four services stand side by side as cards: a large outlined
+   number at the top, the name and a line of text at the foot. */
 @media (min-width: 900px) {
-  .service {
-    grid-template-columns: 96px minmax(0, 1fr) minmax(0, 1fr);
-    align-items: baseline;
-    padding-inline: clamp(12px, 2vw, 32px);
+  .services {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-left: 1px solid var(--line);
   }
 
+  .service {
+    display: flex;
+    flex-direction: column;
+    min-height: clamp(260px, 26vw, 380px);
+    padding: clamp(24px, 2.4vw, 40px);
+    border-right: 1px solid var(--line);
+  }
+
+  .service::before {
+    content: "";
+    position: absolute;
+    inset: -1px 0 auto;
+    height: 2px;
+    background: var(--yellow);
+    transform-origin: 0 50%;
+    scale: 0 1;
+    transition: scale 0.7s var(--ease);
+  }
+
+  .service__index {
+    padding: 0;
+    font-size: clamp(3.4rem, 5.4vw, 5.4rem);
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: 0;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 204, 0, 0.6);
+    transition:
+      color 0.5s var(--ease),
+      -webkit-text-stroke-color 0.5s var(--ease);
+  }
+
+  .service__title {
+    margin-top: auto;
+    padding-top: 28px;
+    font-size: clamp(1.35rem, 1.9vw, 1.95rem);
+  }
+
+  /* Room for three lines, so the four names line up whatever the length of the text. */
   .service__text {
-    grid-column: 3;
+    min-height: 4.65em;
+    margin-top: 12px;
+    font-size: 1rem;
   }
 
   .service:hover {
     background: var(--graphite);
+  }
+
+  .service:hover::before {
+    scale: 1 1;
+  }
+
+  .service:hover .service__index {
+    color: var(--yellow);
+    -webkit-text-stroke-color: var(--yellow);
+  }
+}
+
+@media (min-width: 1200px) {
+  .services {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1287,7 +1418,7 @@ ul {
 
 .note {
   flex: none;
-  width: clamp(112px, 12vw, 164px);
+  width: clamp(124px, 14vw, 212px);
   scroll-snap-align: start;
   text-align: center;
 }
@@ -1348,8 +1479,8 @@ ul {
 
 .note__name {
   display: block;
-  margin-top: 14px;
-  font-size: 0.82rem;
+  margin-top: 16px;
+  font-size: 0.9rem;
   line-height: 1.3;
   color: var(--muted);
   text-wrap: balance;
@@ -1463,18 +1594,16 @@ ul {
 
 /* ───────── Footer ───────── */
 .footer {
+  overflow: hidden;
   border-top: 1px solid var(--line);
-  padding-block: clamp(32px, 4vw, 56px);
-  font-size: 0.86rem;
+  padding-top: clamp(40px, 5vw, 80px);
+  font-size: 0.94rem;
   color: var(--muted);
 }
 
-.footer__row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px 40px;
+.footer__top {
+  display: grid;
+  gap: 36px;
 }
 
 .footer__brand {
@@ -1490,23 +1619,65 @@ ul {
 }
 
 .footer__brand svg {
-  width: 44px;
+  width: 48px;
   color: var(--yellow);
 }
 
-.footer__nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 28px;
+.footer__about p {
+  margin-top: 14px;
 }
 
-.footer__nav a {
+.footer__nav,
+.footer__reach {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  justify-items: start;
+}
+
+.footer__nav a,
+.footer__reach a {
   text-decoration: none;
   transition: color 0.4s var(--ease);
 }
 
-.footer__nav a:hover {
+.footer__reach a {
   color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+
+.footer__nav a:hover,
+.footer__reach a:hover {
+  color: var(--yellow);
+}
+
+.footer__word {
+  margin: clamp(28px, 4vw, 56px) 0 0;
+  font-size: 10.6vw;
+  font-weight: 600;
+  line-height: 0.8;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.14);
+  translate: 0 14%;
+  user-select: none;
+}
+
+.footer__base {
+  position: relative;
+  padding-block: 18px;
+  font-size: 0.8rem;
+  background: var(--black);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 800px) {
+  .footer__top {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
 }
 
 /* ───────── Page head (catalogue, not found) ───────── */
@@ -1686,7 +1857,15 @@ ul {
   background: radial-gradient(circle at 50% 46%, #1c1d22 0%, var(--ink) 70%);
 }
 
+.card .card__media .card__glow {
+  position: absolute;
+  inset: 0;
+  filter: blur(26px) saturate(1.25) brightness(0.42);
+  transform: scale(1.4);
+}
+
 .card__round {
+  position: relative;
   width: 68%;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -1765,9 +1944,29 @@ ul {
   font-variant-numeric: tabular-nums;
 }
 
+.card__foot {
+  position: relative;
+}
+
+/* The rule above the price fills with yellow from the left on hover. */
+.card__foot::before {
+  content: "";
+  position: absolute;
+  inset: -1px 0 auto;
+  height: 1px;
+  background: var(--yellow);
+  transform-origin: 0 50%;
+  scale: 0 1;
+  transition: scale 0.7s var(--ease);
+}
+
+.card:hover .card__foot::before {
+  scale: 1 1;
+}
+
 .card__price {
   color: var(--paper);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
 }
 
 .empty {
@@ -2141,41 +2340,25 @@ ul {
 }
 
 /* ───────── 3D garage ───────── */
+/* Laid out like the garage screen of a driving game: the car in the middle, its name
+   and price bottom left, its figures on the right, the list of cars along the bottom. */
 .garage {
+  --hud-gap: clamp(20px, 4.4vh, 44px);
   position: relative;
   height: 100svh;
-  min-height: 560px;
+  min-height: 600px;
   overflow: hidden;
-  background: var(--black);
+  background: #020203;
   isolation: isolate;
 }
 
-.garage__still,
-.garage__stage {
+.garage__stage,
+.garage__curtain {
   position: absolute;
   inset: 0;
 }
 
-.garage__still {
-  z-index: -1;
-  transition: opacity 1.2s var(--ease);
-}
-
-.garage__still picture,
-.garage__still img {
-  width: 100%;
-  height: 100%;
-}
-
-.garage__still img {
-  object-fit: cover;
-  filter: brightness(0.6);
-}
-
-/* The scene stays clear until the car is on the turntable, then takes over from the still. */
 .garage__stage {
-  opacity: 0;
-  transition: opacity 1.2s var(--ease);
   touch-action: none;
   cursor: grab;
 }
@@ -2184,118 +2367,390 @@ ul {
   cursor: grabbing;
 }
 
-.garage.is-ready .garage__stage {
-  opacity: 1;
-}
-
-.garage.is-ready .garage__still {
-  opacity: 0;
-}
-
+/* Darkens the edges of the picture so the words on top of it stay readable. */
 .garage::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(5, 5, 6, 0.6) 0%, transparent 16%, transparent 62%, rgba(5, 5, 6, 0.86) 100%);
+    linear-gradient(180deg, rgba(2, 2, 3, 0.72) 0%, transparent 18%, transparent 56%, rgba(2, 2, 3, 0.9) 100%),
+    linear-gradient(90deg, rgba(2, 2, 3, 0.5) 0%, transparent 26%, transparent 74%, rgba(2, 2, 3, 0.5) 100%);
+}
+
+/* The curtain hides the stage while a car is brought on. */
+.garage__curtain {
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  background: #020203;
+  pointer-events: none;
+  transition: opacity 0.3s linear;
+}
+
+.garage.is-ready .garage__curtain {
+  opacity: 0;
+  transition: opacity 1.1s var(--ease) 0.1s;
+}
+
+.garage__curtain-mark {
+  width: min(34vw, 190px);
+  margin-bottom: 70px;
+  color: var(--yellow);
+  opacity: 0.9;
+}
+
+.garage__progress,
+.garage__loading {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  translate: -50% 0;
+  transition: opacity 0.3s linear;
+}
+
+.garage__progress {
+  top: calc(50% + 44px);
+  width: min(52vw, 260px);
+  height: 2px;
+  background: var(--line);
+}
+
+.garage__progress span {
+  display: block;
+  height: 100%;
+  background: var(--yellow);
+  transform-origin: 0 50%;
+  transition: scale 0.4s var(--ease);
+}
+
+.garage.is-ready .garage__progress {
+  opacity: 0;
+}
+
+.garage__loading {
+  top: calc(50% + 62px);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+/* Everything on the screen around the car. It waits for the curtain to lift. */
+.garage__info,
+.garage__specs,
+.garage__rail,
+.garage__controls,
+.garage__keys {
+  position: absolute;
+  z-index: 4;
+  opacity: 0;
+  transition:
+    opacity 0.5s var(--ease),
+    translate 0.7s var(--ease);
+}
+
+.garage.is-ready :is(.garage__info, .garage__specs, .garage__rail, .garage__controls, .garage__keys) {
+  opacity: 1;
+  translate: none;
+  transition-delay: 0.5s;
+}
+
+.garage__info {
+  left: var(--gutter);
+  bottom: calc(var(--hud-gap) + 76px);
+  max-width: min(480px, 36vw);
+  translate: -18px 0;
+  pointer-events: none;
+}
+
+.garage__info .btn {
+  margin-top: 22px;
+  pointer-events: auto;
+}
+
+.garage__name {
+  margin-top: 14px;
+  font-size: clamp(1.9rem, 3.5vw, 3.3rem);
+  font-weight: 300;
+  line-height: 1.02;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.garage__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 0;
+  margin-top: 14px;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.garage__facts span + span::before {
+  content: "/";
+  margin-inline: 12px;
+  color: var(--yellow);
+}
+
+.garage__price {
+  margin-top: 12px;
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The figures panel: three numbers, each over a bar. */
+.garage__specs {
+  top: calc(var(--header-h) + 22px);
+  right: var(--gutter);
+  width: min(270px, 24vw);
+  padding: 20px 22px 16px;
+  background: linear-gradient(180deg, rgba(11, 11, 13, 0.66), rgba(11, 11, 13, 0.3));
+  backdrop-filter: blur(10px);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+  translate: 18px 0;
+}
+
+.garage__specs::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--yellow);
+}
+
+.figure {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.figure + .figure {
+  margin-top: 16px;
+}
+
+.figure dt {
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.figure dd {
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.figure dd small {
+  margin-left: 5px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.figure__bar {
+  grid-column: 1 / -1;
+  position: relative;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  transform: skewX(-22deg);
+}
+
+.figure__bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--yellow);
+  transform-origin: 0 50%;
+  scale: var(--fill) 1;
+  transition: scale 0.9s var(--ease) 0.2s;
+}
+
+.garage__factory {
+  margin-top: 14px;
+  font-size: 0.68rem;
+  color: rgba(155, 155, 163, 0.75);
+}
+
+/* The list of cars, with a step button at each end. */
+.garage__rail {
+  left: 50%;
+  bottom: calc(var(--hud-gap) + 20px);
+  display: flex;
+  align-items: stretch;
+  max-width: calc(100% - var(--gutter) * 2);
+  translate: -50% 14px;
+}
+
+.garage.is-ready .garage__rail {
+  translate: -50% 0;
 }
 
 .garage__cars {
-  position: absolute;
-  z-index: 2;
-  top: calc(var(--header-h) + 8px);
-  left: var(--gutter);
-  right: var(--gutter);
   display: flex;
-  gap: 8px;
   overflow-x: auto;
   scrollbar-width: none;
+  border-block: 1px solid var(--line);
+  background: rgba(5, 5, 6, 0.45);
+  backdrop-filter: blur(10px);
 }
 
 .garage__cars::-webkit-scrollbar {
   display: none;
 }
 
-.garage__cars .chip {
-  background: rgba(5, 5, 6, 0.5);
-  backdrop-filter: blur(8px);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.72rem;
-}
-
-.garage__cars .chip[aria-pressed="true"] {
-  background: var(--yellow);
-}
-
-.garage__info,
-.garage__controls,
-.garage__hint,
-.garage__loading {
-  position: absolute;
-  z-index: 2;
-}
-
-.garage__loading {
-  inset: 50% 0 auto;
-  text-align: center;
-  font-size: 0.72rem;
+.garage__car {
+  position: relative;
+  flex: none;
+  display: grid;
+  gap: 5px;
+  min-width: 132px;
+  min-height: 56px;
+  padding: 10px 20px 11px;
+  text-align: left;
+  font-size: 0.76rem;
   font-weight: 500;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--muted);
+  transition:
+    color 0.3s var(--ease),
+    background-color 0.3s var(--ease);
 }
 
-.garage__info {
-  left: var(--gutter);
-  bottom: clamp(24px, 5vh, 48px);
-  max-width: min(520px, calc(100% - var(--gutter) * 2));
-  pointer-events: none;
+.garage__car + .garage__car {
+  border-left: 1px solid var(--line);
 }
 
-.garage__info .btn {
-  margin-top: 20px;
-  pointer-events: auto;
+.garage__car span {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: rgba(155, 155, 163, 0.6);
 }
 
-.garage__name {
-  margin-top: 14px;
-  font-size: clamp(1.7rem, 3.4vw, 3rem);
-  font-weight: 300;
-  line-height: 1.05;
-  text-transform: uppercase;
+.garage__car::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  background: var(--yellow);
+  scale: 0 1;
+  transition: scale 0.4s var(--ease);
 }
 
-.garage__price {
-  margin-top: 8px;
-  font-size: 1.15rem;
-  color: var(--muted);
+.garage__car:hover {
+  color: var(--paper);
 }
 
+.garage__car[aria-pressed="true"] {
+  color: var(--paper);
+  background: rgba(255, 204, 0, 0.08);
+}
+
+.garage__car[aria-pressed="true"] span {
+  color: var(--yellow);
+}
+
+.garage__car[aria-pressed="true"]::after {
+  scale: 1 1;
+}
+
+.garage__step {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  color: var(--paper);
+  border: 1px solid var(--line);
+  background: rgba(5, 5, 6, 0.45);
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 0.3s var(--ease),
+    color 0.3s var(--ease);
+}
+
+.garage__step:first-child svg {
+  rotate: 180deg;
+}
+
+.garage__step:hover {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+/* Camera, colour and lamps. */
 .garage__controls {
   right: var(--gutter);
-  bottom: clamp(24px, 5vh, 48px);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 14px 20px;
-  max-width: 420px;
+  bottom: calc(var(--hud-gap) + 76px);
+  display: grid;
+  justify-items: end;
+  gap: 16px;
+  max-width: min(360px, 30vw);
+  translate: 18px 0;
 }
 
 .garage__group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  justify-content: flex-end;
+  gap: 10px 14px;
 }
 
 .garage__caption {
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+.garage__views {
+  display: flex;
+  border: 1px solid var(--line);
+  background: rgba(5, 5, 6, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.garage__view {
+  min-height: 34px;
+  padding: 0 12px;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition:
+    color 0.3s var(--ease),
+    background-color 0.3s var(--ease);
+}
+
+.garage__view + .garage__view {
+  border-left: 1px solid var(--line);
+}
+
+.garage__view:hover {
+  color: var(--paper);
+}
+
+.garage__view[aria-pressed="true"] {
+  background: var(--yellow);
+  color: var(--black);
 }
 
 .swatches {
@@ -2304,16 +2759,16 @@ ul {
 }
 
 .swatch {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--swatch);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
   transition: transform 0.3s var(--ease);
 }
 
 .swatch:hover {
-  transform: scale(1.12);
+  transform: scale(1.14);
 }
 
 .swatch[aria-pressed="true"] {
@@ -2321,42 +2776,255 @@ ul {
   outline-offset: 3px;
 }
 
+.garage__lamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  margin-left: 6px;
+  padding: 0 12px;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  background: rgba(5, 5, 6, 0.45);
+  backdrop-filter: blur(10px);
+  transition: color 0.3s var(--ease);
+}
+
+.garage__lamp span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  transition:
+    background-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.garage__lamp[aria-pressed="true"] {
+  color: var(--paper);
+}
+
+.garage__lamp[aria-pressed="true"] span {
+  background: var(--yellow);
+  box-shadow: 0 0 10px 2px rgba(255, 204, 0, 0.6);
+}
+
 .garage__note {
-  flex-basis: 100%;
+  max-width: 300px;
   text-align: right;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--muted);
 }
 
-.garage__hint {
-  bottom: 14px;
+/* Which keys do what. Only shown where there is a keyboard. */
+.garage__keys {
   left: 0;
   right: 0;
-  text-align: center;
-  font-size: 0.68rem;
+  bottom: calc(var(--hud-gap) - 10px);
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  font-size: 0.62rem;
   font-weight: 500;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(155, 155, 163, 0.75);
   pointer-events: none;
 }
 
-@media (max-width: 760px) {
+.garage__keys span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.garage__keys kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  font: inherit;
+  letter-spacing: 0;
+  color: var(--paper);
+  border: 1px solid var(--line-strong);
+}
+
+@media (pointer: coarse) {
+  .garage__keys span:not(.garage__drag) {
+    display: none;
+  }
+}
+
+/* Narrower screens: the rail no longer fits between the two bottom corners, so the
+   figures move down to sit above the controls and the rail keeps the bottom edge. */
+@media (max-width: 1180px) {
   .garage__info {
-    bottom: 128px;
+    max-width: min(440px, 46vw);
   }
 
+  .garage__controls {
+    max-width: 46vw;
+  }
+
+  .garage__group--views {
+    display: none;
+  }
+}
+
+/* Phones: one column. The rail runs under the header, the figures become a row. */
+@media (max-width: 760px) {
+  .garage {
+    --hud-gap: 16px;
+    min-height: 620px;
+  }
+
+  .garage__rail {
+    top: calc(var(--header-h) + 6px);
+    bottom: auto;
+    left: 0;
+    right: 0;
+    max-width: none;
+    translate: 0 -10px;
+  }
+
+  .garage.is-ready .garage__rail {
+    translate: none;
+  }
+
+  .garage__step {
+    display: none;
+  }
+
+  .garage__cars {
+    flex: 1;
+    padding-inline: var(--gutter);
+    border-top: 0;
+    background: none;
+    backdrop-filter: none;
+  }
+
+  .garage__car {
+    min-width: 0;
+    min-height: 48px;
+    padding: 8px 14px 10px;
+  }
+
+  .garage__info {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: calc(var(--hud-gap) + 150px);
+    max-width: none;
+  }
+
+  /* The button shrinks to sit on the price line. */
   .garage__info .btn {
+    position: absolute;
+    right: 0;
+    bottom: -6px;
+    min-height: 38px;
+    margin: 0;
+    padding: 0 30px 0 14px;
+    font-size: 0.62rem;
+  }
+
+  .garage__name {
+    font-size: clamp(1.5rem, 7.4vw, 2rem);
+  }
+
+  .garage__facts {
+    margin-top: 10px;
+    font-size: 0.66rem;
+  }
+
+  .garage__price {
+    margin-top: 8px;
+    font-size: 1.15rem;
+  }
+
+  .garage__specs {
+    top: auto;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: calc(var(--hud-gap) + 62px);
+    width: auto;
+    padding: 12px 0 0;
+    background: none;
+    backdrop-filter: none;
+    clip-path: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .garage__specs::before {
+    top: -1px;
+  }
+
+  .garage__specs dl {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .figure {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .figure + .figure {
+    margin-top: 0;
+  }
+
+  .figure dt {
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+  }
+
+  .figure dd {
+    font-size: 1.2rem;
+  }
+
+  .garage__factory {
     display: none;
   }
 
   .garage__controls {
     left: var(--gutter);
-    justify-content: flex-start;
+    right: var(--gutter);
+    bottom: calc(var(--hud-gap) + 6px);
     max-width: none;
+    justify-items: start;
+    gap: 6px;
+  }
+
+  .garage__group {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .garage__caption {
+    display: none;
+  }
+
+  .garage__lamp {
+    margin-left: auto;
   }
 
   .garage__note {
+    position: absolute;
+    bottom: calc(100% + 222px);
+    left: 0;
+    max-width: none;
     text-align: left;
+    font-size: 0.7rem;
+  }
+
+  .garage__keys {
+    display: none;
   }
 }

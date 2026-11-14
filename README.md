@@ -24,7 +24,7 @@ Then open http://localhost:3000. For a production build, run `npm run build` and
 | `src/app/globals.css` | The design system: colours, type, components. |
 | `scripts/build-media.mjs` | Turns the raw export in `source/` into web-ready photos and clips in `public/media`. |
 | `scripts/build-model.mjs` | Turns a source car model into the small file the 3D garage loads. |
-| `src/data/garage.ts` | Which cars stand in the 3D garage, and the paint colours on offer. |
+| `src/data/garage.ts` | Which cars stand in the 3D garage, their factory figures, the camera views and the paint colours on offer. |
 | `source/` | The raw Telegram export (photos and round video notes), source stills and source 3D models. |
 | `brand/` | The logo mark as a vector, and raster copies. |
 | `production/` | The brief and reference list for generating the hero film. |
@@ -46,7 +46,7 @@ npm run model -- path/to/model.obj public/models/name.glb
 ```
 
 2. Add the car to `src/data/garage.ts`.
-3. Tell the garage what each part of the model is. The script prints the model's material names; `PARTS` in `src/components/garage/GarageScene.tsx` sorts them into paint, glass, chrome, lamps and plates. Every model names its materials differently, so each new one needs its own list.
+3. Tell the garage what each part of the model is. Every model is built differently, so each has its own "recipe" function in `src/components/garage/GarageScene.tsx` that sorts its parts into paint, glass, chrome, lamps and plates. Add the car's factory figures (power, 0–100 km/h, top speed) to its entry in `src/data/garage.ts`; the garage shows them beside the car.
 
 The dealer plate and the wall sign are drawn from the logo in `src/components/garage/plate.ts`.
 
