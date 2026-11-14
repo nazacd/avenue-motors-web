@@ -40,7 +40,9 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
 
 // Runs before the first paint. It marks that scripts work, which lets sections start
 // hidden and fade in, and it skips the opening animation after the first page of a visit.
-const bootScript = `(function(){var d=document.documentElement;d.classList.add("js");try{if(sessionStorage.getItem("am-intro")){d.classList.add("intro-done")}else{sessionStorage.setItem("am-intro","1")}}catch(e){}})()`;
+// If the page's own scripts have not started seven seconds later (blocked, or a very slow
+// connection), it takes the mark back, so the sections show instead of staying hidden.
+const bootScript = `(function(){var d=document.documentElement;d.classList.add("js");try{if(sessionStorage.getItem("am-intro")){d.classList.add("intro-done")}else{sessionStorage.setItem("am-intro","1")}}catch(e){}setTimeout(function(){if(!window.__amReady){d.classList.remove("js")}},7000)})()`;
 
 export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
   const { lang } = await params;
