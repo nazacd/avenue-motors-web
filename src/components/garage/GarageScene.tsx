@@ -492,7 +492,9 @@ function Car({ car, paint, lights, onReady, shadows }: SceneProps & { shadows: b
     onReady();
   }, [onReady, holder]);
 
-  return <primitive object={holder} />;
+  // "visible" is stated on purpose. While the next car loads, React hides the one on
+  // show and then removes it still hidden; without this it would come back unseen.
+  return <primitive object={holder} visible />;
 }
 
 // ───────── The room ─────────
@@ -542,7 +544,6 @@ function Turntable({ view, children }: { view: GarageView; children: React.React
       {/* Starts three-quarter on, nose toward the visitor. */}
       <group ref={group} position={[0, 0.12, 0]} rotation={[0, Math.PI / 2 - 0.6, 0]}>
         {children}
-        <ContactShadows position={[0, 0.004, 0]} scale={9} far={1.6} blur={2.6} opacity={0.85} resolution={512} frames={1} />
       </group>
     </>
   );
@@ -844,6 +845,8 @@ export default function GarageScene(props: SceneProps) {
         <Turntable view={props.view}>
           <Suspense fallback={null}>
             <Car key={props.car.model} {...props} shadows={!coarse} />
+            {/* The soft shadow under the car is drawn once, so each car needs its own. */}
+            <ContactShadows key={`shadow ${props.car.model}`} position={[0, 0.004, 0]} scale={9} far={1.6} blur={2.6} opacity={0.85} resolution={512} frames={1} />
           </Suspense>
         </Turntable>
         <CameraRig view={props.view} token={props.car.model} upright={upright} />
