@@ -22,6 +22,8 @@ export function SiteEffects() {
   // the start-up script put on <html>. They go back before the next paint, and the
   // opening animation is marked as already seen so that it does not replay.
   useLayoutEffect(() => {
+    // Tells the start-up script that the page's scripts are running.
+    (window as Window & { __amReady?: boolean }).__amReady = true;
     const root = document.documentElement;
     if (root.classList.contains("js")) return;
     root.classList.add("js", "intro-done");
