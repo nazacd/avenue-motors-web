@@ -139,7 +139,8 @@ if (doSite) {
     }),
     // The same key frame as generated upright, for phones.
     heroTall: await writeImage(path.join(root, "source/stills/k1v-ignition.jpg"), siteDir, "hero-tall"),
-    showroom: await writeImage(sourcePhoto(11), siteDir, "showroom"),
+    // Generated from the showroom's photos of its own M4 CS, in the look of the 3D garage.
+    showroom: await writeImage(path.join(root, "source/stills/s1-showroom-m4.jpg"), siteDir, "showroom"),
     // The empty stage, shown while the 3D garage loads and where it cannot run.
     garage: await writeImage(path.join(root, "source/stills/k0-empty-stage.jpg"), siteDir, "garage"),
   };
