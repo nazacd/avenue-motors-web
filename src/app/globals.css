@@ -460,13 +460,14 @@ ul {
   width: 100%;
 }
 
+/* Open, the two lines meet in the middle and cross at right angles. */
 .header__menu[aria-expanded="true"] .header__burger::before {
-  transform: translateY(4.25px) rotate(22deg);
+  transform: translateY(4.25px) rotate(45deg) scaleX(0.8);
 }
 
 .header__menu[aria-expanded="true"] .header__burger::after {
   width: 100%;
-  transform: translateY(-4.25px) rotate(-22deg);
+  transform: translateY(-4.25px) rotate(-45deg) scaleX(0.8);
 }
 
 .header__menu-text {
@@ -1660,8 +1661,12 @@ ul {
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
+  /* Filled and fading out toward the foot. An outline would also trace the places
+     where the shapes inside each letter overlap. */
   color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.02) 78%);
+  -webkit-background-clip: text;
+  background-clip: text;
   translate: 0 14%;
   user-select: none;
 }
