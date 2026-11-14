@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import "@fontsource-variable/jost/wght.css";
 import "../globals.css";
+import { BootScript } from "@/components/BootScript";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Mark } from "@/components/Mark";
@@ -49,7 +50,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   return (
     <html lang={lang} suppressHydrationWarning>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
+        <BootScript code={bootScript} />
         <a className="skip" href="#content">
           {dict.nav.skip}
         </a>
