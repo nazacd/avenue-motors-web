@@ -90,7 +90,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
               decoding="async"
             />
           </picture>
-          <HeroFilm src="/media/film/night-run-wide.mp4" />
+          <HeroFilm wide="/media/film/night-run-wide.mp4" tall="/media/film/night-run-tall.mp4" />
         </div>
         <div className="hero__shade" />
         <div className="hero__content">

@@ -726,12 +726,39 @@ ul {
   }
 }
 
-/* Upright screens get the real showroom photo, which needs a little grading to sit with
-   the rest of the page. */
+/* Upright screens get the key frame and the film as shot upright. They fill the screen:
+   the sign sits in the upper third, the car in the middle, and the headline stands on
+   the dark floor below. */
 @media (orientation: portrait) {
   .hero__media img {
-    object-position: 88% 0;
-    filter: brightness(0.92) contrast(1.06) saturate(0.95);
+    height: 100%;
+    object-position: 50% 50%;
+    transform-origin: 50% 40%;
+  }
+
+  .hero__media .hero__film {
+    object-position: 50% 50%;
+  }
+
+  .hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(5, 5, 6, 0.75) 0%,
+      rgba(5, 5, 6, 0.05) 14%,
+      transparent 50%,
+      rgba(5, 5, 6, 0.78) 72%,
+      var(--black) 100%
+    );
+  }
+
+  /* Less text, so the car stays in view. Telegram is one tap away in the header. */
+  .hero .lead,
+  .hero__cta .btn--ghost {
+    display: none;
+  }
+
+  .hero__content {
+    padding-bottom: 76px;
   }
 }
 
