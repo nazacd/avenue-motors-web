@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { Locale } from "@/i18n/config";
+import { groupDigits } from "@/i18n/format";
 
 // A number that counts up from zero the first time it scrolls into view. The server
 // sends the finished number, so it reads correctly without scripts.
-export function CountUp({ value, locale, suffix = "" }: { value: number; locale: string; suffix?: string }) {
+export function CountUp({ value, locale, suffix = "" }: { value: number; locale: Locale; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [shown, setShown] = useState(value);
 
@@ -36,7 +38,7 @@ export function CountUp({ value, locale, suffix = "" }: { value: number; locale:
 
   return (
     <span ref={ref}>
-      {new Intl.NumberFormat(locale).format(shown)}
+      {groupDigits(shown, locale)}
       {suffix}
     </span>
   );
