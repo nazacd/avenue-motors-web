@@ -743,6 +743,54 @@
       ],
       "fallbackWidth": 1080,
       "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JQBfJA2jjs6dJrfQgAAD+8qvPzhbMWNjW4WsBP48o8JH+S2FR5OtVZ5Jxfu7tBVhzKUtMFgqOm/Lq8yxz5a7aJwyKTIUFejhRwhZwQAA="
+    },
+    "orderWide": {
+      "base": "/media/site/order-wide",
+      "width": 2752,
+      "height": 1536,
+      "widths": [
+        640,
+        1080,
+        1600,
+        2000
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAABQBACdASoUAAsAPu1iqk2ppaQiMAgBMB2JaACdMoADSzCF9FSU4L/R6d4AAP7wyOtA8+PbINvcLevbUu9CYDErGvQ0LUbLLEzqiCiJ/72+0fefKpMw8z3Dn4f7FXxMIRMMRfOfT1j3xQffT1W6s/mWu9qf9zPj0vAwQcKhjjwX2lwAAAA="
+    },
+    "orderTall": {
+      "base": "/media/site/order-tall",
+      "width": 1536,
+      "height": 2752,
+      "widths": [
+        640,
+        1080
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAABQBgCdASoUACQAPu1qr1IppaQiqrgIATAdiWQAuzMAAYBzWodzlERJMwf8ReGy4WQklMI5FQ5zhUgpcAD++l6+UlXXZV55aOSemrt0Ldt1//9MmHFsHWhIyY8a1J3AMANtR3OUyzWJcNgE5GbV4mebSR3ce0umGAuVsUltn+iqcjHsXokIRDTLjXjzeEZddoNyCIGiytGXaA66VxdC2vsBQzrzawFiTmO/WTc+CDPjX2XHRaBQnPw/fJEdhaLQrWzbPlFTFg/44/a3VXoOFhC9UDeH/4pG+kWrMwqAAAA="
+    },
+    "tradeWide": {
+      "base": "/media/site/trade-wide",
+      "width": 2752,
+      "height": 1536,
+      "widths": [
+        640,
+        1080,
+        1600,
+        2000
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADQAwCdASoUAAsALrV2u12jqampiYC0SxgGN6xaXhAsq3fjZ6alBYAA/vhTqY6SfMTXLiMjYoPp6rzAwrCaku0h0HiVpbEosO8v7gGwa5MRXQVZgYOsGEiZBh0L8q2kHs4AAA=="
+    },
+    "tradeTall": {
+      "base": "/media/site/trade-tall",
+      "width": 1536,
+      "height": 2752,
+      "widths": [
+        640,
+        1080
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAAAwBQCdASoUACQAPu1qrVCppaQjpWzJMB2JYwDKADnfuu/HrRt4W0NRfE1iKeCeJRLUAAD++QtqVcAbOhiMOK/poBX/xCCw4fcWPFKqIMbRx+6k7DRuachrTHrr6uCnxC6sHfJmg90ZJ3zBf+YIwg5A/91k9NGsFbhJSQWFaWx87pBJaDLsx4T8TvFlF9NNmxeMGPv7v9POf8qfBDhBEHNIADO5D6guhOXxgAAA"
     }
   }
 }

@@ -195,6 +195,12 @@ if (doSite) {
     showroom: await writeImage(path.join(root, "source/stills/s1-showroom-m4.jpg"), siteDir, "showroom"),
     // The empty stage, shown while the 3D garage loads and where it cannot run.
     garage: await writeImage(path.join(root, "source/stills/k0-empty-stage.jpg"), siteDir, "garage"),
+    // Backdrops for two of the services. Each was composed with empty space for the
+    // words: on the left in the wide picture, at the top in the upright one.
+    orderWide: await writeImage(path.join(root, "source/stills/x2-on-order.jpg"), siteDir, "order-wide"),
+    orderTall: await writeImage(path.join(root, "source/stills/x2v-on-order.jpg"), siteDir, "order-tall"),
+    tradeWide: await writeImage(path.join(root, "source/stills/x3-trade-in.jpg"), siteDir, "trade-wide"),
+    tradeTall: await writeImage(path.join(root, "source/stills/x3v-trade-in.jpg"), siteDir, "trade-tall"),
   };
 }
 

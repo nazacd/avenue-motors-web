@@ -22,6 +22,12 @@ export async function generateMetadata({ params }: PageProps<"/[lang]">): Promis
   };
 }
 
+// The first two services, import to order and trade-in, each stand on a picture.
+const serviceArt: ({ wide: typeof siteImages.orderWide; tall: typeof siteImages.orderTall } | undefined)[] = [
+  { wide: siteImages.orderWide, tall: siteImages.orderTall },
+  { wide: siteImages.tradeWide, tall: siteImages.tradeTall },
+];
+
 // Names for the marquee. The two Mercedes sub-brands read better spelled out than the
 // parent company name does.
 const marqueeNames = makes.flatMap((make) => (make === "Mercedes-Benz" ? ["Mercedes-Maybach", "Mercedes-AMG"] : [make]));
@@ -219,13 +225,24 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             </div>
           </div>
           <ol className="services">
-            {dict.services.items.map((item, index) => (
-              <li key={item.title} className="service" data-reveal>
-                <span className="service__index">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="service__title">{item.title}</h3>
-                <p className="service__text">{item.text}</p>
-              </li>
-            ))}
+            {dict.services.items.map((item, index) => {
+              const art = serviceArt[index];
+              return (
+                <li key={item.title} className={art ? "service service--feature" : "service"} data-reveal>
+                  {art && (
+                    <picture className="service__art">
+                      <source media="(max-width: 899px)" type="image/avif" srcSet={avifSrcSet(art.tall)} sizes="100vw" />
+                      <source media="(max-width: 899px)" srcSet={fallbackSrc(art.tall)} />
+                      <source type="image/avif" srcSet={avifSrcSet(art.wide)} sizes="(min-width: 1200px) 50vw, 100vw" />
+                      <img src={fallbackSrc(art.wide)} alt="" width={art.wide.width} height={art.wide.height} loading="lazy" decoding="async" />
+                    </picture>
+                  )}
+                  <span className="service__index">{String(index + 1).padStart(2, "0")}</span>
+                  <h3 className="service__title">{item.title}</h3>
+                  <p className="service__text">{item.text}</p>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </section>
