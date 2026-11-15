@@ -20,5 +20,10 @@ The takes chosen for the hero film, as generated (720p, with their own sound). `
 | `v7v-return.mp4` | V7 upright, take a | `83eb3ba3-d6b9-431b-b811-6d12af3a2523` |
 | `xv1-reveal.mp4` | XV1, take b: the cover comes off the G 63 | `6c12aded-f445-4e29-99fe-60526eec4370` |
 
+`v1v-ignition-glitch.mp4` is made from `v1v-ignition.mp4` by `scripts/build-ignition.mjs`.
+In the wide take the headlamps flash on, go dark and come on again, as when an engine
+catches; the upright take only faded them up, so the same stutter is added from its own
+frames. The phone film is cut from this version.
+
 `xv1-reveal.mp4` is not part of the hero film. The home page moves through it as the
 visitor scrolls. Take a was left out: its headlights show through the cover.
