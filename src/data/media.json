@@ -72,6 +72,18 @@
           ],
           "fallbackWidth": 1080,
           "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAAAwBQCdASoUABkAPu1srVCppaQiqAqpMB2JYgDImBI9ptmvOI/QfKgTaCMi3/guSzM4cAD+8zT0q8bdU1sFVYaeUWm9xFMmL0r/G45RlXRYyO5Iyedz4LvPru/d2UlXf1eBjF/juEBb02IkBjNRySWbqV9KycDa1jqfwehaVUUEyuwvDO2TeRwv4kfhs2SQ8Sb3r1ph/o2H94CE9xwMLGTQR+f2+nIjlPHCyxP69DoBAusQAAA="
+        },
+        {
+          "base": "/media/cars/bmw-m4-cs-2024/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAABQBQCdASoUABkAPu1ur1IppiQiqAgBMB2JZQDNhA9rqcQfmTbB+uNxmUrJN+FNFHSwwEAA/tJpeEwtemn8XKOpMjkSWU+LbNUWCLUWm4j1Fn2ZEdax7G1BvElKYHY8fR+Gzh/VIk/ZaG8jMPEA2w3X8VwjuzRAbLbpwBiwU/XvDqbwP/qAvuomjGB/U+KdRnVqnyKoVAW7tnLxu1cLXwpXARwKbvILMwGenxGkIAD/drYBAMB7rO8M8fftuOrES7EfSu8KhAAAAA=="
         }
       ]
     },
@@ -101,6 +113,18 @@
           ],
           "fallbackWidth": 1080,
           "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAADwBACdASoUABkAPu1qqk8ppiOiMBgIATAdiWUAw6wQ8N4LSMCgVt4FybqCZIoktHAA/vQpt4tulHg58RNJnu+ediGmCEnnT7NtWheVaBb3O/+vRIzsqvw/EbCJtZRYNaeI1MalqjsXLdhhipt6hrZ5foiGeLhmxRhV0XBkzjljAPLsAAA="
+        },
+        {
+          "base": "/media/cars/genesis-gv80-2026/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAADwBACdASoUABkAPu1srFEppiQiqAqpMB2JZQDMWBDRIDT/yEdsLXmdxbgCtInHFnAA/vEYuaOddTFG+SLEQN3QOQzQG3ZBX8LdZShFopFeXVkIgL26650C8GWX02uJUEzBghEG33aPXK4CnuJAx1bf1YrytFdeeDObWRPTQsyb0XjOr5Fwk2jErl0qLsyfdlN5OOQIOQ6RxEaNE4Gyzu0/r+Qst7KCl+g7SyzQAAA="
         }
       ],
       "note": {
@@ -283,6 +307,18 @@
       },
       "studio": [
         {
+          "base": "/media/cars/bmw-m2/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAQBQCdASoUABkAPu1irVAppSQisBgIATAdiWMAAC94kN2tOHnsreWuvi5kVQ/CoUhgAP7ypUVI+p6p05G2VdVpIjlaussbeefgrIDjOZIjsEV91EoSO5pp7HJ0h/Vj+HuBqktlljlfIzEk4ZeLMepf/tBk9exBV44jHg5DwOxf2VMUEvL1agAA"
+        },
+        {
           "base": "/media/cars/bmw-m2/studio-d",
           "width": 1856,
           "height": 2304,
@@ -339,6 +375,18 @@
           ],
           "fallbackWidth": 1080,
           "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAAAQBQCdASoUABkAPu1qrVCppaQiqAqpMB2JYwDDcBEdGo1Ofx2wE5lpzNegzsxiBvogAP70IvIC7gpJnej0GtgocvtNYVTeDlwHp4UGpy5gfK+V9D/6IJ8E8pEOVCozFaGrgA43gPZ78hIOe7ywtutdHJtQezzvuMkP+UrkYmOrCLAap835GINsyINBFwGJ8qymsgj8LtQyMs+p6WCdmo0KUgAAAA=="
+        },
+        {
+          "base": "/media/cars/range-rover/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAAAQBQCdASoUABkAPu1srFEppaQiqAqpMB2JQBdgAe7TOwas0J9gLRLMLpsz7O0DMMk4AP7ytLND3JLexKmjtFR2b9LbQsG9Zjy9j+zKQBvfsj7USO93fTTJpYPJsZ6PV1y1UjnsowWXMEG3ajG8osh4EN865z29ZW8TifSK3nDu0vf2WSZDtjh+7d14edrjhCIYEW69qQAAAA=="
         }
       ],
       "note": {
@@ -589,6 +637,32 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAADQBACdASoUABkAPu1qr1AppaSiqAqpMB2JZwAAMWUORAH4Oww+c8mNZlq2SKWMIAD+8aDNHogLkNq1aQKwA8jAFuT2TJ4Qgai+qV8TqYh8zum0DO2W6rLubH6SrXAo/zF6hU6GxWwj3pZ7g+ZbFTCkuI0vUTWX0xjflE/y6C7Gb55SJEgEVz0/JNmkeiBkLF/lKSe6JCAAAA=="
       },
+      "studio": [
+        {
+          "base": "/media/cars/cadillac-escalade-2023/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4IMYAAADwBACdASoUABkAPu1srVCppaQiqAqpMB2JQBdgAej0YmCirTlDcYNpFgVEoaYuffoA/uzx/RBfYO+4o5C8LN1CMUwpkCClre20dY4U9W38ZjBQ57rxdWJFOEupY1UtqS8v7DTT+3fyLld1M9Di6Kep+1ggDHkGNM+Ecip7ttHxQXyBOOUeAOKtk0f732INlnc/htLb0hZj77EqeHVqGJl/sMcurLjXYOY0rusWHRuElR2nNs/p1R1wHhXkXhrv0cgieT3LsAA="
+        },
+        {
+          "base": "/media/cars/cadillac-escalade-2023/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAADwBACdASoUABkAPu1urFEppqQiqAqpMB2JZwAALoL5suJ46xU9k0FPRlYlXRSCkgAA/vEa/i0/BGhDrctRAvda9dGbhdV2lx1ChElDh3WJWLJKcQ595lTT0zzowuR3heS8val7P61QDJiOa66CPicUeVqZIUh9+LN3VDP2Nm8xgznsl+yVWqdyYyTR51f7TE8tfeGmZrM9Yy8AAAA="
+        }
+      ],
       "note": {
         "video": "/media/notes/cadillac-escalade-2023.mp4",
         "poster": "/media/notes/cadillac-escalade-2023.jpg",
@@ -804,6 +878,20 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAAAQBQCdASoUABkAPu1sq1EppaOiqAqpMB2JZQDN/A9n0uIWk4Btg4oq5ulWhE4kgIzAAP7xcMg2toYlua6rkzjQ3S0aAf1C0OkFyk97eJ1FvT+sTw5PViCNmL4uC800pCwm9x7qXqEXD4ov5Y1ZQCuwJDfWM68htdkrAQ2wQGtxlcPHMXG2aEenoIz+eBZ8baICNDzh0U6/gAAA"
       },
+      "studio": [
+        {
+          "base": "/media/cars/range-rover-p530-lwb-2026/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADwBACdASoUABkAPu1ur1IppiQiqAgBMB2JZQDM0A9o3riOzEVJN2KVRWNcs+8sGAAA/vFwyDa2hiW5rqsImd60vU4sSkemHRpxpbqjKMMYFex92PnxHad8/BmR+SGQsHLdSxoP4S1IsfGxTXeBePxU19WNF7L7g0NMMX4uI1vTCX4NovDNOvprExj8g7OAAAA="
+        }
+      ],
       "note": {
         "video": "/media/notes/range-rover-p530-lwb-2026.mp4",
         "poster": "/media/notes/range-rover-p530-lwb-2026.jpg",
@@ -873,6 +961,18 @@
           ],
           "fallbackWidth": 1080,
           "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABQBQCdASoUABkAPu1mqk+ppSOiMBgIATAdiWUAyJgQ7uRJ8GgY3A1HF6jNLtBuSpaVCeAA/vK5mlwMm2kATqq0Ku1S4KIkK5VRB3YKcw1Smk/uDR8wv6c/rUupRf1PHjbpznFl4232V4Hhy3F31902ousYgKiDd0cwjNf8tbnSCvm7BURPx8RQjgkAAA=="
+        },
+        {
+          "base": "/media/cars/mercedes-amg-g63/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAAAQBQCdASoUABkAPu1wsFIppiSiqAgBMB2JZwAALcyLeOoA0fkxKxPblh60TL590EgAAP7sWucVEfV2/UoB/QmcVN4JzVgjF8Gg5NjRvTTHxlEJkK+KvbOx6f0YiGoBJuFUlZ8iG6cx+C5/Rz89ecncuz18tsLZ0jsA2LNlC+j8BRUDV3dyYMuL4EmG16BN39BQ4ICPJ8n7YRfVfE3Tr7FhWAA="
         }
       ],
       "note": {

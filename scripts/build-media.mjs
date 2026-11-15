@@ -6,7 +6,7 @@
 // that part.
 
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -42,7 +42,9 @@ function sourcePhoto(n) {
 }
 
 // Writes the responsive set for one image and returns what the page needs to render it.
-async function writeImage(input, dir, base, { crop } = {}) {
+// With `keep`, files that are already there and newer than their source are left alone,
+// which saves most of the time when only a few pictures were added.
+async function writeImage(input, dir, base, { crop, keep } = {}) {
   mkdirSync(dir, { recursive: true });
   let pipeline = sharp(input).rotate();
   if (crop) pipeline = pipeline.extract(crop);
@@ -51,17 +53,24 @@ async function writeImage(input, dir, base, { crop } = {}) {
   const widths = WIDTHS.filter((w) => w <= width);
   if (widths.length === 0) widths.push(width);
 
-  for (const w of widths) {
+  const outputs = [...widths.map((w) => `${base}-${w}.avif`), `${base}-${Math.min(FALLBACK_WIDTH, width)}.jpg`].map((name) =>
+    path.join(dir, name),
+  );
+  const fresh = keep && outputs.every((file) => existsSync(file) && statSync(file).mtimeMs >= statSync(input).mtimeMs);
+
+  for (const w of fresh ? [] : widths) {
     await sharp(master.data)
       .resize({ width: w })
       .avif({ quality: 55, effort: 5 })
       .toFile(path.join(dir, `${base}-${w}.avif`));
   }
   const fallbackWidth = Math.min(FALLBACK_WIDTH, width);
-  await sharp(master.data)
-    .resize({ width: fallbackWidth })
-    .jpeg({ quality: 78, mozjpeg: true })
-    .toFile(path.join(dir, `${base}-${fallbackWidth}.jpg`));
+  if (!fresh) {
+    await sharp(master.data)
+      .resize({ width: fallbackWidth })
+      .jpeg({ quality: 78, mozjpeg: true })
+      .toFile(path.join(dir, `${base}-${fallbackWidth}.jpg`));
+  }
 
   const blur = await sharp(master.data).resize({ width: 20 }).webp({ quality: 40 }).toBuffer();
   const rel = path.relative(path.join(root, "public"), dir).split(path.sep).join("/");
@@ -131,7 +140,7 @@ for (const car of inventory) {
 
   if (doCovers) {
     const cover = path.join(coversDir, `${car.slug}.jpg`);
-    if (existsSync(cover)) entry.cover = await writeImage(cover, dir, "cover");
+    if (existsSync(cover)) entry.cover = await writeImage(cover, dir, "cover", { keep: true });
     else delete entry.cover;
   }
   if (!entry.cover) delete entry.cover;
@@ -141,7 +150,7 @@ for (const car of inventory) {
     entry.studio = [];
     for (const view of ["b", "s", "d"]) {
       const file = path.join(coversDir, `${car.slug}.${view}.jpg`);
-      if (existsSync(file)) entry.studio.push(await writeImage(file, dir, `studio-${view}`));
+      if (existsSync(file)) entry.studio.push(await writeImage(file, dir, `studio-${view}`, { keep: true }));
     }
   }
   if (!entry.studio?.length) delete entry.studio;
