@@ -2,7 +2,8 @@
 // Run with `npm run media` after changing src/data/inventory.json or the source files.
 // The output is committed, so a deploy does not need the raw export or ffmpeg.
 //
-// `npm run media -- photos`, `-- loops`, `-- notes` or `-- site` rebuilds only that part.
+// `npm run media -- photos`, `-- covers`, `-- loops`, `-- notes` or `-- site` rebuilds only
+// that part.
 
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -25,6 +26,9 @@ const only = process.argv[2];
 const doPhotos = !only || only === "photos";
 // The living photos sit beside the photos they belong to, so they are rebuilt with them.
 const doLoops = doPhotos || only === "loops";
+// The same goes for the generated cover pictures in source/covers.
+const doCovers = doPhotos || only === "covers";
+const coversDir = path.join(root, "source/covers");
 const doNotes = !only || only === "notes";
 const doSite = !only || only === "site";
 
@@ -111,7 +115,11 @@ const media = { cars: {}, site: previous.site };
 
 for (const car of inventory) {
   const dir = path.join(outDir, "cars", car.slug);
-  const entry = { photos: previous.cars[car.slug]?.photos ?? [], note: previous.cars[car.slug]?.note };
+  const entry = {
+    photos: previous.cars[car.slug]?.photos ?? [],
+    cover: previous.cars[car.slug]?.cover,
+    note: previous.cars[car.slug]?.note,
+  };
 
   if (doPhotos) {
     entry.photos = [];
@@ -119,6 +127,13 @@ for (const car of inventory) {
       entry.photos.push(await writeImage(sourcePhoto(n), dir, String(i + 1).padStart(2, "0")));
     }
   }
+
+  if (doCovers) {
+    const cover = path.join(coversDir, `${car.slug}.jpg`);
+    if (existsSync(cover)) entry.cover = await writeImage(cover, dir, "cover");
+    else delete entry.cover;
+  }
+  if (!entry.cover) delete entry.cover;
 
   if (doLoops) {
     for (const [i, n] of car.photos.entries()) {
@@ -162,7 +177,7 @@ for (const car of inventory) {
 
   media.cars[car.slug] = entry;
   const living = entry.photos.filter((photo) => photo.loop).length;
-  console.log(`${car.slug}: ${entry.photos.length} photos${living ? ` (${living} living)` : ""}${entry.note ? ", video note" : ""}`);
+  console.log(`${car.slug}: ${entry.cover ? "cover, " : ""}${entry.photos.length} photos${living ? ` (${living} living)` : ""}${entry.note ? ", video note" : ""}`);
 }
 
 if (doSite) {

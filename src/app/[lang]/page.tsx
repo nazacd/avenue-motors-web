@@ -167,7 +167,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           {featuredCars.map((car, index) => (
             <Link key={car.slug} href={`${home}/cars/${car.slug}`} className="slice">
               <div className="slice__media">
-                <Picture image={car.photos[0]} alt="" sizes="(min-width: 1000px) 40vw, 76vw" />
+                <Picture image={car.gallery[0]} alt="" sizes="(min-width: 1000px) 40vw, 76vw" />
               </div>
               <div className="slice__text">
                 <span className="slice__index">{String(index + 1).padStart(2, "0")}</span>

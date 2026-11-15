@@ -26,7 +26,7 @@ export function toCard(car: Car, locale: Locale, dict: Dictionary): CardData {
     posted: car.posted,
     priceUsd: car.priceUsd,
     year: car.year,
-    cover: car.photos[0],
+    cover: car.gallery[0],
     poster: car.note?.poster,
     price: car.priceUsd ? formatUsd(car.priceUsd, locale) : dict.car.onRequest,
     mileage: car.mileageKm ? `${formatNumber(car.mileageKm, locale)} ${dict.car.km}` : undefined,

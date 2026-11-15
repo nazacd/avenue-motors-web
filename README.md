@@ -23,6 +23,7 @@ Then open http://localhost:3000. For a production build, run `npm run build` and
 | `src/i18n/dictionaries/` | All site text, one file per language. |
 | `src/app/globals.css` | The design system: colours, type, components. |
 | `scripts/build-media.mjs` | Turns the raw export in `source/` into web-ready photos and clips in `public/media`. |
+| `source/covers/` | The generated studio picture that leads each car's card and gallery, with notes on each. |
 | `source/loops/` | Living photos: short loops of listing photos, with the list of which are used and why the others are not. |
 | `scripts/build-model.mjs` | Turns a source car model into the small file the 3D garage loads. |
 | `src/data/garage.ts` | Which cars stand in the 3D garage, their factory figures, the camera views and the paint colours on offer. |
