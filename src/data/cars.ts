@@ -2,6 +2,7 @@ import inventory from "./inventory.json";
 import media from "./media.json";
 import { intlLocales, type Locale } from "@/i18n/config";
 import { groupDigits } from "@/i18n/format";
+import { withBase } from "@/lib/asset";
 import { site } from "./site";
 
 export type Body = "suv" | "sedan" | "coupe";
@@ -58,7 +59,7 @@ type RawCar = (typeof inventory)[number] & {
 
 type MediaEntry = { photos: Image[]; cover?: Image; studio?: Image[]; note?: VideoNote };
 
-const carMedia = media.cars as Record<string, MediaEntry>;
+const carMedia = withBase(media.cars) as Record<string, MediaEntry>;
 
 function installmentFor(raw: RawCar): Installment | undefined {
   if (raw.installment) return { ...raw.installment, estimated: false };
@@ -95,7 +96,7 @@ export const cars: Car[] = (inventory as RawCar[])
   }))
   .sort((a, b) => b.posted.localeCompare(a.posted));
 
-export const siteImages = media.site as Record<
+export const siteImages = withBase(media.site) as Record<
   "heroWide" | "heroTall" | "showroom" | "garage" | "orderWide" | "orderTall" | "tradeWide" | "tradeTall",
   Image
 >;

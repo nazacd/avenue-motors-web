@@ -62,7 +62,9 @@ body::after {
   inset: 0;
   z-index: 300;
   pointer-events: none;
-  background: url("/noise.png");
+  /* A path from this file, not from the site's root, so that the build finds the
+     picture itself and it is found again wherever the site is served from. */
+  background: url("../../public/noise.png");
   opacity: 0.05;
 }
 

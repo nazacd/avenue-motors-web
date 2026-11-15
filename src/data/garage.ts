@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 // The cars that stand in the 3D garage. Each model file in public/models is produced
 // from a source model in source/models by scripts/build-model.mjs.
 export type GarageCar = {
@@ -19,10 +21,10 @@ export type GarageCar = {
 };
 
 export const garageCars: GarageCar[] = [
-  { slug: "mercedes-maybach-s680", model: "/models/maybach-s680.glb", recipe: "maybach", length: 5.47, yaw: 0, paint: "#040405", specs: { power: 612, sprint: 4.5, topSpeed: 250 } },
-  { slug: "mercedes-amg-g63", model: "/models/g63.glb", recipe: "g63", length: 4.87, yaw: -Math.PI / 2, paint: "#040405", specs: { power: 585, sprint: 4.5, topSpeed: 220 } },
-  { slug: "bmw-m4-cs-2024", model: "/models/m4-cs.glb", recipe: "m4cs", length: 4.8, yaw: -Math.PI / 2, paint: "#1c8fdc", specs: { power: 550, sprint: 3.4, topSpeed: 302 } },
-  { slug: "bentley-flying-spur-speed-2023", model: "/models/flying-spur.glb", recipe: "flyingSpur", length: 5.32, yaw: 0, paint: "#040405", specs: { power: 635, sprint: 3.8, topSpeed: 333 } },
+  { slug: "mercedes-maybach-s680", model: asset("/models/maybach-s680.glb"), recipe: "maybach", length: 5.47, yaw: 0, paint: "#040405", specs: { power: 612, sprint: 4.5, topSpeed: 250 } },
+  { slug: "mercedes-amg-g63", model: asset("/models/g63.glb"), recipe: "g63", length: 4.87, yaw: -Math.PI / 2, paint: "#040405", specs: { power: 585, sprint: 4.5, topSpeed: 220 } },
+  { slug: "bmw-m4-cs-2024", model: asset("/models/m4-cs.glb"), recipe: "m4cs", length: 4.8, yaw: -Math.PI / 2, paint: "#1c8fdc", specs: { power: 550, sprint: 3.4, topSpeed: 302 } },
+  { slug: "bentley-flying-spur-speed-2023", model: asset("/models/flying-spur.glb"), recipe: "flyingSpur", length: 5.32, yaw: 0, paint: "#040405", specs: { power: 635, sprint: 3.8, topSpeed: 333 } },
 ];
 
 export type PaintKey = "black" | "graphite" | "white" | "green" | "red" | "blue";
