@@ -1,6 +1,7 @@
 import inventory from "./inventory.json";
 import media from "./media.json";
 import { intlLocales, type Locale } from "@/i18n/config";
+import { groupDigits } from "@/i18n/format";
 import { site } from "./site";
 
 export type Body = "suv" | "sedan" | "coupe";
@@ -127,5 +128,5 @@ export function formatUsd(amount: number, locale: Locale) {
 }
 
 export function formatNumber(value: number, locale: Locale) {
-  return new Intl.NumberFormat(intlLocales[locale]).format(value);
+  return groupDigits(value, locale);
 }
