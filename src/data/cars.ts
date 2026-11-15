@@ -13,6 +13,8 @@ export type Image = {
   widths: number[];
   fallbackWidth: number;
   blur: string;
+  // A short silent loop of this same photo, where one has been made.
+  loop?: string;
 };
 
 export type VideoNote = { video: string; poster: string; duration: number };
@@ -32,7 +34,12 @@ export type Car = {
   posted: string;
   // True when the post had no caption and the details were read from the photos.
   unconfirmed: boolean;
+  // The dealer's own photographs of the car.
   photos: Image[];
+  // A studio picture generated from those photographs, where one has been made.
+  cover?: Image;
+  // What the card and the gallery show: the cover first, then the photographs.
+  gallery: Image[];
   note?: VideoNote;
   installment?: Installment;
 };
@@ -46,7 +53,7 @@ type RawCar = (typeof inventory)[number] & {
   installment?: { downUsd: number; months: number; monthlyUsd: number };
 };
 
-type MediaEntry = { photos: Image[]; note?: VideoNote };
+type MediaEntry = { photos: Image[]; cover?: Image; note?: VideoNote };
 
 const carMedia = media.cars as Record<string, MediaEntry>;
 
@@ -73,6 +80,8 @@ export const cars: Car[] = (inventory as RawCar[])
     posted: raw.posted,
     unconfirmed: raw.unconfirmed ?? false,
     photos: carMedia[raw.slug]?.photos ?? [],
+    cover: carMedia[raw.slug]?.cover,
+    gallery: [...(carMedia[raw.slug]?.cover ? [carMedia[raw.slug].cover!] : []), ...(carMedia[raw.slug]?.photos ?? [])],
     note: carMedia[raw.slug]?.note,
     installment: installmentFor(raw),
   }))

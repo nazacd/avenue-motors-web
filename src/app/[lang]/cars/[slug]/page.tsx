@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/cars/[slug
   const dict = getDictionary(lang);
   const title = car.year ? `${car.name} ${car.year}` : car.name;
   const price = car.priceUsd ? formatUsd(car.priceUsd, lang) : dict.car.onRequest;
-  const image = car.photos[0] ? fallbackSrc(car.photos[0]) : car.note?.poster;
+  const image = car.gallery[0] ? fallbackSrc(car.gallery[0]) : car.note?.poster;
   return {
     title,
     description: `${title} — ${price}. ${dict.meta.description}`,
@@ -73,7 +73,7 @@ export default async function CarPage({ params }: PageProps<"/[lang]/cars/[slug]
     ...(car.mileageKm !== undefined && {
       mileageFromOdometer: { "@type": "QuantitativeValue", value: car.mileageKm, unitCode: "KMT" },
     }),
-    ...(car.photos[0] && { image: `${site.url}${fallbackSrc(car.photos[0])}` }),
+    ...(car.gallery[0] && { image: `${site.url}${fallbackSrc(car.gallery[0])}` }),
     ...(car.priceUsd && {
       offers: {
         "@type": "Offer",
@@ -99,8 +99,8 @@ export default async function CarPage({ params }: PageProps<"/[lang]/cars/[slug]
         </Link>
 
         <div className="car__layout">
-          {car.photos.length > 0 ? (
-            <Gallery slug={car.slug} name={car.name} photos={car.photos} labels={dict.car} />
+          {car.gallery.length > 0 ? (
+            <Gallery slug={car.slug} name={car.name} photos={car.gallery} labels={dict.car} />
           ) : (
             car.note && (
               <div className="gallery gallery--round">
@@ -176,7 +176,7 @@ export default async function CarPage({ params }: PageProps<"/[lang]/cars/[slug]
               <p className="car__fine">{car.unconfirmed ? dict.car.unconfirmed : dict.calc.note}</p>
             )}
 
-            {car.note && car.photos.length > 0 && (
+            {car.note && car.gallery.length > 0 && (
               <div className="car__note">
                 <VideoNotes
                   items={[{ slug: car.slug, name: car.name, video: car.note.video, poster: car.note.poster }]}
