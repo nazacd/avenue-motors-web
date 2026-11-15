@@ -60,7 +60,7 @@ The dealer plate and the wall sign are drawn from the logo in `src/components/ga
 The 3D garage and the scroll reveal cut their effects only where a device cannot keep up.
 
 - **Garage.** It starts from what the browser says about the device, then watches its own frame rate. Each time it runs below about 34 frames a second for a few seconds it drops one level: first the glow, cast shadows and headlamp beams go and the floor reflection gets coarser; then the floor stops mirroring the room. It never steps back up during a visit.
-- **Reveal.** The film is a run of still pictures drawn on a canvas. A strong device loads every one; a weaker one loads every second, the weakest (or one asking to save data) every fourth, and the fade between neighbouring frames covers the gaps. With reduced motion it shows only the last frame.
+- **Reveal.** The film is a run of still pictures drawn on a canvas. A strong device loads every one; a weaker one loads every second, the weakest (or one asking to save data) every fourth, and the fade between neighbouring frames covers the gaps. Every device also holds a small copy of the film ready at all times and draws from it whenever the full-size frame is not unpacked yet, so the picture keeps up with a fast scroll and sharpens as it eases. With reduced motion it shows only the last frame.
 
 To see a level on any device, add `?quality=full`, `?quality=light` or `?quality=basic` to the address. That also stops the garage from changing level by itself.
 

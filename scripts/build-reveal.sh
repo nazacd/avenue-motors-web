@@ -37,14 +37,37 @@ ffmpeg -v error -y -i "$work/all.mp4" -filter_complex "
   -map "[wide]" -fps_mode passthrough -c:v libwebp -quality $quality -compression_level 6 -start_number 0 "$out/wide/%03d.webp" \
   -map "[tall]" -fps_mode passthrough -c:v libwebp -quality $quality -compression_level 6 -start_number 0 "$out/tall/%03d.webp"
 
-count=$(find "$out/wide" -name '*.webp' | wc -l)
+# 3. A small copy of every second frame. These are light enough to keep unpacked all the
+# time, so there is always something to draw however fast the page is scrolled; the
+# full-size frame takes over as soon as the scrolling eases.
+small_wide="512:288"
+small_tall="240:400"
+for shape in wide tall; do
+  size=$([ "$shape" = wide ] && echo "$small_wide" || echo "$small_tall")
+  mkdir -p "$out/$shape/small"
+  ffmpeg -v error -y -start_number 0 -i "$out/$shape/%03d.webp" \
+    -vf "select='not(mod(n\,2))',scale=${size}:flags=lanczos" \
+    -fps_mode passthrough -c:v libwebp -quality 55 -compression_level 6 -start_number 0 "$out/$shape/small/%03d.webp"
+done
+
+count=$(find "$out/wide" -maxdepth 1 -name '*.webp' | wc -l)
 cat > src/data/reveal.json <<JSON
 {
   "count": $count,
-  "wide": { "path": "/media/reveal/wide", "width": ${wide%:*}, "height": ${wide#*:} },
-  "tall": { "path": "/media/reveal/tall", "width": ${tall%:*}, "height": ${tall#*:} }
+  "wide": {
+    "path": "/media/reveal/wide",
+    "width": ${wide%:*},
+    "height": ${wide#*:},
+    "small": { "path": "/media/reveal/wide/small", "width": ${small_wide%:*}, "height": ${small_wide#*:}, "every": 2 }
+  },
+  "tall": {
+    "path": "/media/reveal/tall",
+    "width": ${tall%:*},
+    "height": ${tall#*:},
+    "small": { "path": "/media/reveal/tall/small", "width": ${small_tall%:*}, "height": ${small_tall#*:}, "every": 2 }
+  }
 }
 JSON
 
 echo "$count frames"
-du -sh "$out/wide" "$out/tall"
+du -sh "$out/wide" "$out/tall" "$out/wide/small" "$out/tall/small"
