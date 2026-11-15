@@ -27,3 +27,18 @@ frames. The phone film is cut from this version.
 
 `xv1-reveal.mp4` is not part of the hero film. The home page moves through it as the
 visitor scrolls. Take a was left out: its headlights show through the cover.
+
+`xv1-reveal-2k.mp4` is that take at twice the size (2560×1440), which is what the site's
+frames are cut from. Higgsfield's own video upscaler is not part of the trial, so it was
+made here, frame by frame, with Real-ESRGAN's small general model:
+
+```bash
+python -m venv venv && venv/bin/pip install torch numpy pillow
+curl -LO https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-general-x4v3.pth
+ffmpeg -i source/film/xv1-reveal.mp4 -t 5.9 -vsync 0 frames/%04d.png
+venv/bin/python scripts/upscale-frames.py realesr-general-x4v3.pth frames frames-2k
+ffmpeg -framerate 24 -i frames-2k/%04d.png -c:v libx264 -preset slow -crf 14 -pix_fmt yuv420p source/film/xv1-reveal-2k.mp4
+```
+
+It takes about twelve seconds a frame without a graphics card, half an hour in all.
+`npm run reveal` then cuts the frames the site uses (`public/media/reveal`).

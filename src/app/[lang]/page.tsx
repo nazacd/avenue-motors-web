@@ -7,6 +7,7 @@ import { HeroFilm } from "@/components/HeroFilm";
 import { ArrowIcon, TelegramIcon } from "@/components/icons";
 import { Picture, avifSrcSet, fallbackSrc } from "@/components/Picture";
 import { Reveal } from "@/components/Reveal";
+import revealFrames from "@/data/reveal.json";
 import { VideoNotes, type NoteItem } from "@/components/VideoNotes";
 import { cars, featuredCars, formatUsd, makes, siteImages } from "@/data/cars";
 import { formatPhone, site, telegramLink } from "@/data/site";
@@ -192,8 +193,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       </section>
 
       <Reveal
-        video="/media/film/reveal.mp4"
-        poster="/media/film/reveal.jpg"
+        frames={revealFrames}
         before={
           <>
             <p className="label">{dict.reveal.label}</p>

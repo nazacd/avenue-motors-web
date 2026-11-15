@@ -26,6 +26,8 @@ Then open http://localhost:3000. For a production build, run `npm run build` and
 | `source/covers/` | The generated studio picture that leads each car's card and gallery, with notes on each. |
 | `source/loops/` | Living photos: short loops of listing photos, with the list of which are used and why the others are not. |
 | `scripts/build-ignition.mjs` | Adds the headlamp stutter to the phone film's opening shot. Run before `build-film.sh` if that take changes. |
+| `scripts/build-reveal.sh` | Cuts the scroll reveal into its still frames (`npm run reveal`): twice the film's own frames, for wide and upright screens. |
+| `scripts/upscale-frames.py` | Doubles the size of the reveal's frames before that; see `source/film/README.md`. |
 | `scripts/build-model.mjs` | Turns a source car model into the small file the 3D garage loads. |
 | `src/data/garage.ts` | Which cars stand in the 3D garage, their factory figures, the camera views and the paint colours on offer. |
 | `source/` | The raw Telegram export (photos and round video notes), source stills and source 3D models. |
@@ -58,7 +60,7 @@ The dealer plate and the wall sign are drawn from the logo in `src/components/ga
 The 3D garage and the scroll reveal cut their effects only where a device cannot keep up.
 
 - **Garage.** It starts from what the browser says about the device, then watches its own frame rate. Each time it runs below about 34 frames a second for a few seconds it drops one level: first the glow, cast shadows and headlamp beams go and the floor reflection gets coarser; then the floor stops mirroring the room. It never steps back up during a visit.
-- **Reveal.** If the device is slow to show the frames it is asked for, the section stops following the scroll and plays the film through once when reached.
+- **Reveal.** The film is a run of still pictures drawn on a canvas. A strong device loads every one; a weaker one loads every second, the weakest (or one asking to save data) every fourth, and the fade between neighbouring frames covers the gaps. With reduced motion it shows only the last frame.
 
 To see a level on any device, add `?quality=full`, `?quality=light` or `?quality=basic` to the address. That also stops the garage from changing level by itself.
 

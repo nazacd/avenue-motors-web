@@ -1083,7 +1083,7 @@ ul {
    in it follows the scroll. */
 .reveal {
   position: relative;
-  height: 250svh;
+  height: 300svh;
   background: var(--black);
 }
 
@@ -1100,6 +1100,16 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* The canvas stays clear until it has a frame, which leaves the first picture showing. */
+.reveal__screen {
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.reveal__screen[data-ready] {
+  opacity: 1;
 }
 
 .reveal__shade {
