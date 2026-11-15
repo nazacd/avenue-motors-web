@@ -1,5 +1,15 @@
 {
   "count": 281,
-  "wide": { "path": "/media/reveal/wide", "width": 1920, "height": 1080 },
-  "tall": { "path": "/media/reveal/tall", "width": 768, "height": 1280 }
+  "wide": {
+    "path": "/media/reveal/wide",
+    "width": 1920,
+    "height": 1080,
+    "small": { "path": "/media/reveal/wide/small", "width": 512, "height": 288, "every": 2 }
+  },
+  "tall": {
+    "path": "/media/reveal/tall",
+    "width": 768,
+    "height": 1280,
+    "small": { "path": "/media/reveal/tall/small", "width": 240, "height": 400, "every": 2 }
+  }
 }
