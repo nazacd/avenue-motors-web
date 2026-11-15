@@ -127,7 +127,6 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           </div>
         </div>
         <div className="hero__meta">
-          <span className="hero__count">{plural(dict.hero.inStock, cars.length, lang)}</span>
           <span className="hero__scroll">{dict.hero.scroll}</span>
         </div>
       </section>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { ArrowIcon } from "./icons";
+import { Select } from "./Select";
 
 // Every figure arrives already worked out and formatted, so this only switches rows.
 export type CalcOption = {
@@ -22,20 +23,21 @@ type CalculatorProps = {
 export function Calculator({ options, labels }: CalculatorProps) {
   const [slug, setSlug] = useState(options[0]?.slug);
   const option = options.find((item) => item.slug === slug) ?? options[0];
+  const carLabel = useId();
   if (!option) return null;
 
   return (
     <div className="calc__card">
-      <label className="calc__field">
-        <span>{labels.car}</span>
-        <select className="calc__select" value={option.slug} onChange={(event) => setSlug(event.target.value)}>
-          {options.map((item) => (
-            <option key={item.slug} value={item.slug}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className="calc__field">
+        <span id={carLabel}>{labels.car}</span>
+        <Select
+          className="calc__select"
+          value={option.slug}
+          onChange={setSlug}
+          labelledBy={carLabel}
+          options={options.map((item) => ({ value: item.slug, label: item.name }))}
+        />
+      </div>
 
       <dl className="calc__rows" aria-live="polite">
         <div className="calc__row">

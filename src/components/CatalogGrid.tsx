@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import type { CardData } from "@/data/cards";
 import type { Body } from "@/data/cars";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
 import { plural } from "@/i18n/format";
 import { CarCard } from "./CarCard";
+import { Select } from "./Select";
 
 type Sort = "newest" | "priceAsc" | "priceDesc";
 
@@ -23,6 +24,7 @@ export function CatalogGrid({ cards, makes, locale, labels, bodies, videoLabel }
   const [make, setMake] = useState<string | null>(null);
   const [body, setBody] = useState<Body | null>(null);
   const [sort, setSort] = useState<Sort>("newest");
+  const sortLabel = useId();
 
   const bodyKeys = useMemo(() => [...new Set(cards.map((card) => card.body))], [cards]);
 
@@ -87,14 +89,23 @@ export function CatalogGrid({ cards, makes, locale, labels, bodies, videoLabel }
           </div>
         </div>
 
-        <label className="filters__group">
-          <span className="filters__name">{labels.sort}</span>
-          <select className="filters__sort" value={sort} onChange={(event) => setSort(event.target.value as Sort)}>
-            <option value="newest">{labels.newest}</option>
-            <option value="priceAsc">{labels.priceAsc}</option>
-            <option value="priceDesc">{labels.priceDesc}</option>
-          </select>
-        </label>
+        <div className="filters__group">
+          <span className="filters__name" id={sortLabel}>
+            {labels.sort}
+          </span>
+          <Select
+            className="filters__sort"
+            value={sort}
+            onChange={setSort}
+            labelledBy={sortLabel}
+            steady
+            options={[
+              { value: "newest", label: labels.newest },
+              { value: "priceAsc", label: labels.priceAsc },
+              { value: "priceDesc", label: labels.priceDesc },
+            ]}
+          />
+        </div>
       </div>
 
       <p className="filters__count" aria-live="polite">

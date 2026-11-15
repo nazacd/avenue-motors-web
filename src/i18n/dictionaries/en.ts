@@ -25,7 +25,6 @@ const en = {
     lead: "Maybach, G 63, Bentley, Range Rover and BMW M — on the showroom floor, ready to drive away. Trade-in, installments and import to order.",
     ctaStock: "View stock",
     ctaTelegram: "Write on Telegram",
-    inStock: { one: "{n} car in stock", other: "{n} cars in stock" } as PluralForms,
     scroll: "Scroll",
   },
   facts: {

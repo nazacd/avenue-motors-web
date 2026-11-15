@@ -25,7 +25,6 @@ const uz: Dictionary = {
     lead: "Maybach, G 63, Bentley, Range Rover va BMW M — shourumda, topshirishga tayyor. Trade-in, muddatli to‘lov va buyurtma asosida yetkazib berish.",
     ctaStock: "Mavjud avtomobillar",
     ctaTelegram: "Telegramda yozish",
-    inStock: { other: "{n} ta avtomobil sotuvda" },
     scroll: "Pastga",
   },
   facts: {
