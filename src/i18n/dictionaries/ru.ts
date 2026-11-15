@@ -25,8 +25,6 @@ const ru: Dictionary = {
     lead: "Maybach, G 63, Bentley, Range Rover и BMW M — в шоуруме, готовы к выдаче. Trade-in, рассрочка и доставка под заказ.",
     ctaStock: "Смотреть наличие",
     ctaTelegram: "Написать в Telegram",
-    inStock: { one: "{n} авто в наличии", few: "{n} авто в наличии", many: "{n} авто в наличии", other: "{n} авто в наличии" },
-    scroll: "Листайте",
   },
   facts: {
     cars: "авто в наличии",
