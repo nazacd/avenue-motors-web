@@ -59,7 +59,21 @@
         ],
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAABQBQCdASoUABkAPu1wsFIppiSiqAgBMB2JYgDH5A9pFiX6tZYJPiVpilzXD1jIdlc4ewAA/u+GHQc6yuFlZ8vWKQn2RymNhcCFrwzTslbaX+Zz9D3eoOP9r6dN8jzO75HfJRU3IgniHiDCsO6NgweqLb6GBwk3VgHKKf0d7OgDLEMz5V/XGCa/O0iset3wjr65Jpkug7Dq963AtD5R6i7t3DZhWjpo2ohKNuPcsUiD2GLxXDayZ8eUnsgXQA3QLIAAAA=="
-      }
+      },
+      "studio": [
+        {
+          "base": "/media/cars/bmw-m4-cs-2024/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAAAwBQCdASoUABkAPu1srVCppaQiqAqpMB2JYgDImBI9ptmvOI/QfKgTaCMi3/guSzM4cAD+8zT0q8bdU1sFVYaeUWm9xFMmL0r/G45RlXRYyO5Iyedz4LvPru/d2UlXf1eBjF/juEBb02IkBjNRySWbqV9KycDa1jqfwehaVUUEyuwvDO2TeRwv4kfhs2SQ8Sb3r1ph/o2H94CE9xwMLGTQR+f2+nIjlPHCyxP69DoBAusQAAA="
+        }
+      ]
     },
     "genesis-gv80-2026": {
       "photos": [],
@@ -75,6 +89,20 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABwBQCdASoUABkAPu1oq0+ppiOiMBgIATAdiWUAzuwQ78nL1xH8mJNguexUh7pGjOKJFmjAAP7yo73t4ISpzqg61m39oSNrtpyJ6pPkdgeuYqMYE6T+afE8xv1Gg1opS+R1KOt/Pe3n4ATsLtgglhdYRawkHi64a4ZXEPY/Uv9H3XNR+xdaCWKUBAGAAA=="
       },
+      "studio": [
+        {
+          "base": "/media/cars/genesis-gv80-2026/studio-s",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAADwBACdASoUABkAPu1qqk8ppiOiMBgIATAdiWUAw6wQ8N4LSMCgVt4FybqCZIoktHAA/vQpt4tulHg58RNJnu+ediGmCEnnT7NtWheVaBb3O/+vRIzsqvw/EbCJtZRYNaeI1MalqjsXLdhhipt6hrZ5foiGeLhmxRhV0XBkzjljAPLsAAA="
+        }
+      ],
       "note": {
         "video": "/media/notes/genesis-gv80-2026.mp4",
         "poster": "/media/notes/genesis-gv80-2026.jpg",
@@ -95,6 +123,32 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAABQBQCdASoUABkAPu1ur1IppiQiqAgBMB2JZQDKBbAWwAbP3b18gWwVIzgV+xzbxtbjnAAA/vKxXkkKgd83ce6CU8E7+J/f7yFq7hjXzmllctuH11PyK9kva1pQ3eNWZJzXvVwcLZSGHs5mYCmA3ZP/Wi6/s7YuDEjspEjq5KbX80tY7QeUGYScHtMp5kJCybRjALDFggCtB3ekjiNy5m44HMOK6vAA"
       },
+      "studio": [
+        {
+          "base": "/media/cars/mercedes-amg-g63-manufaktur-2025/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRrYAAABXRUJQVlA4IKoAAADwBACdASoUABkAPu1qr1CppiQiqAqpMB2JYwDGQAgcGvAbThxjWVyy6bcEC1JQIAAA/u8pdUzy1T5MZ6GjyOa1S3bZCL5onvs6UtQgwKWLDtP1QbecD3aN2ww9zZO1SzBgBBmEazSGe5na1pwBBj/h1TkTqf/QARdHlEhMT6X1ZHtw1JIMamPObcHiWJyN5hkInfCTRExhQ2XzGsGKsf109jUQL76qaKIAAA=="
+        },
+        {
+          "base": "/media/cars/mercedes-amg-g63-manufaktur-2025/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAAAwBQCdASoUABkAPu1orVCppaQiqAqpMB2JYwDN/BEzsiPKn4xXS0HzQd7/bCF1irrUAAD+7rKtZHv9A3AXOfS8RL9Io1+bn8h9dq/CKw5D3mXfHrZ9Fvcmq9XtTkcaiM4TUwr24COVNnNXe8NVlbl2Wv58NioKHntP6qa8hn5fvY6nzHooNCkYYdREgAAA"
+        }
+      ],
       "note": {
         "video": "/media/notes/mercedes-amg-g63-manufaktur-2025.mp4",
         "poster": "/media/notes/mercedes-amg-g63-manufaktur-2025.jpg",
@@ -103,6 +157,18 @@
     },
     "mercedes-maybach-gls-600-night-series": {
       "photos": [],
+      "cover": {
+        "base": "/media/cars/mercedes-maybach-gls-600-night-series/cover",
+        "width": 1856,
+        "height": 2304,
+        "widths": [
+          640,
+          1080,
+          1600
+        ],
+        "fallbackWidth": 1080,
+        "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAAAQBQCdASoUABkAPu1srFEppiQiqAqpMB2JZwDKAA9nztU1TV0bePHK03GJ/cAuIxcAAP7vYyjv7X+BiBhzAeYTF1jqEhSigJKOHb66K5zV/f18QYxJ5XKOEgDsHkg3UZSRvZys6XInC3LmlJGSzWPm4Y9c9bSBbJB5hSWAnIsBgRo3wWIy2O6GKDl2Y4AYyRtiXiO0DKtPEjzegCbNlnHmcAA="
+      },
       "note": {
         "video": "/media/notes/mercedes-maybach-gls-600-night-series.mp4",
         "poster": "/media/notes/mercedes-maybach-gls-600-night-series.jpg",
@@ -123,6 +189,32 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAADwBACdASoUABkAPu1qr1CppaQiqAqpMB2JZwAAKdIaPWQZukSYkoVra96UbaIIK8gA/vK0IqlkLfR2nGbR4v7fScVwe9tnakzefe5+wl5QPZLohlv6KJxznLXm97UB4oaGkokSvOXqF/Ulqt28yAboYmtNxLZ+Y7gT4a2hi0WmhJyOjV8A4yscliiCf1kfUAAAAA=="
       },
+      "studio": [
+        {
+          "base": "/media/cars/bmw-x7-xdrive40i-2020/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAABwBQCdASoUABkAPu1kpU2ppaMiMBgMATAdiWUAAC5z6nIONP7elGlW9WFm2Kxc0eQFhquAAP70ICVuVxv9tmrkBIKGLFHiopQv1T5iwomOrlDUM4BB1hacKdNj68mgGC7LWvTkapSz6ROWtZLUR38Vodps0s8uw7pbOpeIAb01v58erRBo5SBGztWHkFwA"
+        },
+        {
+          "base": "/media/cars/bmw-x7-xdrive40i-2020/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4ILwAAAAwBQCdASoUABkAPu1wsFIppiSiqAgBMB2JZwDI1ywTpQVVjZXkWStaWAGvm8iPHsNyUAD+6f2EiyHJH3hi7TWIsIiZk4y/zdz46m9UlFtB4LDxQQQMetlh/4IBMQcncBWH6zraWBTuEdEa/FnvwFe3V84Vhtkd/9YnaAH6SGf+LhuVd8eK+lL8sV4blzvzFto0GlIFbiykbiOSfmFuSl4d/c3VIgBsuDmki89qDZhco9RYmDY4SX9aFgAAAA=="
+        }
+      ],
       "note": {
         "video": "/media/notes/bmw-x7-xdrive40i-2020.mp4",
         "poster": "/media/notes/bmw-x7-xdrive40i-2020.jpg",
@@ -189,6 +281,20 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4ILYAAACQBQCdASoUABkAPu1qr1AppaSiqAqpMB2JYwDI1y6o2mylQmyRI+jNpr4sj8mFtMzUCCx24AD+9Ci6ACP9LwqIYo8cU50/qcVeWnVWhOmYAouWgFE38DLzgHnldYMoscjI/1fJDeSLpBN8f/C48rixb6OWkWKP+f2dpAe5wVD3545iF8aQbEDRgUhQxlWf9b57wbLqGE2UlzoNyy95pvO6RPJ38e6BFLbVbPrwzZMnIaHgUZuAAA=="
       },
+      "studio": [
+        {
+          "base": "/media/cars/bmw-m2/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAABQBQCdASoUABkAPu1ipk4ppSMiMBgMATAdiUAYm2WAFjk8JRcXEvsqchs3qZXSNNtNgAAA/vKy1afUVO1AD/pQ0NHRP9jHAU/m7KhNn7wfeiu+Kj5hsX0nOysh82Q3y/a3COQd8KA5zK/kJkAVycNo8jpNxVDPyf0kiRLTV/GGlhBcTy4guzPYExIQ3FazgQdw9Iuk+tc5lJ/zfspi/GZa+40N4X79Kq+MihnEt/p0z+KK2nW0NtRcbnaH1jAU/AAAAA=="
+        }
+      ],
       "note": {
         "video": "/media/notes/bmw-m2.mp4",
         "poster": "/media/notes/bmw-m2.jpg",
@@ -221,6 +327,20 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAABQBQCdASoUABkAPu1krFAppSQisBgIATAdiUAYA8bgDA2AQDxDCzItLm9m+Ry8YAIQYFgA/vKxXhbXtTtF13nl6d72Tz1D+mDAcvZPM13wnW5n23dt8K1ltgsGRr3x/ABNu+HL3SarDKej2VINpaqNwnMdtHMBp7ciREOTMYHmPZpJJMx03k8YC9na4nYhp+7t7tnYVEfDgoLt2PI4BaTba2lyll6rQAA="
       },
+      "studio": [
+        {
+          "base": "/media/cars/range-rover/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAAAQBQCdASoUABkAPu1qrVCppaQiqAqpMB2JYwDDcBEdGo1Ofx2wE5lpzNegzsxiBvogAP70IvIC7gpJnej0GtgocvtNYVTeDlwHp4UGpy5gfK+V9D/6IJ8E8pEOVCozFaGrgA43gPZ78hIOe7ywtutdHJtQezzvuMkP+UrkYmOrCLAap835GINsyINBFwGJ8qymsgj8LtQyMs+p6WCdmo0KUgAAAA=="
+        }
+      ],
       "note": {
         "video": "/media/notes/range-rover.mp4",
         "poster": "/media/notes/range-rover.jpg",
@@ -298,6 +418,20 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADwBACdASoUABkAPu1urFEppiQiqAqpMB2JZwDL4BEN/b/Ju5N2Kdrg3bxbkEAWfQAA/vQmAk/Ls6R0zvTtuBtDPbeqr0M80DFobbdbNW/Mbv4gvH14bEKzvYary9B00XkklL0UfRDJ9fCa7Qg/KE0Z4bVaeUkCwVE50dYXkVofWHV94nUspdfx1xkmVaCEAAA="
       },
+      "studio": [
+        {
+          "base": "/media/cars/mercedes-maybach-s680/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAABQBQCdASoUABkAPu1qqU8ppiOiMBgIATAdiWUAyRAQ5xuyMIyXCCRkJI5t645aQZak6kAA/vE/NGYndhPrI6V2b+btlMi2g81UFIXHxMnlTSZsnRBIGul5sP2WCr0GoqhGIMq5g8JPoZizotidsPGnjd/KBPmYQvr6P/HrjKYctFpK8kzy96l6AnlmzDPEKZp/wKyQD4TsIfcVgwAAAA=="
+        }
+      ],
       "note": {
         "video": "/media/notes/mercedes-maybach-s680.mp4",
         "poster": "/media/notes/mercedes-maybach-s680.jpg",
@@ -375,6 +509,20 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAAAwBQCdASoUABkAPu1gqU4ppSOiMBgMATAdiWMAyJgQ3W+L+v5JJsHxuZFKV/vFZ0PopAD+8qqhx3scONhiG4cAwrBXddmipGyAQyr+PE1bNYU1PC2Swor6RS/m5SmjFQyV/XsE5bK0gj3cucrNkZF6Q+6AyBPZY32R5CpDtHCRhTcjYs+ijKejvs70DqJerx/InfBKNUTx+qyoGmAAAA=="
       },
+      "studio": [
+        {
+          "base": "/media/cars/bentley-flying-spur-speed-2023/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAwBQCdASoUABkAPu1cqE2ppKOiN/VYATAdiWMAy6QQ7/0VPrPse6rj/PzQX5nUS84gAAD+9B2VqvfqgMm1c4XyOA4Hxhc0YFJrCCVGDWPiahQSMFELnqUb5lEg53EIqRf6RocxtX4hg7Xb+lF2swV3T4SolB97uw0+f58fnNuTEedbm+fdIVLX2AA="
+        }
+      ],
       "note": {
         "video": "/media/notes/bentley-flying-spur-speed-2023.mp4",
         "poster": "/media/notes/bentley-flying-spur-speed-2023.jpg",
@@ -536,6 +684,32 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAACQBQCdASoUABkAPu1ur1IppiQiqAgBMB2JYwDM0A9dr1/z03P/QS4Hnp5mzPKgSrqYLJxRAAD+8YGZkZQ+SoSNsLitkPMjSmwKF7AxUry4L3Ast0zzBeHqYCygFZSc25mkl9ik33z25sUOs4PjvKJ5mAzZi6iPrdFqT41YB5qAIZp+Yoo+hqt1i0acTlq+8CXjAt+TvWV4KrhiE/1lTt0ZJkP2yAAA"
       },
+      "studio": [
+        {
+          "base": "/media/cars/genesis-g90-long-2024/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAADwBACdASoUABkAPu1wsFIppiSiqAgBMB2JQBecAi/Ex0YDSifivIx+rfqaarx9MfAA/vGAbkwKUrQz6tEpoYxkJ7v0UMMUUsI92eO7hTrrlxTxzlEJqR7ErmkszyO8aGD9Cyka+DOpQTCtu9nSw1yr8J8KTMcUzofssibbu0Oj7UE+nLA+xjlI2GZe2H0/GMWfA0EH+VQnvT+ceB9uAcAAAAA="
+        },
+        {
+          "base": "/media/cars/genesis-g90-long-2024/studio-s",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAAAQBQCdASoUABkAPu1sq1EppaOiqAqpMB2JYwDDsrAAa9Fs7fH6COlDRXa0VYKtA1EAAP7xcK25D3Oe1kp4rvUkKKyQUWdjsI6ctsQ4rZRmvwt3UbDC/KXh+SzPI7C95Zc2KCO71KF+M2+kXHMvgCEPLFtkX2erSyZ41/DbT/KOShmFpvr2a2RYFKmDU4T1Vq6SAMPQAAA="
+        }
+      ],
       "note": {
         "video": "/media/notes/genesis-g90-long-2024.mp4",
         "poster": "/media/notes/genesis-g90-long-2024.jpg",
@@ -687,6 +861,20 @@
         "fallbackWidth": 1080,
         "blur": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAAAQBQCdASoUABkAPu1osFAppaSiqAqpMB2JZQDHMBEbuunIX6LF/encVVgWtsJZ1GAAAP7yuZpcDJtpAE6qtCrtUa0EOS5o7nxyHgl+5Ds/jvkcyOOCp8CKL5DOTCJJqbF2ucoQc52rrnm59CaI75B9A/lr0E30TYYLG9vxHh+X0wphVHW+XIMVtcQXdyHDMCZSm4fc2ErjLIYAAAA="
       },
+      "studio": [
+        {
+          "base": "/media/cars/mercedes-amg-g63/studio-b",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAABQBQCdASoUABkAPu1mqk+ppSOiMBgIATAdiWUAyJgQ7uRJ8GgY3A1HF6jNLtBuSpaVCeAA/vK5mlwMm2kATqq0Ku1S4KIkK5VRB3YKcw1Smk/uDR8wv6c/rUupRf1PHjbpznFl4232V4Hhy3F31902ousYgKiDd0cwjNf8tbnSCvm7BURPx8RQjgkAAA=="
+        }
+      ],
       "note": {
         "video": "/media/notes/mercedes-amg-g63.mp4",
         "poster": "/media/notes/mercedes-amg-g63.jpg",
@@ -743,6 +931,54 @@
       ],
       "fallbackWidth": 1080,
       "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JQBfJA2jjs6dJrfQgAAD+8qvPzhbMWNjW4WsBP48o8JH+S2FR5OtVZ5Jxfu7tBVhzKUtMFgqOm/Lq8yxz5a7aJwyKTIUFejhRwhZwQAA="
+    },
+    "orderWide": {
+      "base": "/media/site/order-wide",
+      "width": 2752,
+      "height": 1536,
+      "widths": [
+        640,
+        1080,
+        1600,
+        2000
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAABQBACdASoUAAsAPu1iqk2ppaQiMAgBMB2JaACdMoADSzCF9FSU4L/R6d4AAP7wyOtA8+PbINvcLevbUu9CYDErGvQ0LUbLLEzqiCiJ/72+0fefKpMw8z3Dn4f7FXxMIRMMRfOfT1j3xQffT1W6s/mWu9qf9zPj0vAwQcKhjjwX2lwAAAA="
+    },
+    "orderTall": {
+      "base": "/media/site/order-tall",
+      "width": 1536,
+      "height": 2752,
+      "widths": [
+        640,
+        1080
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAABQBgCdASoUACQAPu1qr1IppaQiqrgIATAdiWQAuzMAAYBzWodzlERJMwf8ReGy4WQklMI5FQ5zhUgpcAD++l6+UlXXZV55aOSemrt0Ldt1//9MmHFsHWhIyY8a1J3AMANtR3OUyzWJcNgE5GbV4mebSR3ce0umGAuVsUltn+iqcjHsXokIRDTLjXjzeEZddoNyCIGiytGXaA66VxdC2vsBQzrzawFiTmO/WTc+CDPjX2XHRaBQnPw/fJEdhaLQrWzbPlFTFg/44/a3VXoOFhC9UDeH/4pG+kWrMwqAAAA="
+    },
+    "tradeWide": {
+      "base": "/media/site/trade-wide",
+      "width": 2752,
+      "height": 1536,
+      "widths": [
+        640,
+        1080,
+        1600,
+        2000
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAADwAwCdASoUAAsAPu1orU2ppqSiMAgBMB2JYwABJOlzRBdiYEfGIg1AAP7+GetYLp6YiV6mpj18n9mCYv4/C5uEWV5NrHaPn8O64CVGtmHMxgy5QLuYm5OpAO1sTgdzP0CtMTSdrL+uTC4Zjp9LqhgAAAA="
+    },
+    "tradeTall": {
+      "base": "/media/site/trade-tall",
+      "width": 1536,
+      "height": 2752,
+      "widths": [
+        640,
+        1080
+      ],
+      "fallbackWidth": 1080,
+      "blur": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAABQBQCdASoUACQAPu1srVIppaQipWsxMB2JYwC90Yr9DV8hrTTCLE//Rd3Vo4Hr4xQFryAA/vgOA9kaYCKinmtE2e5R1tT/sUVCQIOqTi8P+ZR1stu7NqjnfBsCMsOAkFiNjMtlpfUYHBUY6fQVXChQEhgMvZXIyqFlqM6HRk+B2Mp7GHY13hW3doRMCpUq2iNA0cACXx2B1geFT4nYHWvMsc72U2AA"
     }
   }
 }

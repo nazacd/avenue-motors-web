@@ -40,6 +40,12 @@ const en = {
     all: "All cars",
     view: "View",
   },
+  reveal: {
+    label: "Unveiling",
+    before: "Every car arrives under cover.",
+    after: "Then the lights come on.",
+    cta: "View the G 63",
+  },
   showroom: {
     label: "Showroom",
     title: "Every flagship under one light.",

@@ -38,7 +38,9 @@ export type Car = {
   photos: Image[];
   // A studio picture generated from those photographs, where one has been made.
   cover?: Image;
-  // What the card and the gallery show: the cover first, then the photographs.
+  // More studio pictures of the car: rear, side or a detail.
+  studio: Image[];
+  // What the card and the gallery show: the studio pictures first, then the photographs.
   gallery: Image[];
   note?: VideoNote;
   installment?: Installment;
@@ -53,7 +55,7 @@ type RawCar = (typeof inventory)[number] & {
   installment?: { downUsd: number; months: number; monthlyUsd: number };
 };
 
-type MediaEntry = { photos: Image[]; cover?: Image; note?: VideoNote };
+type MediaEntry = { photos: Image[]; cover?: Image; studio?: Image[]; note?: VideoNote };
 
 const carMedia = media.cars as Record<string, MediaEntry>;
 
@@ -81,13 +83,21 @@ export const cars: Car[] = (inventory as RawCar[])
     unconfirmed: raw.unconfirmed ?? false,
     photos: carMedia[raw.slug]?.photos ?? [],
     cover: carMedia[raw.slug]?.cover,
-    gallery: [...(carMedia[raw.slug]?.cover ? [carMedia[raw.slug].cover!] : []), ...(carMedia[raw.slug]?.photos ?? [])],
+    studio: carMedia[raw.slug]?.studio ?? [],
+    gallery: [
+      ...(carMedia[raw.slug]?.cover ? [carMedia[raw.slug].cover!] : []),
+      ...(carMedia[raw.slug]?.studio ?? []),
+      ...(carMedia[raw.slug]?.photos ?? []),
+    ],
     note: carMedia[raw.slug]?.note,
     installment: installmentFor(raw),
   }))
   .sort((a, b) => b.posted.localeCompare(a.posted));
 
-export const siteImages = media.site as Record<"heroWide" | "heroTall" | "showroom" | "garage", Image>;
+export const siteImages = media.site as Record<
+  "heroWide" | "heroTall" | "showroom" | "garage" | "orderWide" | "orderTall" | "tradeWide" | "tradeTall",
+  Image
+>;
 
 export function getCar(slug: string) {
   return cars.find((car) => car.slug === slug);

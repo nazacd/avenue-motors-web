@@ -118,6 +118,7 @@ for (const car of inventory) {
   const entry = {
     photos: previous.cars[car.slug]?.photos ?? [],
     cover: previous.cars[car.slug]?.cover,
+    studio: previous.cars[car.slug]?.studio,
     note: previous.cars[car.slug]?.note,
   };
 
@@ -134,6 +135,16 @@ for (const car of inventory) {
     else delete entry.cover;
   }
   if (!entry.cover) delete entry.cover;
+
+  // Further studio pictures of the same car: rear (b), side (s) and a detail (d).
+  if (doCovers) {
+    entry.studio = [];
+    for (const view of ["b", "s", "d"]) {
+      const file = path.join(coversDir, `${car.slug}.${view}.jpg`);
+      if (existsSync(file)) entry.studio.push(await writeImage(file, dir, `studio-${view}`));
+    }
+  }
+  if (!entry.studio?.length) delete entry.studio;
 
   if (doLoops) {
     for (const [i, n] of car.photos.entries()) {
@@ -177,7 +188,7 @@ for (const car of inventory) {
 
   media.cars[car.slug] = entry;
   const living = entry.photos.filter((photo) => photo.loop).length;
-  console.log(`${car.slug}: ${entry.cover ? "cover, " : ""}${entry.photos.length} photos${living ? ` (${living} living)` : ""}${entry.note ? ", video note" : ""}`);
+  console.log(`${car.slug}: ${entry.cover ? `cover${entry.studio ? ` + ${entry.studio.length} studio` : ""}, ` : ""}${entry.photos.length} photos${living ? ` (${living} living)` : ""}${entry.note ? ", video note" : ""}`);
 }
 
 if (doSite) {
@@ -195,6 +206,12 @@ if (doSite) {
     showroom: await writeImage(path.join(root, "source/stills/s1-showroom-m4.jpg"), siteDir, "showroom"),
     // The empty stage, shown while the 3D garage loads and where it cannot run.
     garage: await writeImage(path.join(root, "source/stills/k0-empty-stage.jpg"), siteDir, "garage"),
+    // Backdrops for two of the services. Each was composed with empty space for the
+    // words: on the left in the wide picture, at the top in the upright one.
+    orderWide: await writeImage(path.join(root, "source/stills/x2-on-order.jpg"), siteDir, "order-wide"),
+    orderTall: await writeImage(path.join(root, "source/stills/x2v-on-order.jpg"), siteDir, "order-tall"),
+    tradeWide: await writeImage(path.join(root, "source/stills/x3-trade-in.jpg"), siteDir, "trade-wide"),
+    tradeTall: await writeImage(path.join(root, "source/stills/x3v-trade-in.jpg"), siteDir, "trade-tall"),
   };
 }
 

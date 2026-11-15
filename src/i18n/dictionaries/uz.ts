@@ -40,6 +40,12 @@ const uz: Dictionary = {
     all: "Barcha avtomobillar",
     view: "Ko‘rish",
   },
+  reveal: {
+    label: "Taqdimot",
+    before: "Har bir avtomobil yopinchiq ostida keladi.",
+    after: "Keyin chiroqlar yonadi.",
+    cta: "G 63 ni ko‘rish",
+  },
   showroom: {
     label: "Shourum",
     title: "Barcha flagmanlar — bir yorug‘lik ostida.",

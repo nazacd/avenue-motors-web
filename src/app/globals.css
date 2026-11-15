@@ -1149,6 +1149,99 @@ ul {
   }
 }
 
+/* ───────── Reveal ───────── */
+/* Two and a half screens tall. The picture is pinned for that distance, and the film
+   in it follows the scroll. */
+.reveal {
+  position: relative;
+  height: 250svh;
+  background: var(--black);
+}
+
+.reveal__pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.reveal__film {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reveal__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 5, 6, 0.55) 0%, transparent 22%, transparent 52%, rgba(5, 5, 6, 0.88) 100%);
+}
+
+/* The two texts share one place; only one shows at a time. */
+.reveal__text {
+  position: absolute;
+  inset: auto 0 0;
+  display: grid;
+  padding-bottom: clamp(40px, 9vh, 96px);
+}
+
+.reveal__before,
+.reveal__after {
+  grid-area: 1 / 1;
+  align-self: end;
+  max-width: 22em;
+  opacity: 0;
+  translate: 0 18px;
+  transition:
+    opacity 0.6s var(--ease),
+    translate 0.8s var(--ease);
+}
+
+.reveal__after {
+  pointer-events: none;
+}
+
+.reveal .title {
+  margin-top: 16px;
+  font-size: clamp(1.7rem, 3.6vw, 3.2rem);
+}
+
+.reveal .btn {
+  margin-top: 24px;
+}
+
+.reveal[data-stage="0"] .reveal__before,
+.reveal[data-stage="2"] .reveal__after {
+  opacity: 1;
+  translate: none;
+}
+
+.reveal[data-stage="2"] .reveal__after {
+  pointer-events: auto;
+}
+
+/* How far through the reveal the visitor is. */
+.reveal__bar {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: var(--yellow);
+  transform-origin: 0 50%;
+  scale: var(--progress, 0) 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    height: 100svh;
+  }
+
+  .reveal__bar {
+    display: none;
+  }
+}
+
 /* ───────── Showroom ───────── */
 .showroom {
   display: grid;
@@ -1228,8 +1321,54 @@ ul {
   color: rgba(242, 240, 234, 0.66);
 }
 
-/* On a wide screen the four services stand side by side as cards: a large outlined
-   number at the top, the name and a line of text at the foot. */
+/* A service that stands on a picture. The picture was composed with empty space for
+   the words: at the top on a narrow screen, on the left on a wide one. */
+.service--feature {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 2 / 3;
+  padding: clamp(22px, 5vw, 36px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.service__art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.service__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 78%;
+  transition: transform 1.4s var(--ease);
+}
+
+.service__art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 5, 6, 0.88) 0%, rgba(5, 5, 6, 0.5) 34%, transparent 62%);
+}
+
+.service--feature .service__index {
+  padding-top: 0;
+}
+
+.service--feature .service__title {
+  margin-top: 12px;
+}
+
+.service--feature .service__text {
+  margin-top: 10px;
+  color: rgba(242, 240, 234, 0.8);
+}
+
+/* On a wide screen the services are cards. The two with pictures are wide, with the
+   words on the dark left side; the other two stand under them with a large outlined
+   number at the top. */
 @media (min-width: 900px) {
   .services {
     display: grid;
@@ -1240,7 +1379,7 @@ ul {
   .service {
     display: flex;
     flex-direction: column;
-    min-height: clamp(260px, 26vw, 380px);
+    min-height: clamp(220px, 20vw, 300px);
     padding: clamp(24px, 2.4vw, 40px);
     border-right: 1px solid var(--line);
   }
@@ -1249,6 +1388,7 @@ ul {
     content: "";
     position: absolute;
     inset: -1px 0 auto;
+    z-index: 1;
     height: 2px;
     background: var(--yellow);
     transform-origin: 0 50%;
@@ -1275,9 +1415,9 @@ ul {
     font-size: clamp(1.35rem, 1.9vw, 1.95rem);
   }
 
-  /* Room for three lines, so the four names line up whatever the length of the text. */
+  /* Room for two lines, so the names line up whatever the length of the text. */
   .service__text {
-    min-height: 4.65em;
+    min-height: 3.1em;
     margin-top: 12px;
     font-size: 1rem;
   }
@@ -1294,11 +1434,57 @@ ul {
     color: var(--yellow);
     -webkit-text-stroke-color: var(--yellow);
   }
+
+  .service--feature {
+    grid-column: span 2;
+    aspect-ratio: auto;
+    min-height: clamp(340px, 34vw, 520px);
+  }
+
+  .service--feature .service__title,
+  .service--feature .service__text {
+    max-width: min(46%, 26em);
+  }
+
+  .service--feature .service__title {
+    margin-top: auto;
+    font-size: clamp(1.7rem, 2.6vw, 2.7rem);
+  }
+
+  .service--feature .service__text {
+    min-height: 0;
+    font-size: 1.05rem;
+  }
+
+  .service__art img {
+    object-position: 100% 50%;
+  }
+
+  .service__art::after {
+    background: linear-gradient(90deg, rgba(5, 5, 6, 0.9) 0%, rgba(5, 5, 6, 0.55) 34%, transparent 62%);
+  }
+
+  .service--feature:hover {
+    background: none;
+  }
+
+  .service--feature:hover .service__art img {
+    transform: scale(1.04);
+  }
 }
 
+/* Wider still, the two pictures stand side by side. */
 @media (min-width: 1200px) {
   .services {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .service {
+    grid-column: span 2;
+  }
+
+  .service--feature {
+    min-height: clamp(360px, 27vw, 480px);
   }
 }
 
