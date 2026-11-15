@@ -126,9 +126,6 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
             </a>
           </div>
         </div>
-        <div className="hero__meta">
-          <span className="hero__scroll">{dict.hero.scroll}</span>
-        </div>
       </section>
 
       <div className="marquee" aria-hidden>

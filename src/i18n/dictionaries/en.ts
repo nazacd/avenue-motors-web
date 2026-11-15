@@ -25,7 +25,6 @@ const en = {
     lead: "Maybach, G 63, Bentley, Range Rover and BMW M — on the showroom floor, ready to drive away. Trade-in, installments and import to order.",
     ctaStock: "View stock",
     ctaTelegram: "Write on Telegram",
-    scroll: "Scroll",
   },
   facts: {
     cars: "cars in stock",
