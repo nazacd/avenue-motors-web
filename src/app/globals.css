@@ -1149,6 +1149,99 @@ ul {
   }
 }
 
+/* ───────── Reveal ───────── */
+/* Two and a half screens tall. The picture is pinned for that distance, and the film
+   in it follows the scroll. */
+.reveal {
+  position: relative;
+  height: 250svh;
+  background: var(--black);
+}
+
+.reveal__pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.reveal__film {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reveal__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 5, 6, 0.55) 0%, transparent 22%, transparent 52%, rgba(5, 5, 6, 0.88) 100%);
+}
+
+/* The two texts share one place; only one shows at a time. */
+.reveal__text {
+  position: absolute;
+  inset: auto 0 0;
+  display: grid;
+  padding-bottom: clamp(40px, 9vh, 96px);
+}
+
+.reveal__before,
+.reveal__after {
+  grid-area: 1 / 1;
+  align-self: end;
+  max-width: 22em;
+  opacity: 0;
+  translate: 0 18px;
+  transition:
+    opacity 0.6s var(--ease),
+    translate 0.8s var(--ease);
+}
+
+.reveal__after {
+  pointer-events: none;
+}
+
+.reveal .title {
+  margin-top: 16px;
+  font-size: clamp(1.7rem, 3.6vw, 3.2rem);
+}
+
+.reveal .btn {
+  margin-top: 24px;
+}
+
+.reveal[data-stage="0"] .reveal__before,
+.reveal[data-stage="2"] .reveal__after {
+  opacity: 1;
+  translate: none;
+}
+
+.reveal[data-stage="2"] .reveal__after {
+  pointer-events: auto;
+}
+
+/* How far through the reveal the visitor is. */
+.reveal__bar {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: var(--yellow);
+  transform-origin: 0 50%;
+  scale: var(--progress, 0) 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    height: 100svh;
+  }
+
+  .reveal__bar {
+    display: none;
+  }
+}
+
 /* ───────── Showroom ───────── */
 .showroom {
   display: grid;

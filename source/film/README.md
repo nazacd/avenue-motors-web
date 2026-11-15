@@ -18,3 +18,7 @@ The takes chosen for the hero film, as generated (720p, with their own sound). `
 | `v5v-tunnel.mp4` | V5 upright, take b | `e60a60fc-a1b9-47da-b5d7-f0fb1d55172c` |
 | `v6v-pass.mp4` | V6 upright, take d | `6d0c9edb-78da-4df0-9548-8e96ffe4d477` |
 | `v7v-return.mp4` | V7 upright, take a | `83eb3ba3-d6b9-431b-b811-6d12af3a2523` |
+| `xv1-reveal.mp4` | XV1, take b: the cover comes off the G 63 | `6c12aded-f445-4e29-99fe-60526eec4370` |
+
+`xv1-reveal.mp4` is not part of the hero film. The home page moves through it as the
+visitor scrolls. Take a was left out: its headlights show through the cover.

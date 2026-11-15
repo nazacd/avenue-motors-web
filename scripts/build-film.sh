@@ -57,3 +57,13 @@ ffmpeg -v error -y $(inputs "v") \
   -pix_fmt yuv420p -movflags +faststart public/media/film/night-run-tall.mp4
 
 ls -la public/media/film/
+
+# The reveal: the cover comes off the G 63. The page moves through it as the visitor
+# scrolls, forward and back, so every frame is stored whole (-g 1). The first frame is
+# also saved as a picture, shown until the film has loaded.
+ffmpeg -v error -y -i source/film/xv1-reveal.mp4 -t 5.9 \
+  -vf "scale=1280:720:flags=lanczos,fps=24,format=yuv420p" -an \
+  -c:v libx264 -preset slow -crf 27 -g 1 -bf 0 -movflags +faststart public/media/film/reveal.mp4
+ffmpeg -v error -y -i public/media/film/reveal.mp4 -frames:v 1 -q:v 3 public/media/film/reveal.jpg
+
+ls -la public/media/film/

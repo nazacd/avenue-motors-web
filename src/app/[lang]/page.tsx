@@ -6,6 +6,7 @@ import { CountUp } from "@/components/CountUp";
 import { HeroFilm } from "@/components/HeroFilm";
 import { ArrowIcon, TelegramIcon } from "@/components/icons";
 import { Picture, avifSrcSet, fallbackSrc } from "@/components/Picture";
+import { Reveal } from "@/components/Reveal";
 import { VideoNotes, type NoteItem } from "@/components/VideoNotes";
 import { cars, featuredCars, formatUsd, makes, siteImages } from "@/data/cars";
 import { formatPhone, site, telegramLink } from "@/data/site";
@@ -193,6 +194,26 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           ))}
         </div>
       </section>
+
+      <Reveal
+        video="/media/film/reveal.mp4"
+        poster="/media/film/reveal.jpg"
+        before={
+          <>
+            <p className="label">{dict.reveal.label}</p>
+            <h2 className="title">{dict.reveal.before}</h2>
+          </>
+        }
+        after={
+          <>
+            <h2 className="title">{dict.reveal.after}</h2>
+            <Link className="btn btn--primary" href={`${home}/cars/mercedes-amg-g63`}>
+              {dict.reveal.cta}
+              <ArrowIcon />
+            </Link>
+          </>
+        }
+      />
 
       <section className="section" id="showroom">
         <div className="container showroom">

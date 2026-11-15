@@ -1,9 +1,12 @@
 # Catalogue covers
 
-One studio picture per car, generated from the dealer's own photos and videos of that car
-following `production/catalogue-photos-brief.md`. Each is the first picture on the car's
-card and in its gallery; the real photos follow it. `npm run media -- covers` builds the
-web files.
+Studio pictures of each car, generated from the dealer's own photos and videos of that
+car following `production/catalogue-photos-brief.md`. `<slug>.jpg` is the cover: the
+picture on the car's card and the first in its gallery. `<slug>.b.jpg`, `.s.jpg` and
+`.d.jpg` are a rear view, a side view and a detail; they follow the cover, and the real
+photos follow them. `npm run media -- covers` builds the web files.
+
+## Covers
 
 | File | Picture | Higgsfield job |
 |---|---|---|
@@ -17,14 +20,43 @@ web files.
 | `bentley-flying-spur-speed-2023.jpg` | C09-a | `692c5605-4f3d-41f6-8142-e36eaaad5467` |
 | `cadillac-escalade-2023.jpg` | C10-a | `65757e15-6ad5-4a52-9131-bb33201a3df1` |
 | `genesis-g90-long-2024.jpg` | C11-a | `57862be4-c147-4d3d-bc14-dd44b057e7f6` |
+| `mercedes-maybach-gls-600-night-series.jpg` | C04-a | `9d6de93b-4ee4-46f1-837f-720d313eda18` |
 | `range-rover-p530-lwb-2026.jpg` | C12-a | `aa9f36a3-9878-4d88-808c-ef3d4fb47b8c` |
 | `mercedes-amg-g63.jpg` | C13-a | `8c9860cb-9e4a-476f-8aae-25fbe5d0f467` |
 
-Not yet made: the Mercedes-Maybach GLS 600 Night Series (C04-a). Of its two takes, one
-has the wrong sign and the other bright wheels and chrome, where the car has black ones.
-
-Things to know about the ones in use:
+Things to know about the covers:
 
 - **Bentley Flying Spur Speed:** the number plate is blank, not the dealer plate.
 - **Mercedes-AMG G 63:** the word MOTORS on the wall sign is set tighter than in the logo.
 - **Genesis GV80, Range Rover P530:** the small second line of the plate is not legible.
+
+## Further views
+
+| File | Picture | Higgsfield job |
+|---|---|---|
+| `bmw-m4-cs-2024.b.jpg` | C01-b | `99d1091d-89bf-42af-aef5-89a4112658da` |
+| `genesis-gv80-2026.s.jpg` | C02-s | `161d40f4-a6bb-4d86-92c7-0e474f5ebe4b` |
+| `mercedes-amg-g63-manufaktur-2025.b.jpg` | C03-b | `827d6153-832b-4337-8f59-a5e358e6d3b8` |
+| `mercedes-amg-g63-manufaktur-2025.d.jpg` | C03-d | `d41a84e9-fdcd-40ec-ae48-f656a587f5d8` |
+| `bmw-x7-xdrive40i-2020.b.jpg` | C05-b | `09bc7048-ca62-4e85-a4d6-b4b08b29493d` |
+| `bmw-x7-xdrive40i-2020.d.jpg` | C05-d | `5e475279-65d7-4717-8538-42972ca4ab64` |
+| `bmw-m2.d.jpg` | C06-d | `8c35da7b-c59e-4f2e-a104-77d719ed0191` |
+| `range-rover.b.jpg` | C07-b | `d108eafd-3370-428f-8321-89ff1aad383d` |
+| `mercedes-maybach-s680.b.jpg` | C08-b | `c95c52ec-15d0-48b6-bf33-68c50cb3f896` |
+| `bentley-flying-spur-speed-2023.b.jpg` | C09-b | `a33af623-7877-4d85-a37c-9097f5822402` |
+| `genesis-g90-long-2024.b.jpg` | C11-b | `2e90c5d4-5862-4c88-bb9e-d27142fd4bfc` |
+| `genesis-g90-long-2024.s.jpg` | C11-s | `64033fb7-192b-4d5c-a561-64c26449b1e2` |
+| `mercedes-amg-g63.b.jpg` | C13-b | `2702af35-b459-4435-b34e-c06e6033e723` |
+
+Eleven of the twenty-four generated were left out:
+
+| Picture | Why it is not used |
+|---|---|
+| C01-d | A copy of the cover, not a detail view |
+| C02-d, C09-d | The wall sign and the plate show a plain letter A, not the mark |
+| C06-b | The plate is unreadable scrawl |
+| C07-d, C12-d | Mirrored or garbled small print on the plate |
+| C08-d | Not a detail: the car is small and cut off by the frame |
+| C10-b, C12-b | The wall sign is the wrong logo |
+| C10-d | Bright grille and chrome; the car's are black |
+| C13-d | No dealer plate |

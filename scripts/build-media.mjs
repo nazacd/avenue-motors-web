@@ -118,6 +118,7 @@ for (const car of inventory) {
   const entry = {
     photos: previous.cars[car.slug]?.photos ?? [],
     cover: previous.cars[car.slug]?.cover,
+    studio: previous.cars[car.slug]?.studio,
     note: previous.cars[car.slug]?.note,
   };
 
@@ -134,6 +135,16 @@ for (const car of inventory) {
     else delete entry.cover;
   }
   if (!entry.cover) delete entry.cover;
+
+  // Further studio pictures of the same car: rear (b), side (s) and a detail (d).
+  if (doCovers) {
+    entry.studio = [];
+    for (const view of ["b", "s", "d"]) {
+      const file = path.join(coversDir, `${car.slug}.${view}.jpg`);
+      if (existsSync(file)) entry.studio.push(await writeImage(file, dir, `studio-${view}`));
+    }
+  }
+  if (!entry.studio?.length) delete entry.studio;
 
   if (doLoops) {
     for (const [i, n] of car.photos.entries()) {
@@ -177,7 +188,7 @@ for (const car of inventory) {
 
   media.cars[car.slug] = entry;
   const living = entry.photos.filter((photo) => photo.loop).length;
-  console.log(`${car.slug}: ${entry.cover ? "cover, " : ""}${entry.photos.length} photos${living ? ` (${living} living)` : ""}${entry.note ? ", video note" : ""}`);
+  console.log(`${car.slug}: ${entry.cover ? `cover${entry.studio ? ` + ${entry.studio.length} studio` : ""}, ` : ""}${entry.photos.length} photos${living ? ` (${living} living)` : ""}${entry.note ? ", video note" : ""}`);
 }
 
 if (doSite) {
