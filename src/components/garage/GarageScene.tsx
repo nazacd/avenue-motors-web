@@ -1,13 +1,22 @@
 "use client";
 
-import { ContactShadows, Environment, MeshReflectorMaterial, OrbitControls, useGLTF, useProgress } from "@react-three/drei";
+import {
+  ContactShadows,
+  Environment,
+  MeshReflectorMaterial,
+  OrbitControls,
+  PerformanceMonitor,
+  useGLTF,
+  useProgress,
+} from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Bloom, EffectComposer, ToneMapping, Vignette } from "@react-three/postprocessing";
 import { ToneMappingMode } from "postprocessing";
-import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import type { GarageCar, GarageView } from "@/data/garage";
+import { forcedQuality, lower, startingQuality, type Quality } from "@/lib/quality";
 import { markShapes, plateTexture, wordmarkTexture } from "./plate";
 import { panelMap, tileMaps } from "./room";
 
@@ -26,7 +35,9 @@ const BLACK = "#050506";
 
 // What the page can change on a car once it is set up.
 type Controls = { setPaint: (color: string) => void; setLights: (on: boolean) => void };
-type Prepared = { holder: THREE.Group; controls: Controls };
+// The same, with the lamps' pools of light on the floor able to be left out.
+type CarControls = { setPaint: (color: string) => void; setLights: (on: boolean, beams: boolean) => void };
+type Prepared = { holder: THREE.Group; controls: CarControls };
 
 function paintMaterial() {
   return new THREE.MeshPhysicalMaterial({
@@ -444,8 +455,8 @@ function lampRig(holder: THREE.Group) {
   glow.position.set(box.max.x + 0.9, 0.5, 0);
   rig.add(glow);
   holder.add(rig);
-  return (on: boolean) => {
-    beams.forEach((beam) => (beam.intensity = on ? 32 : 0));
+  return (on: boolean, withBeams: boolean) => {
+    beams.forEach((beam) => (beam.intensity = on && withBeams ? 32 : 0));
     glow.intensity = on ? 1 : 0;
   };
 }
@@ -453,20 +464,21 @@ function lampRig(holder: THREE.Group) {
 // The loader hands back the same object for the same file, so each car is set up once.
 const prepared = new WeakMap<THREE.Object3D, Prepared>();
 
-function prepare(scene: THREE.Object3D, car: GarageCar, shadows: boolean) {
+function prepare(scene: THREE.Object3D, car: GarageCar) {
   let entry = prepared.get(scene);
   if (!entry) {
     const holder = fit(scene, car);
     const controls = RECIPES[car.recipe](holder);
-    if (shadows) meshesOf(holder).forEach((mesh) => (mesh.castShadow = true));
+    // Only takes effect while the key light casts shadows.
+    meshesOf(holder).forEach((mesh) => (mesh.castShadow = true));
     const setRig = lampRig(holder);
     entry = {
       holder,
       controls: {
         setPaint: controls.setPaint,
-        setLights: (on) => {
+        setLights: (on, beams) => {
           controls.setLights(on);
-          setRig(on);
+          setRig(on, beams);
         },
       },
     };
@@ -475,9 +487,9 @@ function prepare(scene: THREE.Object3D, car: GarageCar, shadows: boolean) {
   return entry;
 }
 
-function Car({ car, paint, lights, onReady, shadows }: SceneProps & { shadows: boolean }) {
+function Car({ car, paint, lights, onReady, beams }: SceneProps & { beams: boolean }) {
   const { scene } = useGLTF(car.model);
-  const { holder, controls } = prepare(scene, car, shadows);
+  const { holder, controls } = prepare(scene, car);
 
   // Braces matter here: an effect that returns a value hands React a "clean-up" that
   // is not a function, and the page falls over when the car is swapped.
@@ -485,8 +497,8 @@ function Car({ car, paint, lights, onReady, shadows }: SceneProps & { shadows: b
     controls.setPaint(paint);
   }, [controls, paint]);
   useEffect(() => {
-    controls.setLights(lights);
-  }, [controls, lights]);
+    controls.setLights(lights, beams);
+  }, [controls, lights, beams]);
 
   useEffect(() => {
     onReady();
@@ -611,7 +623,7 @@ function Tubes() {
   );
 }
 
-function Room({ coarse }: { coarse: boolean }) {
+function Room({ coarse, quality }: { coarse: boolean; quality: Quality }) {
   const tiles = useMemo(() => tileMaps(13), []);
   const panels = useMemo(() => panelMap(14, 3), []);
   const sidePanels = useMemo(() => panelMap(11, 3), []);
@@ -622,20 +634,26 @@ function Room({ coarse }: { coarse: boolean }) {
     <>
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[62, 62]} />
-        <MeshReflectorMaterial
-          resolution={coarse ? 512 : 1024}
-          blur={[260, 70]}
-          mixBlur={0.85}
-          mixStrength={11}
-          roughness={1}
-          depthScale={1}
-          minDepthThreshold={0.4}
-          maxDepthThreshold={1.3}
-          color="#c4c5ca"
-          metalness={0.3}
-          map={tiles.map}
-          roughnessMap={tiles.roughnessMap}
-        />
+        {quality === "basic" ? (
+          // Mirroring the room means drawing it twice. Where that is too much, the
+          // floor keeps its tiles and its sheen but shows no reflection.
+          <meshStandardMaterial map={tiles.map} roughnessMap={tiles.roughnessMap} color="#9a9ba1" metalness={0.55} roughness={0.5} />
+        ) : (
+          <MeshReflectorMaterial
+            resolution={quality === "light" ? 256 : coarse ? 512 : 1024}
+            blur={quality === "light" ? [120, 40] : [260, 70]}
+            mixBlur={0.85}
+            mixStrength={11}
+            roughness={1}
+            depthScale={1}
+            minDepthThreshold={0.4}
+            maxDepthThreshold={1.3}
+            color="#c4c5ca"
+            metalness={0.3}
+            map={tiles.map}
+            roughnessMap={tiles.roughnessMap}
+          />
+        )}
       </mesh>
 
       {/* Sign wall, side walls, the wall behind the visitor and the ceiling. */}
@@ -805,16 +823,42 @@ function Progress() {
   );
 }
 
+// Cuts effects on devices that cannot keep up, and only on those. It starts from what
+// the browser says about the device, then watches the frame rate: each time the garage
+// runs below about 34 frames a second for a few seconds, it drops one level.
+function useQuality(settled: boolean) {
+  const [quality, setQuality] = useState<Quality>(startingQuality);
+  const fixed = useMemo(() => forcedQuality() !== null, []);
+  const monitor =
+    settled && !fixed && quality !== "basic" ? (
+      <PerformanceMonitor bounds={() => [34, 58]} flipflops={Infinity} onDecline={() => setQuality((now) => lower(now))} />
+    ) : null;
+  return { quality, monitor };
+}
+
 export default function GarageScene(props: SceneProps) {
   const coarse = useMemo(() => window.matchMedia("(pointer: coarse)").matches, []);
   const upright = useMemo(() => window.innerHeight > window.innerWidth, []);
   const start = POSES.show.distance * (upright ? UPRIGHT_REACH : 1) + 2.6;
 
+  // The frame rate is only judged once the first car is in and the shaders are built;
+  // loading alone makes any device stutter for a moment.
+  const [settled, setSettled] = useState(false);
+  const { onReady } = props;
+  useEffect(() => {
+    if (settled) return;
+    const timer = window.setTimeout(() => setSettled(true), 6000);
+    return () => window.clearTimeout(timer);
+  }, [settled]);
+  const { quality, monitor } = useQuality(settled);
+  const full = quality === "full";
+
   return (
     <>
       <Canvas
+        data-quality={quality}
         shadows={!coarse}
-        dpr={[1, coarse ? 1.5 : 1.75]}
+        dpr={full ? [1, coarse ? 1.5 : 1.75] : quality === "light" ? [1, 1.25] : 1}
         camera={{ position: [-4.6, 1.3, start], fov: upright ? 50 : 30, near: 0.1, far: 80 }}
         gl={{ antialias: false, powerPreference: "high-performance" }}
       >
@@ -830,7 +874,7 @@ export default function GarageScene(props: SceneProps) {
           distance={14}
           decay={1.7}
           color="#fff4e2"
-          castShadow={!coarse}
+          castShadow={full && !coarse}
           shadow-mapSize={[2048, 2048]}
           shadow-bias={-0.0004}
           shadow-radius={5}
@@ -841,20 +885,25 @@ export default function GarageScene(props: SceneProps) {
         ))}
         <directionalLight position={[-7, 3, 8]} intensity={0.16} color="#b8c4de" />
         <Reflections />
-        <Room coarse={coarse} />
+        <Room coarse={coarse} quality={quality} />
         <Turntable view={props.view}>
           <Suspense fallback={null}>
-            <Car key={props.car.model} {...props} shadows={!coarse} />
+            <Car key={props.car.model} {...props} onReady={onReady} beams={full} />
             {/* The soft shadow under the car is drawn once, so each car needs its own. */}
             <ContactShadows key={`shadow ${props.car.model}`} position={[0, 0.004, 0]} scale={9} far={1.6} blur={2.6} opacity={0.85} resolution={512} frames={1} />
           </Suspense>
         </Turntable>
         <CameraRig view={props.view} token={props.car.model} upright={upright} />
-        <EffectComposer multisampling={coarse ? 0 : 4} enableNormalPass={false}>
-          <Bloom mipmapBlur intensity={0.5} luminanceThreshold={1} luminanceSmoothing={0.2} radius={0.72} />
-          <Vignette offset={0.26} darkness={0.74} />
-          <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-        </EffectComposer>
+        {monitor}
+        {/* Glow on the lamps and the sign, and darkened corners. Without them the
+            picture is drawn straight to the screen. */}
+        {full && (
+          <EffectComposer multisampling={coarse ? 0 : 4} enableNormalPass={false}>
+            <Bloom mipmapBlur intensity={0.5} luminanceThreshold={1} luminanceSmoothing={0.2} radius={0.72} />
+            <Vignette offset={0.26} darkness={0.74} />
+            <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+          </EffectComposer>
+        )}
       </Canvas>
       <Progress />
     </>

@@ -25,6 +25,7 @@ Then open http://localhost:3000. For a production build, run `npm run build` and
 | `scripts/build-media.mjs` | Turns the raw export in `source/` into web-ready photos and clips in `public/media`. |
 | `source/covers/` | The generated studio picture that leads each car's card and gallery, with notes on each. |
 | `source/loops/` | Living photos: short loops of listing photos, with the list of which are used and why the others are not. |
+| `scripts/build-ignition.mjs` | Adds the headlamp stutter to the phone film's opening shot. Run before `build-film.sh` if that take changes. |
 | `scripts/build-model.mjs` | Turns a source car model into the small file the 3D garage loads. |
 | `src/data/garage.ts` | Which cars stand in the 3D garage, their factory figures, the camera views and the paint colours on offer. |
 | `source/` | The raw Telegram export (photos and round video notes), source stills and source 3D models. |
@@ -51,6 +52,15 @@ npm run model -- path/to/model.obj public/models/name.glb
 3. Tell the garage what each part of the model is. Every model is built differently, so each has its own "recipe" function in `src/components/garage/GarageScene.tsx` that sorts its parts into paint, glass, chrome, lamps and plates. Add the car's factory figures (power, 0–100 km/h, top speed) to its entry in `src/data/garage.ts`; the garage shows them beside the car.
 
 The dealer plate and the wall sign are drawn from the logo in `src/components/garage/plate.ts`.
+
+## Weaker devices
+
+The 3D garage and the scroll reveal cut their effects only where a device cannot keep up.
+
+- **Garage.** It starts from what the browser says about the device, then watches its own frame rate. Each time it runs below about 34 frames a second for a few seconds it drops one level: first the glow, cast shadows and headlamp beams go and the floor reflection gets coarser; then the floor stops mirroring the room. It never steps back up during a visit.
+- **Reveal.** If the device is slow to show the frames it is asked for, the section stops following the scroll and plays the film through once when reached.
+
+To see a level on any device, add `?quality=full`, `?quality=light` or `?quality=basic` to the address. That also stops the garage from changing level by itself.
 
 ## Before it goes live
 

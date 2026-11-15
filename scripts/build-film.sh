@@ -33,7 +33,11 @@ inputs() {
   for shot in ignition row exit avenue tunnel pass return; do
     local number
     case $shot in ignition) number=1 ;; row) number=2 ;; exit) number=3 ;; avenue) number=4 ;; tunnel) number=5 ;; pass) number=6 ;; return) number=7 ;; esac
-    printf -- '-i source/film/v%s%s-%s.mp4 ' "$number" "$suffix" "$shot"
+    local take="v${number}${suffix}-${shot}"
+    # The upright ignition is the version with the lamp stutter added by
+    # scripts/build-ignition.mjs, to match the wide take.
+    if [ "$take" = "v1v-ignition" ]; then take="v1v-ignition-glitch"; fi
+    printf -- '-i source/film/%s.mp4 ' "$take"
   done
 }
 
