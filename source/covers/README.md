@@ -48,6 +48,7 @@ Things to know about the covers:
 | `range-rover.d.jpg` | C07-d, retake | `5df795d4-2ec3-45b2-a913-65869ba8718c` |
 | `mercedes-maybach-s680.b.jpg` | C08-b | `c95c52ec-15d0-48b6-bf33-68c50cb3f896` |
 | `bentley-flying-spur-speed-2023.b.jpg` | C09-b | `a33af623-7877-4d85-a37c-9097f5822402` |
+| `bentley-flying-spur-speed-2023.d.jpg` | C09-d, third take, on the fallback model | `4d4a514d-7489-493e-a5a7-bca3772a60b8` |
 | `cadillac-escalade-2023.b.jpg` | C10-b, retake | `c24c9db6-94a8-4e1e-8dff-18de7ab55a39` |
 | `cadillac-escalade-2023.d.jpg` | C10-d, retake | `8b07d502-0634-4fe5-a33a-774113df4b9b` |
 | `genesis-g90-long-2024.b.jpg` | C11-b | `2e90c5d4-5862-4c88-bb9e-d27142fd4bfc` |
@@ -56,12 +57,11 @@ Things to know about the covers:
 | `mercedes-amg-g63.b.jpg` | C13-b | `2702af35-b459-4435-b34e-c06e6033e723` |
 | `mercedes-amg-g63.d.jpg` | C13-d, retake | `e6480ef6-6c0d-4cc5-8356-5954f63a5a8d` |
 
-Three views are still missing after two attempts each:
+Two views are still missing after three attempts each, the most the brief allows:
 
-| Picture | What went wrong both times |
+| Picture | What went wrong |
 |---|---|
-| C08-d (Maybach S 680 detail) | First the car was cut off by the frame; the retake has invented small print on the plate and a dark border round the picture |
-| C09-d (Flying Spur detail) | The wall sign is a different logo |
-| C12-d (Range Rover P530 detail) | The wall sign and the plate show a plain letter A, not the mark |
+| C08-d (Maybach S 680 detail) | Each time the car is cut off by the frame; the later takes also have invented small print on the plate |
+| C12-d (Range Rover P530 detail) | First a wrong sign and plate; the last take has the door mirror on the bonnet, an amber strip by the headlamp that the car does not have, and a turntable too small for the car |
 
 The Maybach GLS 600 has only its cover: its side and detail views were never made.
