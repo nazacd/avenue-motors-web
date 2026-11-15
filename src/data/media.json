@@ -478,6 +478,18 @@
           ],
           "fallbackWidth": 1080,
           "blur": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAABQBQCdASoUABkAPu1qqU8ppiOiMBgIATAdiWUAyRAQ5xuyMIyXCCRkJI5t645aQZak6kAA/vE/NGYndhPrI6V2b+btlMi2g81UFIXHxMnlTSZsnRBIGul5sP2WCr0GoqhGIMq5g8JPoZizotidsPGnjd/KBPmYQvr6P/HrjKYctFpK8kzy96l6AnlmzDPEKZp/wKyQD4TsIfcVgwAAAA=="
+        },
+        {
+          "base": "/media/cars/mercedes-maybach-s680/studio-d",
+          "width": 1856,
+          "height": 2304,
+          "widths": [
+            640,
+            1080,
+            1600
+          ],
+          "fallbackWidth": 1080,
+          "blur": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAAAwBQCdASoUABkAPu1gqk2ppaQiMBgMATAdiWcACRAA93zIKaudj6JTvAccPlfnYV+QAAD+8Xrp676yrikKbf5yEhXUxsZdGXrarVH0bjpDILs5dMktC8OgAFd3x7strApvrgX8eIQ/5xrdpyEDVzzGSgTP7gdbHeHgwCW3fDBBV2EPEvkPYoI/7zbVVNOq5fiULyAA"
         }
       ],
       "note": {
@@ -569,18 +581,6 @@
           ],
           "fallbackWidth": 1080,
           "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAwBQCdASoUABkAPu1cqE2ppKOiN/VYATAdiWMAy6QQ7/0VPrPse6rj/PzQX5nUS84gAAD+9B2VqvfqgMm1c4XyOA4Hxhc0YFJrCCVGDWPiahQSMFELnqUb5lEg53EIqRf6RocxtX4hg7Xb+lF2swV3T4SolB97uw0+f58fnNuTEedbm+fdIVLX2AA="
-        },
-        {
-          "base": "/media/cars/bentley-flying-spur-speed-2023/studio-d",
-          "width": 1792,
-          "height": 2240,
-          "widths": [
-            640,
-            1080,
-            1600
-          ],
-          "fallbackWidth": 1080,
-          "blur": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAADwBACdASoUABkAPu1qrVCppaQiqAqpMB2JZQDA3A8yPzoORiEByHIeDXRvhq7OQyAA/vF0M6CrXtAJx/s5NiTdUF9Fa3JKxW3bjGHiXblvLDoeGH26T2h5Jo7868EK4Mz5Gwj2GQbN7lZKsFStAe+q557pFL8M44dqJoYK/5InNWWR1dWZ/uTmggMaAD811B0SYY9hjdP5n0U3c9hmbzAJxo6OBnJI1kDFEwpc5IAAAA=="
         }
       ],
       "note": {
