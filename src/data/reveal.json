@@ -1,0 +1,5 @@
+{
+  "count": 281,
+  "wide": { "path": "/media/reveal/wide", "width": 1920, "height": 1080 },
+  "tall": { "path": "/media/reveal/tall", "width": 768, "height": 1280 }
+}
