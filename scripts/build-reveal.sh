@@ -40,8 +40,8 @@ ffmpeg -v error -y -i "$work/all.mp4" -filter_complex "
 # 3. A small copy of every second frame. These are light enough to keep unpacked all the
 # time, so there is always something to draw however fast the page is scrolled; the
 # full-size frame takes over as soon as the scrolling eases.
-small_wide="512:288"
-small_tall="240:400"
+small_wide="640:360"
+small_tall="288:480"
 for shape in wide tall; do
   size=$([ "$shape" = wide ] && echo "$small_wide" || echo "$small_tall")
   mkdir -p "$out/$shape/small"

@@ -45,11 +45,15 @@ const GLIDE_TOUCH = 40;
 const AHEAD = 8;
 const BEHIND = 3;
 const KEPT = 9;
-const MOST_KEPT = 26;
-const UNPACKED_AT_ONCE = 4;
+const MOST_KEPT = 28;
+const UNPACKED_AT_ONCE = 6;
+// Unpacking a frame takes a few drawings' time. A frame started for where the film is
+// now would be ready after the film has moved on, so frames are started for where it
+// will be this many drawings from now.
+const LEAD = 3;
 // After falling back to the small film while moving, this many full-size frames in a
 // row must be ready before going back to them.
-const STEADY = 6;
+const STEADY = 2;
 const LOADS_AT_ONCE = 6;
 
 // A tall section whose picture stays put while the visitor scrolls through it. The
@@ -171,43 +175,51 @@ export function Reveal({ frames, before, after }: RevealProps) {
           // Worth a new drawing only if it is the frame on show, or better than what is.
           if (!sharp || Math.abs(slot - painted) <= 1) dirty = true;
           // One is done, so the next in line can start.
-          warm(centre, forwards, spacing);
+          warm(centre, pace);
         },
         () => unpacking.delete(slot),
       );
     };
 
-    // Gets the frames around the one wanted ready, nearest first and mostly in the
-    // direction of travel, and lets go of those left far behind. Moving fast, the
-    // screen shows only every few frames of the film, so only every `stride`-th is
-    // made ready: the same number of frames, reaching that much further ahead.
+    // 1, 2, 4, 8…: moving fast, the screen shows only every few frames of the film, so
+    // only every few are made ready. The steps fit inside one another, so a change of
+    // pace still finds the frames made ready a moment ago.
+    const strideFor = (speed: number) => (speed < 1.5 ? 1 : Math.min(16, 2 ** Math.round(Math.log2(speed))));
+
+    // Gets full-size frames ready ahead of the film: starting from where it will be in a
+    // few drawings' time and on from there, then back towards where it is now. `pace` is
+    // how many frames the film moves per drawing, negative when going back.
     let centre = 0;
-    let forwards = true;
-    let spacing = 1;
-    const warm = (slot: number, forward: boolean, stride: number) => {
+    let pace = 0;
+    const warm = (slot: number, velocity: number) => {
       centre = slot;
-      forwards = forward;
-      spacing = stride;
-      const way = forward ? 1 : -1;
-      const base = Math.round(slot / stride) * stride;
-      unpack(Math.min(last, base));
-      for (let away = 1; away <= AHEAD; away++) {
-        const ahead = base + away * stride * way;
-        const behind = base - away * stride * way;
-        if (ahead >= 0 && ahead <= last) unpack(ahead);
-        if (away <= BEHIND && behind >= 0 && behind <= last) unpack(behind);
-      }
+      pace = velocity;
+      const speed = Math.abs(velocity);
+      const way = velocity < 0 ? -1 : 1;
+      const stride = strideFor(speed);
+      const lead = Math.round(speed * LEAD);
+      const within = (index: number) => Math.min(last, Math.max(0, index));
+      const base = within(Math.round((slot + way * lead) / stride) * stride);
+      unpack(base);
+      for (let away = 1; away <= AHEAD; away++) unpack(within(base + away * stride * way));
+      // Back to the frame on show, and at rest a few behind it for a change of direction.
+      const back = Math.ceil(lead / stride) + (speed < 0.5 ? BEHIND : 0);
+      for (let away = 1; away <= back; away++) unpack(within(base - away * stride * way));
+      unpack(slot);
+
+      const reach = KEPT * stride + lead;
       for (const [kept, bitmap] of ready) {
-        if (Math.abs(kept - slot) > KEPT * stride) {
+        if (Math.abs(kept - slot) > reach) {
           bitmap.close();
           ready.delete(kept);
         }
       }
-      // A change of pace can leave frames of both spacings in reach; the furthest go.
+      // A change of pace can leave frames of several spacings in reach; the furthest go.
+      const middle = slot + (way * lead) / 2;
       while (ready.size > MOST_KEPT) {
         let furthest = -1;
         for (const kept of ready.keys()) {
-          if (furthest < 0 || Math.abs(kept - slot) > Math.abs(furthest - slot)) furthest = kept;
+          if (furthest < 0 || Math.abs(kept - middle) > Math.abs(furthest - middle)) furthest = kept;
         }
         ready.get(furthest)?.close();
         ready.delete(furthest);
@@ -238,19 +250,21 @@ export function Reveal({ frames, before, after }: RevealProps) {
       const slot = Math.min(last, Math.floor(position));
       const mix = position - slot;
       // How far the film has moved since the last drawing, in frames.
-      const moved = painted < 0 ? 0 : Math.abs(position - painted);
+      const velocity = painted < 0 ? 0 : position - painted;
+      const moved = Math.abs(velocity);
+      const way = velocity < 0 ? -1 : 1;
       // Moving fast, each drawing is already a new frame; the fade is for slow travel.
       const slow = moved < 1.25;
-      // 1, 2, 4, 8…: steps that fit inside one another, so a change of pace still
-      // finds the frames made ready a moment ago.
-      const stride = moved < 1.5 ? 1 : Math.min(16, 2 ** Math.round(Math.log2(moved)));
-      warm(slot, position >= painted, stride);
+      const stride = strideFor(moved);
+      warm(slot, velocity);
 
-      // The full-size frame for this drawing: the very one, or when moving fast, the
-      // nearest ready one within half a step, which is as near as the eye can tell.
+      // The full-size frame for this drawing: the very one or, failing that, a ready one
+      // close by, which the eye cannot tell from it in motion. One the film has just
+      // passed is preferred to one it has not reached, so the picture never steps back.
       let wanted = ready.get(slot);
-      for (let away = 1; !wanted && away <= stride / 2; away++) {
-        wanted = ready.get(slot + away) ?? ready.get(slot - away);
+      const reach = slow ? 1 : Math.max(2, Math.ceil(stride * 1.5));
+      for (let away = 1; !wanted && away <= reach; away++) {
+        wanted = ready.get(slot - away * way) ?? (away <= stride / 2 ? ready.get(slot + away * way) : undefined);
       }
       streak = wanted ? streak + 1 : 0;
 
