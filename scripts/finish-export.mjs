@@ -31,13 +31,20 @@ for (var i = 0; !lang && i < asked.length; i++) {
 }
 lang = lang || ${JSON.stringify(defaultLocale)};`;
 
-const page = ({ script, fallback }) => `<!doctype html>
+// The root link gets shared too, and a messenger's preview robot runs no script, so it
+// would never follow the redirect. The root page therefore carries the same title,
+// description and picture as the home page in the default language.
+const home = readFileSync(`${out}/${defaultLocale}/index.html`, "utf8");
+const title = home.match(/<title>[^<]*<\/title>/)?.[0] ?? "<title>Avenue Motors</title>";
+const preview = (home.match(/<meta (?:property="og:|name="twitter:|name="description")[^>]*>/g) ?? []).join("\n");
+
+const page = ({ script, fallback, head = "<title>Avenue Motors</title>" }) => `<!doctype html>
 <html lang="${defaultLocale}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Avenue Motors</title>
+${head}
 <style>html{background:#050506;color:#f2f0ea;font:16px/1.5 system-ui,sans-serif}body{margin:0;min-height:100vh;display:grid;place-items:center}a{color:#ffcc00}</style>
 <script>(function(){${pick}${script}})()</script>
 <noscript><meta http-equiv="refresh" content="0; url=${fallback}"></noscript>
@@ -51,6 +58,7 @@ writeFileSync(
   page({
     script: `location.replace(base + "/" + lang + "/" + location.search + location.hash);`,
     fallback: `${base}/${defaultLocale}/`,
+    head: `${title}\n${preview}`,
   }),
 );
 

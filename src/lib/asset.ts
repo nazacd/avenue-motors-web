@@ -9,6 +9,11 @@ const OWN = /^\/(media|models)\//;
 
 export const asset = (path: string) => `${basePath}${path}`;
 
+// A full address, for the places that are read outside the site itself: the picture a
+// messenger shows beside a link has to say where it lives. Takes a path that already
+// carries the base path.
+export const absolute = (path: string) => new URL(path, process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").href;
+
 // The same for a whole list of files, such as the media manifest: every address in it
 // that points into the site's own folders gets the base path.
 export function withBase<T>(value: T): T {

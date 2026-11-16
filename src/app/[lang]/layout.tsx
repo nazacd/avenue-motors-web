@@ -8,6 +8,7 @@ import { Header } from "@/components/Header";
 import { Mark } from "@/components/Mark";
 import { SiteEffects } from "@/components/SiteEffects";
 import { site } from "@/data/site";
+import { absolute, asset } from "@/lib/asset";
 import { getDictionary } from "@/i18n";
 import { isLocale, locales } from "@/i18n/config";
 
@@ -34,7 +35,12 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       title: dict.meta.title,
       description: dict.meta.description,
       locale: lang,
+      // Shown beside a link to the site in Telegram and other messengers. Car pages
+      // show the car instead.
+      images: [{ url: absolute(asset("/media/site/share.jpg")), width: 1200, height: 630, alt: site.name }],
     },
+    // Asks for the large picture rather than a thumbnail where that is a choice.
+    twitter: { card: "summary_large_image" },
   };
 }
 
