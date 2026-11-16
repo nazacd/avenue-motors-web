@@ -345,6 +345,9 @@ function m4cs(holder: THREE.Group): Controls {
 // with an orange interior.
 // The Flying Spur arrives with one material for the whole car, so each part is named
 // here. "Object_21" and "Object_29" mix several things and are divided by position.
+// Inside each headlamp the model has the real lamp's parts: a bowl of cut-crystal facets
+// (17), a star of blades around the projector (5), the projector's lens (30) and small
+// chrome pieces (12), all behind a cover that is part of the trim (6).
 const FLYING_SPUR: Record<string, string> = {
   Object_4: "paint", Object_28: "paint",
   Object_26: "glass",
@@ -353,20 +356,43 @@ const FLYING_SPUR: Record<string, string> = {
   Object_6: "trim", Object_9: "trim", Object_10: "trim", Object_11: "trim",
   Object_13: "trim", Object_14: "trim", Object_27: "trim",
   Object_12: "chrome",
-  Object_17: "day",
+  Object_17: "crystal",
   Object_25: "calipers",
   Object_3: "leather",
 };
 
 function flyingSpur(holder: THREE.Group): Controls {
   const paint = paintMaterial();
-  const day = lamp("#ffffff", "#e4ecff");
+  // The headlamp's three kinds of surface. Lit, the star of blades is the running light
+  // and the projector lens the beam; the crystal bowl around them only catches the
+  // light, so its facets stay readable instead of burning out to a white patch.
+  const crystal = standard({
+    color: "#e6ecf5",
+    metalness: 1,
+    roughness: 0.16,
+    envMapIntensity: 1.7,
+    emissive: "#cfdcff",
+    emissiveIntensity: 0,
+  });
+  const day = lamp("#f4f6fa", "#eaf0ff");
+  day.metalness = 1;
+  day.roughness = 0.2;
+  const projector = new THREE.MeshPhysicalMaterial({
+    color: "#0b0d10",
+    metalness: 0.3,
+    roughness: 0.04,
+    clearcoat: 1,
+    envMapIntensity: 2,
+    emissive: "#eef3ff",
+    emissiveIntensity: 0,
+    toneMapped: false,
+  });
   const tail = lamp("#3a0004", "#ff0a12");
   const leather = standard({ color: "#c2581a", roughness: 0.6 });
   const plastic = standard({ color: "#0b0b0c", roughness: 0.6 });
   const materials: Record<string, THREE.Material> = {
     paint,
-    day,
+    crystal,
     leather,
     glass: darkGlass(0.8),
     // The car in stock has the black pack: grille, trim and wheels are all gloss black.
@@ -381,18 +407,32 @@ function flyingSpur(holder: THREE.Group): Controls {
   for (const mesh of meshesOf(holder)) {
     mesh.material = materials[FLYING_SPUR[mesh.name] ?? ""] ?? plastic;
     if (mesh.name === "Object_6") {
-      // Trim, with the lamp covers at both ends attached. Left as trim they hide the lamps:
-      // the front ones are lit, the rear ones are red glass over the lit shapes behind.
+      // Trim, with the lamp covers at both ends attached. Left as trim they hide the lamps.
+      // The front ones come off, since the clear lens (part of 26) already sits over the
+      // lamp's insides; the rear ones are red glass over the lit shapes behind.
       const notHeadLamps = splitByTriangle(mesh, isHeadLamp);
-      mesh.material = day;
+      mesh.visible = false;
       const trim = splitByTriangle(notHeadLamps, isTailLamp);
       notHeadLamps.material = new THREE.MeshPhysicalMaterial({ color: "#5a000c", roughness: 0.08, transparent: true, opacity: 0.2 });
       trim.material = materials.trim;
     }
     if (mesh.name === "Object_26") {
       const windows = splitByTriangle(mesh, isHeadLamp);
-      mesh.material = new THREE.MeshPhysicalMaterial({ color: "#ffffff", roughness: 0, transparent: true, opacity: 0.15 });
+      mesh.material = new THREE.MeshPhysicalMaterial({
+        color: "#ffffff",
+        roughness: 0,
+        transparent: true,
+        opacity: 0.12,
+        envMapIntensity: 2.2,
+        depthWrite: false,
+      });
       windows.material = materials.glass;
+    }
+    if (mesh.name === "Object_5" || mesh.name === "Object_30") {
+      // Only the pieces inside the headlamps are lamp parts; the rest stays black plastic.
+      const elsewhere = splitByTriangle(mesh, isHeadLamp);
+      mesh.material = mesh.name === "Object_5" ? day : projector;
+      elsewhere.material = plastic;
     }
     if (mesh.name === "Object_29") {
       // The cabin lining, with the tail lamp lenses attached.
@@ -429,7 +469,9 @@ function flyingSpur(holder: THREE.Group): Controls {
   return {
     setPaint: (color) => paint.color.set(color),
     setLights: (on) => {
-      day.emissiveIntensity = on ? 4 : 0;
+      day.emissiveIntensity = on ? 3.2 : 0;
+      projector.emissiveIntensity = on ? 2.6 : 0;
+      crystal.emissiveIntensity = on ? 0.22 : 0;
       tail.emissiveIntensity = on ? TAIL_ON : TAIL_OFF;
     },
   };
