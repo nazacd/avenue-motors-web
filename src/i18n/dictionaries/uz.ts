@@ -22,7 +22,7 @@ const uz: Dictionary = {
     eyebrow: "Premium avtosalon",
     line1: "Flagmanlar.",
     line2: "Sotuvda.",
-    lead: "Maybach, G 63, Bentley, Range Rover va BMW M — shourumda, topshirishga tayyor. Trade-in, muddatli to‘lov va buyurtma asosida yetkazib berish.",
+    lead: "Topshirishga tayyor. Trade-in, muddatli to‘lov va buyurtma asosida yetkazib berish.",
     ctaStock: "Mavjud avtomobillar",
     ctaTelegram: "Telegramda yozish",
   },
