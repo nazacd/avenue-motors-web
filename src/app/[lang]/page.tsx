@@ -8,6 +8,7 @@ import { ArrowIcon, TelegramIcon } from "@/components/icons";
 import { Picture, avifSrcSet, fallbackSrc } from "@/components/Picture";
 import { Reveal } from "@/components/Reveal";
 import revealFrames from "@/data/reveal.json";
+import { asset, withBase } from "@/lib/asset";
 import { VideoNotes, type NoteItem } from "@/components/VideoNotes";
 import { cars, featuredCars, formatUsd, makes, siteImages } from "@/data/cars";
 import { formatPhone, site, telegramLink } from "@/data/site";
@@ -106,7 +107,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
               decoding="async"
             />
           </picture>
-          <HeroFilm wide="/media/film/night-run-wide.mp4" tall="/media/film/night-run-tall.mp4" />
+          <HeroFilm wide={asset("/media/film/night-run-wide.mp4")} tall={asset("/media/film/night-run-tall.mp4")} />
         </div>
         <div className="hero__shade" />
         <div className="hero__content">
@@ -193,7 +194,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       </section>
 
       <Reveal
-        frames={revealFrames}
+        frames={withBase(revealFrames)}
         before={
           <>
             <p className="label">{dict.reveal.label}</p>

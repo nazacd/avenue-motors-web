@@ -28,6 +28,7 @@ Then open http://localhost:3000. For a production build, run `npm run build` and
 | `scripts/build-ignition.mjs` | Adds the headlamp stutter to the phone film's opening shot. Run before `build-film.sh` if that take changes. |
 | `scripts/build-reveal.sh` | Cuts the scroll reveal into its still frames (`npm run reveal`): twice the film's own frames, for wide and upright screens. |
 | `scripts/upscale-frames.py` | Doubles the size of the reveal's frames before that; see `source/film/README.md`. |
+| `.github/workflows/pages.yml`, `scripts/finish-export.mjs`, `src/lib/asset.ts` | The GitHub Pages deploy; see below. |
 | `scripts/build-model.mjs` | Turns a source car model into the small file the 3D garage loads. |
 | `src/data/garage.ts` | Which cars stand in the 3D garage, their factory figures, the camera views and the paint colours on offer. |
 | `source/` | The raw Telegram export (photos and round video notes), source stills and source 3D models. |
@@ -64,8 +65,28 @@ The 3D garage and the scroll reveal cut their effects only where a device cannot
 
 To see a level on any device, add `?quality=full`, `?quality=light` or `?quality=basic` to the address. That also stops the garage from changing level by itself.
 
+## Deploying to GitHub Pages
+
+Every push to `main` builds the site as plain files and publishes it, through `.github/workflows/pages.yml`. The address is https://nazacd.github.io/avenue-motors-web/.
+
+One-time setup: in the repository's **Settings → Pages**, set **Source** to **GitHub Actions**. After that, the **Actions** tab shows each deploy, and "Run workflow" there starts one by hand.
+
+GitHub Pages only serves files, so the deploy uses Next's static export rather than a server:
+
+- `npm run build:pages` writes the site to `out/`. It is `next build` with `STATIC_EXPORT=1`, followed by `scripts/finish-export.mjs`.
+- A project's Pages site lives in a folder named after the repository, so every address needs `/avenue-motors-web` in front. The workflow passes that in as `NEXT_PUBLIC_BASE_PATH`; links get it from Next, and pictures, films and models get it from `src/lib/asset.ts`. With a domain of its own the base path is empty and nothing else changes.
+- With no server to redirect, `scripts/finish-export.mjs` writes two small pages: the root one sends a visitor to their browser's language, and `404.html` sends an unknown address to the "not found" screen in its own language (`/ru/404/`).
+
+To try the export locally with the same addresses:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/avenue-motors-web npm run build:pages
+```
+
+`npm run dev`, `npm run build` and `npm run start` are unchanged: without those settings the site runs as an ordinary Next.js server.
+
 ## Before it goes live
 
-- Set `NEXT_PUBLIC_SITE_URL` to the real address. It is used for the sitemap, canonical links and share previews.
-- The Maybach model in the garage was downloaded from Sketchfab, and its file carries the marks of a third-party download site, so its licence cannot be trusted. It is fine for a private preview; replace or license it before the site is public.
+- Set `NEXT_PUBLIC_SITE_URL` to the real address. It is used for the sitemap, canonical links and share previews. The GitHub Pages deploy sets it by itself.
+- The Maybach model in the garage was downloaded from Sketchfab, and its file carries the marks of a third-party download site, so its licence cannot be trusted. It is fine for a private preview; replace or license it before the site is public. (The GitHub Pages address is public: anyone with the link can open it.)
 - The hero film is 720p, the most the trial gave, and has no sound yet. The takes in `source/film` keep their sound for a later cut.
