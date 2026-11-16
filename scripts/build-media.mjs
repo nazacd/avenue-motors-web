@@ -222,6 +222,15 @@ if (doSite) {
     tradeWide: await writeImage(path.join(root, "source/stills/x3-trade-in.jpg"), siteDir, "trade-wide"),
     tradeTall: await writeImage(path.join(root, "source/stills/x3v-trade-in.jpg"), siteDir, "trade-tall"),
   };
+
+  // The picture that messengers and social networks show beside a link to the site:
+  // the sign and the G 63 from the film's first key frame, in the 1200×630 they expect.
+  // It has to be a JPEG; Telegram and others do not read AVIF here.
+  await sharp(path.join(root, "source/stills/k1-ignition.jpg"))
+    .extract({ left: 276, top: 150, width: 2200, height: 1155 })
+    .resize({ width: 1200, height: 630 })
+    .jpeg({ quality: 84, mozjpeg: true })
+    .toFile(path.join(siteDir, "share.jpg"));
 }
 
 writeFileSync(manifestPath, `${JSON.stringify(media, null, 2)}\n`);

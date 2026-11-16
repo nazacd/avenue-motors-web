@@ -10,6 +10,7 @@ import { RoundVideo, VideoNotes } from "@/components/VideoNotes";
 import { toCard } from "@/data/cards";
 import { cars, formatNumber, formatUsd, getCar } from "@/data/cars";
 import { site, telegramLink } from "@/data/site";
+import { absolute } from "@/lib/asset";
 import { fill, getDictionary, plural } from "@/i18n";
 import { isLocale, locales } from "@/i18n/config";
 
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/cars/[slug
       canonical: `/${lang}/cars/${slug}`,
       languages: Object.fromEntries(locales.map((code) => [code, `/${code}/cars/${slug}`])),
     },
-    openGraph: { title, images: image ? [image] : undefined },
+    openGraph: { title, images: image ? [absolute(image)] : undefined },
   };
 }
 
