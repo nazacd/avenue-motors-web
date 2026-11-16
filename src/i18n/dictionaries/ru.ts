@@ -22,7 +22,7 @@ const ru: Dictionary = {
     eyebrow: "Автосалон премиум-класса",
     line1: "Флагманы.",
     line2: "В наличии.",
-    lead: "Maybach, G 63, Bentley, Range Rover и BMW M — в шоуруме, готовы к выдаче. Trade-in, рассрочка и доставка под заказ.",
+    lead: "Готовы к выдаче. Trade-in, рассрочка и доставка под заказ.",
     ctaStock: "Смотреть наличие",
     ctaTelegram: "Написать в Telegram",
   },
